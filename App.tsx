@@ -1003,11 +1003,10 @@ const AppContent: React.FC = () => {
                             Special
                         </div>
                         <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
-                            <img 
-                                src="https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1" 
-                                alt="Curry Goat" 
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
-                            />
+                            <div className="w-full h-full bg-gradient-to-br from-red-900 via-red-800 to-stone-900 flex flex-col items-center justify-center text-center">
+                                <span className="font-serif text-4xl font-bold text-yellow-400">Shelby's</span>
+                                <span className="text-stone-200 tracking-[0.3em] text-xs mt-1">FINE CUISINE</span>
+                            </div>
                         </div>
                         <div className="flex-grow">
                             <h3 className="text-xl font-bold mb-2 text-red-700">Curry Goat (special of the month)</h3>
@@ -1026,15 +1025,15 @@ const AppContent: React.FC = () => {
                     {[
                         { name: "Curry Chicken", price: 75.00, desc: "Catering trays from $75 — golden curry, with ginger and turmeric warm in every bite.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png?fit=466%2C679&ssl=1", video: "0J2D2LnKh4k" },
                         { name: "Curry Shrimp", price: 85.00, desc: "Catering trays from $85 — shrimp slicked in curry with garlic, thyme, and a squeeze of lime.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png?fit=618%2C673&ssl=1", video: "EcfFGJLtXiw" },
-                        { name: "Griot", price: 70.00, desc: "Pork shoulder, marinated deep, boiled tender, then fried to a crisp — pikliz heat on the side.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1", video: "XN8l8SiiF00" },
+                        { name: "Griot", price: 70.00, desc: "Pork shoulder, marinated deep, boiled tender, then fried to a crisp — pikliz heat on the side.", img: "https://i.ytimg.com/vi/XN8l8SiiF00/hqdefault.jpg", video: "XN8l8SiiF00" },
                         { name: "Tassot", price: 120.00, desc: "Goat, seasoned and fried the Haitian way — crisp edges, rich and peppery. Trays from $120.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png?fit=726%2C669&ssl=1" },
                         { name: "Chicken Strips", price: 50.00, desc: "Golden, crunchy strips with Shelby's seasoning in every bite.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png?fit=615%2C683&ssl=1" },
                         { name: "Coconut Seafood Soup", price: 90.00, desc: "Mussels, scallops, shrimp, and crawfish swimming in coconut milk — warm, rich, a little sweet.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", video: "PWJsNq4ZS5k" },
                         { name: "Gumbo", price: 85.00, desc: "Blue crab and seafood in a dark, peppery gumbo with okra — deep Creole flavor, Shelby style.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", video: "ZzIlVupYeFQ" },
                         { name: "Tuna Wrap", price: 12.00, desc: "Cool, fresh tuna wraps — light, bright, and seasoned her way.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png?fit=619%2C690&ssl=1", video: "N0AJE5dyrTw" },
-                        { name: "Chicken Wrap", price: 10.00, desc: "Juicy chicken wrapped up warm with Shelby's seasoning.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1" },
+                        { name: "Chicken Wrap", price: 10.00, desc: "Juicy chicken wrapped up warm with Shelby's seasoning.", img: "" },
                         { name: "Turkey Wrap", price: 10.00, desc: "Fresh turkey wraps — simple, clean, satisfying.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png?fit=617%2C686&ssl=1" },
-                        { name: "Fried Chicken", price: 60.00, desc: "Spicy fried chicken — shattering crisp outside, juicy and hot inside.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1", video: "Jxlm39XwYHA" },
+                        { name: "Fried Chicken", price: 60.00, desc: "Spicy fried chicken — shattering crisp outside, juicy and hot inside.", img: "https://i.ytimg.com/vi/Jxlm39XwYHA/hqdefault.jpg", video: "Jxlm39XwYHA" },
                         { name: "Seafood Rice", price: 80.00, desc: "Golden curry rice loaded with shrimp, mussels, and crawfish — the crawfish riding on top.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", video: "qjYLhTeFxQw" },
                         { name: "Alfredo Pasta with Shrimp", price: 85.00, desc: "Silky cream sauce, plump shrimp, pasta that twirls — the famous first bite says it all.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png?fit=577%2C620&ssl=1", video: "yo8HfvdaVDQ" },
                         { name: "Baked Cheese Oyster", price: 100.00, desc: "Oysters under a blanket of melted cheese and parsley butter, with a whisper of hot sauce.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png?fit=631%2C674&ssl=1", video: "FEaOpXjYRTk" },
@@ -1046,12 +1045,19 @@ const AppContent: React.FC = () => {
                     ].map((item, idx) => (
                         <div key={idx} className="bg-white p-6 rounded-xl shadow-md border border-stone-100 hover:shadow-xl transition-all hover:-translate-y-1 group flex flex-col">
                             <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
-                                <img 
-                                    src={item.img} 
-                                    onClick={() => item.video && setSplash({ name: item.name, video: item.video, img: item.img })}
-                                    alt={item.name} 
-                                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
-                                />
+                                {item.img ? (
+                                    <img 
+                                        src={item.img} 
+                                        onClick={() => item.video && setSplash({ name: item.name, video: item.video, img: item.img })}
+                                        alt={item.name} 
+                                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-red-900 via-red-800 to-stone-900 flex flex-col items-center justify-center text-center">
+                                        <span className="font-serif text-4xl font-bold text-yellow-400">Shelby's</span>
+                                        <span className="text-stone-200 tracking-[0.3em] text-xs mt-1">FINE CUISINE</span>
+                                    </div>
+                                )}
                             </div>
                             <div className="flex-grow">
                                 <h3 className="text-xl font-bold mb-2 text-red-900">{item.name}</h3>
