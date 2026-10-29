@@ -441,7 +441,7 @@ const ShelbyCremaPanel = () => {
 
     const handleAddToCart = (e: React.MouseEvent) => {
         e.stopPropagation();
-        addToCart({ id: "Shelby Crema", name: "Shelby Crema", price: 35.00 });
+        addToCart({ id: "Shelby Crema", name: "Shelby Crema", price: 30.00 });
         setIsAdded(true);
         setTimeout(() => setIsAdded(false), 2000);
     };
@@ -473,7 +473,7 @@ const ShelbyCremaPanel = () => {
                 <p className="text-stone-500 text-sm mb-4">"Crémas C'est Bon" - Rich, Creamy, Delicious</p>
             </div>
             <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
-                <span className="text-lg font-bold text-stone-800">$35.00</span>
+                <span className="text-lg font-bold text-stone-800">$30.00</span>
                 <button 
                     onClick={handleAddToCart}
                     className={`px-4 py-2 text-sm font-bold rounded-full transition-all shadow-md uppercase tracking-wide transform active:scale-95 ${
@@ -740,14 +740,14 @@ const AppContent: React.FC = () => {
                         </div>
                         <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
                             <img 
-                                src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png" 
                                 alt="Curry Goat" 
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
                             />
                         </div>
                         <div className="flex-grow">
                             <h3 className="text-xl font-bold mb-2 text-red-700">Curry Goat (special of the month)</h3>
-                            <p className="text-stone-500 text-sm mb-4">Freshly prepared with premium ingredients.</p>
+                            <p className="text-stone-500 text-sm mb-4">A Jamaican stovetop classic — heat, spice, and patience, finished with coconut milk.</p>
                         </div>
                         <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
                             <span className="text-lg font-bold text-stone-800">$85.00</span>
@@ -760,35 +760,38 @@ const AppContent: React.FC = () => {
 
                     {/* Remaining Items */}
                     {[
-                        { name: "Griot", price: 70.00 },
-                        { name: "Tassot", price: 80.00 },
-                        { name: "Chicken Strips", price: 50.00 },
-                        { name: "Coconut Seafood Soup", price: 90.00 },
-                        { name: "Gumbo", price: 85.00 },
-                        { name: "Tuna Wrap", price: 12.00 },
-                        { name: "Chicken Wrap", price: 10.00 },
-                        { name: "Turkey Wrap", price: 10.00 },
-                        { name: "Fried Chicken", price: 60.00 },
-                        { name: "Seafood Rice", price: 80.00 },
-                        { name: "Alfredo Pasta with Shrimp", price: 85.00 },
-                        { name: "Baked Cheese Oyster", price: 100.00 },
-                        { name: "Lasagna", price: 75.00 },
-                        { name: "Steak Combo", price: 90.00 },
-                        { name: "Ribs Combo", price: 85.00 },
-                        { name: "Fillet of Fish", price: 75.00 },
-                        { name: "Ravioli Salad", price: 50.00 }
+                        { name: "Griot", price: 70.00, desc: "Haiti's famous fried pork — seasoned, tender, then fried crisp, with pikliz.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png", video: "XN8l8SiiF00" },
+                        { name: "Tassot", price: 120.00, desc: "Fried goat, Haitian style — catering trays from $120.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png" },
+                        { name: "Chicken Strips", price: 50.00, desc: "Golden chicken strips, seasoned Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png" },
+                        { name: "Coconut Seafood Soup", price: 90.00, desc: "Seafood simmered in coconut, Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png", video: "PWJsNq4ZS5k" },
+                        { name: "Gumbo", price: 85.00, desc: "Shelby's seafood gumbo — rich, loaded, and slow-cooked.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png", video: "ZzIlVupYeFQ" },
+                        { name: "Tuna Wrap", price: 12.00, desc: "Fresh tuna wraps, made at home Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png", video: "N0AJE5dyrTw" },
+                        { name: "Chicken Wrap", price: 10.00, desc: "Chicken wraps with Shelby's seasoning.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png" },
+                        { name: "Turkey Wrap", price: 10.00, desc: "Turkey wraps, fresh and simple.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png" },
+                        { name: "Fried Chicken", price: 60.00, desc: "Spicy fried chicken — crisp outside, juicy inside.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png", video: "Jxlm39XwYHA" },
+                        { name: "Seafood Rice", price: 80.00, desc: "Rice cooked with shrimp, mussels, and crawfish — plated with the crawfish showing.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png", video: "qjYLhTeFxQw" },
+                        { name: "Alfredo Pasta with Shrimp", price: 85.00, desc: "Creamy shrimp Alfredo — her 14-minute recipe, famous first bite and all.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png", video: "yo8HfvdaVDQ" },
+                        { name: "Baked Cheese Oyster", price: 100.00, desc: "Oysters baked under cheese, straight from Shelby's recipe.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png", video: "FEaOpXjYRTk" },
+                        { name: "Lasagna", price: 75.00, desc: "Chicken and spinach lasagna, baked golden.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png", video: "4JXXW8Z5Hxs" },
+                        { name: "Steak Combo", price: 90.00, desc: "Steak combo plate, catering style.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png" },
+                        { name: "Ribs Combo", price: 85.00, desc: "Quarter rack ribs combo plate.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png" },
+                        { name: "Fillet of Fish", price: 75.00, desc: "Fillet of fish combo plate.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png" },
+                        { name: "Ravioli Salad", price: 50.00, desc: "Ravioli salad, fresh and light.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png" }
                     ].map((item, idx) => (
                         <div key={idx} className="bg-white p-6 rounded-xl shadow-md border border-stone-100 hover:shadow-xl transition-all hover:-translate-y-1 group flex flex-col">
                             <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
                                 <img 
-                                    src={`https://source.unsplash.com/featured/?food,${item.name.split(' ')[0]}`} 
+                                    src={item.img} 
                                     alt={item.name} 
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
                                 />
                             </div>
                             <div className="flex-grow">
                                 <h3 className="text-xl font-bold mb-2 text-red-900">{item.name}</h3>
-                                <p className="text-stone-500 text-sm mb-4">Freshly prepared with premium ingredients.</p>
+                                <p className="text-stone-500 text-sm mb-2">{item.desc}</p>
+                                {item.video && (
+                                    <a href={`https://www.youtube.com/watch?v=${item.video}`} target="_blank" rel="noopener noreferrer" className="text-red-700 font-bold text-sm hover:underline block mb-4">▶ Watch Shelby make it</a>
+                                )}
                             </div>
                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
                                 <span className="text-lg font-bold text-stone-800">${item.price.toFixed(2)}</span>
