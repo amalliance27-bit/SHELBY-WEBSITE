@@ -3,7 +3,7 @@ import { Page } from './types';
 export const COMPANY_INFO = {
   name: "Shelby's Fine Cuisine",
   phone: "(786) 877-7585",
-  email: "sherlb214@gmail.com",
+  email: "shelbysfinecuisine@gmail.com",
   website: "www.shelbysfinecuisine.com",
   address: "Miami and Broward, Florida",
   hours: "Catering Services - Call for details",
