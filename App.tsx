@@ -13,7 +13,7 @@ import { CartProvider, useCart } from './contexts/CartContext';
 import { ScrollProvider, useScroll } from './contexts/ScrollContext';
 
 // --- Constants ---
-const LOGO_URL = "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/cropped-LOGO1.png";
+const LOGO_URL = "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/cropped-LOGO1.png?fit=739%2C242&ssl=1";
 
 // --- Helper Functions ---
 const getPageBackground = (page: Page) => {
@@ -173,7 +173,8 @@ const VideoPanel = ({ videoSrc, className = "", unmutedCycle = false, titleOverr
         // playlist=[VIDEO_ID]: Required for loop to work on single video embeds
         // rel=0: Hides related videos
         // playsinline=1: Plays inline on mobile
-        return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1`;
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1&origin=${origin}`;
     };
 
     const handleEnded = () => {
@@ -197,7 +198,7 @@ const VideoPanel = ({ videoSrc, className = "", unmutedCycle = false, titleOverr
                             className="w-full h-full"
                             title={titleOverride || t('video.title')}
                             frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                         ></iframe>
                     ) : (
@@ -287,7 +288,7 @@ const Hero = ({ onOrder }: { onOrder: () => void }) => {
   return (
     <div className="relative bg-slate-900 text-white overflow-hidden shadow-2xl min-h-[80vh] flex flex-col items-center justify-center py-20">
         <div className="absolute inset-0 z-0">
-        <img src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Menu-Home-Page-I-1.png" alt="Food Background" className="w-full h-full object-cover opacity-40" />
+        <img src="https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Menu-Home-Page-I-1.png?fit=652%2C806&ssl=1" alt="Food Background" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
         </div>
         
@@ -494,36 +495,36 @@ const ShelbyCremaPanel = () => {
 
 // Dish knowledge for the splash pages — every word from Shelby's own recipe videos.
 const DISH_INFO: Record<string, { about: string; source: string }> = {
-    "Griot": { about: "Shelby's griot starts with pork shoulder in her marinade for a full hour, then a slow boil in that same marinade. She finishes it two ways across her videos — fried crisp, or in the oven — and plates it with fried plantains and pikliz.", source: "BEST HAITIAN GRIOT!" },
-    "Coconut Seafood Soup": { about: "Mussels, scallops, shrimp, and crawfish meat simmered in coconut milk, with sausage, butter, her own garlic paste, potatoes, and carrots waiting in water so they stay bright.", source: "HOW TO MAKE COCONUT SEAFOOD SOUP!!!" },
-    "Gumbo": { about: "Blue crabs and cleaned seafood with okra, built on garlic, tomato paste, and her spice mix — paprika, Creole seasoning, bay leaves, oregano, and sweet peppers. She cleans her seafood with salt water, vinegar, and limes, the way she always does.", source: "HOW TO MAKE A DELICIOUS SEAFOOD GUMBO!" },
-    "Tuna Wrap": { about: "Her tuna wraps, made at home — fresh, quick, and seasoned her way.", source: "HOW TO MAKE THE BEST TUNA WRAPS AT HOME!" },
-    "Fried Chicken": { about: "Her tasty spicy fried chicken — crisp outside, juicy inside, with real heat in the seasoning.", source: "TASTY SPICY FRIED CHICKEN!" },
-    "Seafood Rice": { about: "Washed rice cooked with shrimp, mussels, and crawfish, with green peas, garlic, ginger, and her curry powder — plated with the crawfish showing.", source: "Jerk Chicken & Curry Seafood Rice" },
-    "Alfredo Pasta with Shrimp": { about: "Her creamy shrimp Alfredo, taught in fourteen minutes — and yes, the first bite at the end is the famous one.", source: "HOW TO MAKE CREAMY SHRIMP ALFREDO PASTA RECIPE IN 14 MINUTES!" },
-    "Baked Cheese Oyster": { about: "Oysters, cleaned and baked under cheese with parsley butter, garlic powder, black pepper, and a touch of Louisiana hot sauce.", source: "Coconut Seafood Soup with Baked Oysters" },
-    "Lasagna": { about: "Chicken and spinach lasagna — everything pre-cooked, so the oven only has to marry it: 350 degrees for 45 minutes. Her weeknight build.", source: "CHICKEN & SPINACH LASAGNA RECIPE" },
-    "Curry Chicken": { about: "Her curry chicken, taught with wings: marinated an hour, then curry powder, turmeric, paprika, and ginger — served with rice and pigeon peas.", source: "CURRY CHICKEN WINGS WITH RICE PIGEON PEAS!" },
-    "Curry Shrimp": { about: "Shrimp, already marinated her way, with garlic, parsley, thyme, two bay leaves, bouillon, and a squeeze of lime — served with turmeric yellow rice.", source: "HOW TO MAKE A DELICIOUS CURRY SHRIMP!" }
+    "Griot": { about: "It starts in the marinade: pork shoulder sitting a full hour in Shelby's seasoning, then a slow boil in that same marinade until it goes tender. Then the crisp — fried golden in one telling, oven-finished in the other — with fried plantains and a spoon of pikliz for the heat. The marinade itself is her secret; she has never itemized it, on any video.", source: "BEST HAITIAN GRIOT!" },
+    "Coconut Seafood Soup": { about: "Mussels, scallops, shrimp, and crawfish meat in a coconut-milk broth that goes silky with butter — her fresh garlic paste, a touch of tomato paste, potatoes and carrots cut and waiting in water so they stay bright. Warm, rich, a little sweet: the coast at dusk, in a bowl.", source: "HOW TO MAKE COCONUT SEAFOOD SOUP!!!" },
+    "Gumbo": { about: "Blue crabs, split in two, and seafood she cleans the way she always does — salt water, vinegar, and limes. Okra, four cloves of garlic, tomato paste, and her spice mix: paprika, Creole seasoning, bay leaves, oregano, sweet peppers. Dark, peppery, and deep — a gumbo that coats the spoon.", source: "HOW TO MAKE A DELICIOUS SEAFOOD GUMBO!" },
+    "Tuna Wrap": { about: "From her home-kitchen video: tuna wraps made fresh and simple, seasoned her way — cool, bright, and ready in minutes.", source: "HOW TO MAKE THE BEST TUNA WRAPS AT HOME!" },
+    "Fried Chicken": { about: "Her tasty spicy fried chicken: a crust that shatters, meat that stays juicy, and heat that builds bite after bite.", source: "TASTY SPICY FRIED CHICKEN!" },
+    "Seafood Rice": { about: "Washed rice cooked golden with her curry powder, loaded with shrimp, mussels, and crawfish, green peas and garlic through it — and plated the way she insists: with the crawfish showing on top.", source: "Jerk Chicken & Curry Seafood Rice" },
+    "Alfredo Pasta with Shrimp": { about: "Fourteen minutes, start to finish: pasta twirled through a silky cream sauce with plump shrimp. Stay for the end — her first bite, eyes closed, is the whole review.", source: "HOW TO MAKE CREAMY SHRIMP ALFREDO PASTA RECIPE IN 14 MINUTES!" },
+    "Baked Cheese Oyster": { about: "Oysters, cleaned and tucked under melted cheese and parsley butter, with garlic powder, black pepper, and a touch of Louisiana hot sauce. Briny, buttery, bubbling.", source: "Coconut Seafood Soup with Baked Oysters" },
+    "Lasagna": { about: "Her weeknight build: noodles, chicken, and spinach all pre-cooked and layered with sauce, so the oven only has to marry it — 350 degrees, 45 minutes, until the top is golden and the edges bubble.", source: "CHICKEN & SPINACH LASAGNA RECIPE" },
+    "Curry Chicken": { about: "Wings marinated a full hour, then curry powder — 'not too much,' she says — turmeric, paprika, and ginger, which she puts in everything she makes. Served with rice and pigeon peas. Golden, warm, and deep.", source: "CURRY CHICKEN WINGS WITH RICE PIGEON PEAS!" },
+    "Curry Shrimp": { about: "Shrimp that go in already marinated her way, then garlic, parsley, thyme, two bay leaves, bouillon, and a squeeze of lime to wake it all up — served over turmeric yellow rice, with her shrimp mashed-potato salad beside it.", source: "HOW TO MAKE A DELICIOUS CURRY SHRIMP!" }
 };
 
 const GALLERY_PHOTOS: { src: string; label: string }[] = [
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Soup-Joumou-I.png", label: "Soup Joumou" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png", label: "Tassot" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png", label: "Seafood Rice" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png", label: "Lasagna" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png", label: "Gumbo" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png", label: "Coconut Seafood Soup" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Fish-w-Fried-Plantain-I.png", label: "Fried Fish & Plantains" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Spagheti-Shrimp-or-Chicken-w-Garlic-Bread-I.png", label: "Spaghetti & Shrimp" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-Fried-Sweet-Potato-Akra-Pikliz-I.png", label: "Akra & Pikliz" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-rice-bean-I.png", label: "Rice & Beans" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Pikliz-for-Sales-I.png", label: "Pikliz" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Shelbys-Famous-Burger.png", label: "Shelby's Famous Burger" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Thanksgiving-Dinner-I-1.png", label: "Thanksgiving Dinner" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Turkey-Platter-I.png", label: "Fried Turkey Platter" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Bouillion-Soup-I.png", label: "Bouillon" },
-    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/SHEL-B-CREMAS-III.png", label: "Shelby's Cremas" }
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Soup-Joumou-I.png?fit=620%2C679&ssl=1", label: "Soup Joumou" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png?fit=726%2C669&ssl=1", label: "Tassot" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", label: "Seafood Rice" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png?fit=614%2C707&ssl=1", label: "Lasagna" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", label: "Gumbo" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", label: "Coconut Seafood Soup" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Fish-w-Fried-Plantain-I.png?fit=597%2C683&ssl=1", label: "Fried Fish & Plantains" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Spagheti-Shrimp-or-Chicken-w-Garlic-Bread-I.png?fit=599%2C680&ssl=1", label: "Spaghetti & Shrimp" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-Fried-Sweet-Potato-Akra-Pikliz-I.png?fit=616%2C677&ssl=1", label: "Akra & Pikliz" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-rice-bean-I.png?fit=620%2C680&ssl=1", label: "Rice & Beans" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pikliz-for-Sales-I.png?fit=634%2C678&ssl=1", label: "Pikliz" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Shelbys-Famous-Burger.png?fit=961%2C905&ssl=1", label: "Shelby's Famous Burger" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Thanksgiving-Dinner-I-1.png?fit=626%2C688&ssl=1", label: "Thanksgiving Dinner" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Turkey-Platter-I.png?fit=553%2C617&ssl=1", label: "Fried Turkey Platter" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Bouillion-Soup-I.png?fit=638%2C684&ssl=1", label: "Bouillon" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/SHEL-B-CREMAS-III.png?fit=503%2C676&ssl=1", label: "Shelby's Cremas" }
 ];
 
 // Plays one of Shelby's YouTube videos and calls onEnded when the video finishes.
@@ -545,7 +546,10 @@ const YouTubeSplashPlayer = ({ videoId, onEnded }: { videoId: string; onEnded: (
             player = new YT.Player(holderRef.current, {
                 videoId,
                 playerVars: { autoplay: 1, rel: 0, playsinline: 1 },
-                events: { onStateChange: (e: any) => { if (e.data === 0) endedRef.current(); } }
+                events: {
+                    onStateChange: (e: any) => { if (e.data === 0) endedRef.current(); },
+                    onError: () => setUseFallback(true)
+                }
             });
         };
         if ((window as any).YT && (window as any).YT.Player) {
@@ -563,13 +567,16 @@ const YouTubeSplashPlayer = ({ videoId, onEnded }: { videoId: string; onEnded: (
 
     if (useFallback) {
         return (
-            <div className="aspect-video w-full bg-black">
-                <iframe src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`} className="w-full h-full" title="Shelby's video" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-            </div>
+            <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener noreferrer" className="block aspect-video w-full bg-black relative group">
+                <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt="Watch Shelby's video on YouTube" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="bg-red-600 text-white text-xl font-bold px-6 py-3 rounded-full shadow-2xl">▶ Watch on YouTube</span>
+                </span>
+            </a>
         );
     }
     return (
-        <div className="aspect-video w-full bg-black">
+        <div className="aspect-video w-full bg-black" style={{ backgroundImage: `url(https://i.ytimg.com/vi/${videoId}/hqdefault.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div ref={holderRef} className="w-full h-full" />
         </div>
     );
@@ -577,10 +584,17 @@ const YouTubeSplashPlayer = ({ videoId, onEnded }: { videoId: string; onEnded: (
 
 // The dish splash page: her video plays, the dish is explained from her own recipe,
 // and when the video ends the page returns to where you were.
-const DishSplash = ({ name, video, onBack }: { name: string; video: string; onBack: () => void }) => {
+const DishSplash = ({ name, video, img, onBack }: { name: string; video: string; img?: string; onBack: () => void }) => {
     const info = DISH_INFO[name];
     const [ended, setEnded] = useState(false);
     const timerRef = useRef<any>(null);
+    const { setIsAutoScrolling } = useScroll();
+
+    // While her video plays, the page holds still.
+    useEffect(() => {
+        setIsAutoScrolling(false);
+        return () => setIsAutoScrolling(true);
+    }, []);
 
     const handleEnded = () => {
         setEnded(true);
@@ -600,10 +614,13 @@ const DishSplash = ({ name, video, onBack }: { name: string; video: string; onBa
                     )}
                 </div>
                 {info && (
-                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 mt-8 text-left">
-                        <h3 className="text-2xl font-bold text-red-900 mb-4">About this dish</h3>
-                        <p className="text-lg text-stone-700 mb-4">{info.about}</p>
-                        <p className="text-stone-500 italic">From her video: “{info.source}”</p>
+                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 mt-8 text-left flex flex-col md:flex-row gap-8">
+                        {img && <img src={img} alt={name} className="w-full md:w-64 h-64 object-cover rounded-xl shadow-md flex-shrink-0" />}
+                        <div>
+                            <h3 className="text-2xl font-bold text-red-900 mb-4">About this dish</h3>
+                            <p className="text-lg text-stone-700 mb-4">{info.about}</p>
+                            <p className="text-stone-500 italic">From her video: “{info.source}”</p>
+                        </div>
                     </div>
                 )}
                 <ReturnButton onClick={onBack} />
@@ -614,7 +631,7 @@ const DishSplash = ({ name, video, onBack }: { name: string; video: string; onBa
 
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
-  const [splash, setSplash] = useState<{ name: string; video: string } | null>(null);
+  const [splash, setSplash] = useState<{ name: string; video: string; img?: string } | null>(null);
   const go = (p: Page) => { setSplash(null); setCurrentPage(p); };
   const { language, setLanguage, t } = useLanguage();
   const { scrollToSection } = useScroll();
@@ -815,7 +832,7 @@ const AppContent: React.FC = () => {
                 </div>
                 <div className="flex flex-col md:flex-row gap-12 items-start">
                     <div className="flex-1">
-                        <img src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/About-us-pic.png" alt="Chef" className="rounded-2xl shadow-xl mb-8" />
+                        <img src="https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/About-us-pic.png?fit=610%2C490&ssl=1" alt="Chef" className="rounded-2xl shadow-xl mb-8" />
                         <div className="bg-white p-8 rounded-xl shadow-lg border-l-8 border-yellow-400">
                             <p className="text-xl font-serif italic text-stone-600">{t('about.quote')}</p>
                             <p className="text-right mt-4 font-bold text-red-900">- {t('about.chef')}</p>
@@ -863,14 +880,14 @@ const AppContent: React.FC = () => {
                         </div>
                         <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
                             <img 
-                                src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png" 
+                                src="https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1" 
                                 alt="Curry Goat" 
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
                             />
                         </div>
                         <div className="flex-grow">
                             <h3 className="text-xl font-bold mb-2 text-red-700">Curry Goat (special of the month)</h3>
-                            <p className="text-stone-500 text-sm mb-4">A Jamaican stovetop classic — heat, spice, and patience, finished with coconut milk.</p>
+                            <p className="text-stone-500 text-sm mb-4">A Jamaican stovetop classic — slow heat, deep spice, and a coconut-milk finish that silks the whole pot.</p>
                         </div>
                         <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
                             <span className="text-lg font-bold text-stone-800">$85.00</span>
@@ -883,31 +900,31 @@ const AppContent: React.FC = () => {
 
                     {/* Remaining Items */}
                     {[
-                        { name: "Curry Chicken", price: 75.00, desc: "Catering trays from $75 — her curry chicken, event size.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png", video: "0J2D2LnKh4k" },
-                        { name: "Curry Shrimp", price: 85.00, desc: "Catering trays from $85 — shrimp in her curry, event size.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png", video: "EcfFGJLtXiw" },
-                        { name: "Griot", price: 70.00, desc: "Haiti's famous fried pork — seasoned, tender, then fried crisp, with pikliz.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png", video: "XN8l8SiiF00" },
-                        { name: "Tassot", price: 120.00, desc: "Fried goat, Haitian style — catering trays from $120.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png" },
-                        { name: "Chicken Strips", price: 50.00, desc: "Golden chicken strips, seasoned Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png" },
-                        { name: "Coconut Seafood Soup", price: 90.00, desc: "Seafood simmered in coconut, Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png", video: "PWJsNq4ZS5k" },
-                        { name: "Gumbo", price: 85.00, desc: "Shelby's seafood gumbo — rich, loaded, and slow-cooked.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png", video: "ZzIlVupYeFQ" },
-                        { name: "Tuna Wrap", price: 12.00, desc: "Fresh tuna wraps, made at home Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png", video: "N0AJE5dyrTw" },
-                        { name: "Chicken Wrap", price: 10.00, desc: "Chicken wraps with Shelby's seasoning.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png" },
-                        { name: "Turkey Wrap", price: 10.00, desc: "Turkey wraps, fresh and simple.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png" },
-                        { name: "Fried Chicken", price: 60.00, desc: "Spicy fried chicken — crisp outside, juicy inside.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png", video: "Jxlm39XwYHA" },
-                        { name: "Seafood Rice", price: 80.00, desc: "Rice cooked with shrimp, mussels, and crawfish — plated with the crawfish showing.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png", video: "qjYLhTeFxQw" },
-                        { name: "Alfredo Pasta with Shrimp", price: 85.00, desc: "Creamy shrimp Alfredo — her 14-minute recipe, famous first bite and all.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png", video: "yo8HfvdaVDQ" },
-                        { name: "Baked Cheese Oyster", price: 100.00, desc: "Oysters baked under cheese, straight from Shelby's recipe.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png", video: "FEaOpXjYRTk" },
-                        { name: "Lasagna", price: 75.00, desc: "Chicken and spinach lasagna, baked golden.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png", video: "4JXXW8Z5Hxs" },
-                        { name: "Steak Combo", price: 90.00, desc: "Steak combo plate, catering style.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png" },
-                        { name: "Ribs Combo", price: 85.00, desc: "Quarter rack ribs combo plate.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png" },
-                        { name: "Fillet of Fish", price: 75.00, desc: "Fillet of fish combo plate.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png" },
-                        { name: "Ravioli Salad", price: 50.00, desc: "Ravioli salad, fresh and light.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png" }
+                        { name: "Curry Chicken", price: 75.00, desc: "Catering trays from $75 — golden curry, with ginger and turmeric warm in every bite.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png?fit=466%2C679&ssl=1", video: "0J2D2LnKh4k" },
+                        { name: "Curry Shrimp", price: 85.00, desc: "Catering trays from $85 — shrimp slicked in curry with garlic, thyme, and a squeeze of lime.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png?fit=618%2C673&ssl=1", video: "EcfFGJLtXiw" },
+                        { name: "Griot", price: 70.00, desc: "Pork shoulder, marinated deep, boiled tender, then fried to a crisp — pikliz heat on the side.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1", video: "XN8l8SiiF00" },
+                        { name: "Tassot", price: 120.00, desc: "Goat, seasoned and fried the Haitian way — crisp edges, rich and peppery. Trays from $120.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png?fit=726%2C669&ssl=1" },
+                        { name: "Chicken Strips", price: 50.00, desc: "Golden, crunchy strips with Shelby's seasoning in every bite.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png?fit=615%2C683&ssl=1" },
+                        { name: "Coconut Seafood Soup", price: 90.00, desc: "Mussels, scallops, shrimp, and crawfish swimming in coconut milk — warm, rich, a little sweet.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", video: "PWJsNq4ZS5k" },
+                        { name: "Gumbo", price: 85.00, desc: "Blue crab and seafood in a dark, peppery gumbo with okra — deep Creole flavor, Shelby style.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", video: "ZzIlVupYeFQ" },
+                        { name: "Tuna Wrap", price: 12.00, desc: "Cool, fresh tuna wraps — light, bright, and seasoned her way.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png?fit=619%2C690&ssl=1", video: "N0AJE5dyrTw" },
+                        { name: "Chicken Wrap", price: 10.00, desc: "Juicy chicken wrapped up warm with Shelby's seasoning.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1" },
+                        { name: "Turkey Wrap", price: 10.00, desc: "Fresh turkey wraps — simple, clean, satisfying.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png?fit=617%2C686&ssl=1" },
+                        { name: "Fried Chicken", price: 60.00, desc: "Spicy fried chicken — shattering crisp outside, juicy and hot inside.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png?fit=1024%2C511&ssl=1", video: "Jxlm39XwYHA" },
+                        { name: "Seafood Rice", price: 80.00, desc: "Golden curry rice loaded with shrimp, mussels, and crawfish — the crawfish riding on top.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", video: "qjYLhTeFxQw" },
+                        { name: "Alfredo Pasta with Shrimp", price: 85.00, desc: "Silky cream sauce, plump shrimp, pasta that twirls — the famous first bite says it all.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png?fit=577%2C620&ssl=1", video: "yo8HfvdaVDQ" },
+                        { name: "Baked Cheese Oyster", price: 100.00, desc: "Oysters under a blanket of melted cheese and parsley butter, with a whisper of hot sauce.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png?fit=631%2C674&ssl=1", video: "FEaOpXjYRTk" },
+                        { name: "Lasagna", price: 75.00, desc: "Layers of chicken, spinach, and sauce, baked until the top goes golden and bubbly.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png?fit=614%2C707&ssl=1", video: "4JXXW8Z5Hxs" },
+                        { name: "Steak Combo", price: 90.00, desc: "A full steak combo plate — grilled, seasoned, and piled like catering should be.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png?fit=586%2C633&ssl=1" },
+                        { name: "Ribs Combo", price: 85.00, desc: "Quarter rack ribs, saucy and tender, with the full combo plate around it.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png?fit=618%2C676&ssl=1" },
+                        { name: "Fillet of Fish", price: 75.00, desc: "Golden fillet of fish, crisp-edged, with the full combo plate beside it.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png?fit=610%2C680&ssl=1" },
+                        { name: "Ravioli Salad", price: 50.00, desc: "Cool ravioli salad — fresh, light, and dressed to wake up the table.", img: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png?fit=605%2C680&ssl=1" }
                     ].map((item, idx) => (
                         <div key={idx} className="bg-white p-6 rounded-xl shadow-md border border-stone-100 hover:shadow-xl transition-all hover:-translate-y-1 group flex flex-col">
                             <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
                                 <img 
                                     src={item.img} 
-                                    onClick={() => item.video && setSplash({ name: item.name, video: item.video })}
+                                    onClick={() => item.video && setSplash({ name: item.name, video: item.video, img: item.img })}
                                     alt={item.name} 
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
                                 />
@@ -916,7 +933,7 @@ const AppContent: React.FC = () => {
                                 <h3 className="text-xl font-bold mb-2 text-red-900">{item.name}</h3>
                                 <p className="text-stone-500 text-sm mb-2">{item.desc}</p>
                                 {item.video && (
-                                    <button type="button" onClick={() => setSplash({ name: item.name, video: item.video })} className="text-red-700 font-bold text-sm hover:underline block mb-4 text-left">▶ Watch Shelby make it</button>
+                                    <button type="button" onClick={() => setSplash({ name: item.name, video: item.video, img: item.img })} className="text-red-700 font-bold text-sm hover:underline block mb-4 text-left">▶ Watch Shelby make it</button>
                                 )}
                             </div>
                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
@@ -1033,7 +1050,7 @@ const AppContent: React.FC = () => {
       </div>
       <main className={`flex-grow transition-opacity duration-300 ease-in-out ${currentPage === Page.HOME ? 'pb-0' : 'pb-10'}`}>
         <div ref={scrollRef} className="h-0 w-full absolute top-0" />
-        {splash ? <DishSplash name={splash.name} video={splash.video} onBack={() => setSplash(null)} /> : renderContent()}
+        {splash ? <DishSplash name={splash.name} video={splash.video} img={splash.img} onBack={() => setSplash(null)} /> : renderContent()}
         {!splash && currentPage !== Page.HOME && <ReturnButton onClick={() => go(Page.HOME)} />}
       </main>
       <VoiceIndicator isActive={isActive} isSpeaking={isSpeaking} toggle={toggleVoice} error={error} />
