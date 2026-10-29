@@ -13,7 +13,7 @@ import { CartProvider, useCart } from './contexts/CartContext';
 import { ScrollProvider, useScroll } from './contexts/ScrollContext';
 
 // --- Constants ---
-const LOGO_URL = "https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+const LOGO_URL = "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/cropped-LOGO1.png";
 
 // --- Helper Functions ---
 const getPageBackground = (page: Page) => {
@@ -173,7 +173,7 @@ const VideoPanel = ({ videoSrc, className = "", unmutedCycle = false, titleOverr
         // playlist=[VIDEO_ID]: Required for loop to work on single video embeds
         // rel=0: Hides related videos
         // playsinline=1: Plays inline on mobile
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&rel=0&playsinline=1`;
+        return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1`;
     };
 
     const handleEnded = () => {
@@ -287,7 +287,7 @@ const Hero = ({ onOrder }: { onOrder: () => void }) => {
   return (
     <div className="relative bg-slate-900 text-white overflow-hidden shadow-2xl min-h-[80vh] flex flex-col items-center justify-center py-20">
         <div className="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Food Background" className="w-full h-full object-cover opacity-40" />
+        <img src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Menu-Home-Page-I-1.png" alt="Food Background" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
         </div>
         
@@ -491,8 +491,131 @@ const ShelbyCremaPanel = () => {
 
 // --- Main App Component ---
 
+
+// Dish knowledge for the splash pages — every word from Shelby's own recipe videos.
+const DISH_INFO: Record<string, { about: string; source: string }> = {
+    "Griot": { about: "Shelby's griot starts with pork shoulder in her marinade for a full hour, then a slow boil in that same marinade. She finishes it two ways across her videos — fried crisp, or in the oven — and plates it with fried plantains and pikliz.", source: "BEST HAITIAN GRIOT!" },
+    "Coconut Seafood Soup": { about: "Mussels, scallops, shrimp, and crawfish meat simmered in coconut milk, with sausage, butter, her own garlic paste, potatoes, and carrots waiting in water so they stay bright.", source: "HOW TO MAKE COCONUT SEAFOOD SOUP!!!" },
+    "Gumbo": { about: "Blue crabs and cleaned seafood with okra, built on garlic, tomato paste, and her spice mix — paprika, Creole seasoning, bay leaves, oregano, and sweet peppers. She cleans her seafood with salt water, vinegar, and limes, the way she always does.", source: "HOW TO MAKE A DELICIOUS SEAFOOD GUMBO!" },
+    "Tuna Wrap": { about: "Her tuna wraps, made at home — fresh, quick, and seasoned her way.", source: "HOW TO MAKE THE BEST TUNA WRAPS AT HOME!" },
+    "Fried Chicken": { about: "Her tasty spicy fried chicken — crisp outside, juicy inside, with real heat in the seasoning.", source: "TASTY SPICY FRIED CHICKEN!" },
+    "Seafood Rice": { about: "Washed rice cooked with shrimp, mussels, and crawfish, with green peas, garlic, ginger, and her curry powder — plated with the crawfish showing.", source: "Jerk Chicken & Curry Seafood Rice" },
+    "Alfredo Pasta with Shrimp": { about: "Her creamy shrimp Alfredo, taught in fourteen minutes — and yes, the first bite at the end is the famous one.", source: "HOW TO MAKE CREAMY SHRIMP ALFREDO PASTA RECIPE IN 14 MINUTES!" },
+    "Baked Cheese Oyster": { about: "Oysters, cleaned and baked under cheese with parsley butter, garlic powder, black pepper, and a touch of Louisiana hot sauce.", source: "Coconut Seafood Soup with Baked Oysters" },
+    "Lasagna": { about: "Chicken and spinach lasagna — everything pre-cooked, so the oven only has to marry it: 350 degrees for 45 minutes. Her weeknight build.", source: "CHICKEN & SPINACH LASAGNA RECIPE" },
+    "Curry Chicken": { about: "Her curry chicken, taught with wings: marinated an hour, then curry powder, turmeric, paprika, and ginger — served with rice and pigeon peas.", source: "CURRY CHICKEN WINGS WITH RICE PIGEON PEAS!" },
+    "Curry Shrimp": { about: "Shrimp, already marinated her way, with garlic, parsley, thyme, two bay leaves, bouillon, and a squeeze of lime — served with turmeric yellow rice.", source: "HOW TO MAKE A DELICIOUS CURRY SHRIMP!" }
+};
+
+const GALLERY_PHOTOS: { src: string; label: string }[] = [
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Soup-Joumou-I.png", label: "Soup Joumou" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png", label: "Tassot" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png", label: "Seafood Rice" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png", label: "Lasagna" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png", label: "Gumbo" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png", label: "Coconut Seafood Soup" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Fish-w-Fried-Plantain-I.png", label: "Fried Fish & Plantains" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Spagheti-Shrimp-or-Chicken-w-Garlic-Bread-I.png", label: "Spaghetti & Shrimp" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-Fried-Sweet-Potato-Akra-Pikliz-I.png", label: "Akra & Pikliz" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-rice-bean-I.png", label: "Rice & Beans" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Pikliz-for-Sales-I.png", label: "Pikliz" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Shelbys-Famous-Burger.png", label: "Shelby's Famous Burger" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Thanksgiving-Dinner-I-1.png", label: "Thanksgiving Dinner" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Turkey-Platter-I.png", label: "Fried Turkey Platter" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Bouillion-Soup-I.png", label: "Bouillon" },
+    { src: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/SHEL-B-CREMAS-III.png", label: "Shelby's Cremas" }
+];
+
+// Plays one of Shelby's YouTube videos and calls onEnded when the video finishes.
+const YouTubeSplashPlayer = ({ videoId, onEnded }: { videoId: string; onEnded: () => void }) => {
+    const holderRef = useRef<HTMLDivElement>(null);
+    const endedRef = useRef(onEnded);
+    endedRef.current = onEnded;
+    const [useFallback, setUseFallback] = useState(false);
+
+    useEffect(() => {
+        let player: any = null;
+        let cancelled = false;
+        let created = false;
+        const create = () => {
+            if (cancelled || created || !holderRef.current) return;
+            const YT = (window as any).YT;
+            if (!YT || !YT.Player) return;
+            created = true;
+            player = new YT.Player(holderRef.current, {
+                videoId,
+                playerVars: { autoplay: 1, rel: 0, playsinline: 1 },
+                events: { onStateChange: (e: any) => { if (e.data === 0) endedRef.current(); } }
+            });
+        };
+        if ((window as any).YT && (window as any).YT.Player) {
+            create();
+        } else {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            document.body.appendChild(tag);
+            const prev = (window as any).onYouTubeIframeAPIReady;
+            (window as any).onYouTubeIframeAPIReady = () => { if (prev) prev(); create(); };
+        }
+        const timer = setTimeout(() => { if (!created) setUseFallback(true); }, 6000);
+        return () => { cancelled = true; clearTimeout(timer); if (player && player.destroy) player.destroy(); };
+    }, [videoId]);
+
+    if (useFallback) {
+        return (
+            <div className="aspect-video w-full bg-black">
+                <iframe src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`} className="w-full h-full" title="Shelby's video" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+            </div>
+        );
+    }
+    return (
+        <div className="aspect-video w-full bg-black">
+            <div ref={holderRef} className="w-full h-full" />
+        </div>
+    );
+};
+
+// The dish splash page: her video plays, the dish is explained from her own recipe,
+// and when the video ends the page returns to where you were.
+const DishSplash = ({ name, video, onBack }: { name: string; video: string; onBack: () => void }) => {
+    const info = DISH_INFO[name];
+    const [ended, setEnded] = useState(false);
+    const timerRef = useRef<any>(null);
+
+    const handleEnded = () => {
+        setEnded(true);
+        timerRef.current = setTimeout(onBack, 1500);
+    };
+    useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+
+    return (
+        <Section title={name} subtitle="Watch Shelby make it">
+            <div className="max-w-4xl mx-auto">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-yellow-400 relative bg-black">
+                    <YouTubeSplashPlayer videoId={video} onEnded={handleEnded} />
+                    {ended && (
+                        <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+                            <p className="text-white text-2xl font-bold">Mèsi! Thanks for watching — taking you back…</p>
+                        </div>
+                    )}
+                </div>
+                {info && (
+                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 mt-8 text-left">
+                        <h3 className="text-2xl font-bold text-red-900 mb-4">About this dish</h3>
+                        <p className="text-lg text-stone-700 mb-4">{info.about}</p>
+                        <p className="text-stone-500 italic">From her video: “{info.source}”</p>
+                    </div>
+                )}
+                <ReturnButton onClick={onBack} />
+            </div>
+        </Section>
+    );
+};
+
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
+  const [splash, setSplash] = useState<{ name: string; video: string } | null>(null);
+  const go = (p: Page) => { setSplash(null); setCurrentPage(p); };
   const { language, setLanguage, t } = useLanguage();
   const { scrollToSection } = useScroll();
   
@@ -546,7 +669,7 @@ const AppContent: React.FC = () => {
                         
                         {/* Second Video Panel */}
                         <div className="mt-8">
-                            <VideoPanel videoSrc="https://www.youtube.com/watch?v=PeFGdSrFTUw" titleOverride="Nous parlons Français" />
+                            <VideoPanel videoSrc="https://www.youtube.com/watch?v=hsnHq2F-4fg" titleOverride="Nous parlons Français" />
                         </div>
                     </div>
                 </div>
@@ -692,7 +815,7 @@ const AppContent: React.FC = () => {
                 </div>
                 <div className="flex flex-col md:flex-row gap-12 items-start">
                     <div className="flex-1">
-                        <img src="https://images.unsplash.com/photo-1507048331197-7d4ac2b7cd29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chef" className="rounded-2xl shadow-xl mb-8" />
+                        <img src="https://shelbysfinecuisine.com/wp-content/uploads/2021/11/About-us-pic.png" alt="Chef" className="rounded-2xl shadow-xl mb-8" />
                         <div className="bg-white p-8 rounded-xl shadow-lg border-l-8 border-yellow-400">
                             <p className="text-xl font-serif italic text-stone-600">{t('about.quote')}</p>
                             <p className="text-right mt-4 font-bold text-red-900">- {t('about.chef')}</p>
@@ -760,6 +883,8 @@ const AppContent: React.FC = () => {
 
                     {/* Remaining Items */}
                     {[
+                        { name: "Curry Chicken", price: 75.00, desc: "Catering trays from $75 — her curry chicken, event size.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png", video: "0J2D2LnKh4k" },
+                        { name: "Curry Shrimp", price: 85.00, desc: "Catering trays from $85 — shrimp in her curry, event size.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png", video: "EcfFGJLtXiw" },
                         { name: "Griot", price: 70.00, desc: "Haiti's famous fried pork — seasoned, tender, then fried crisp, with pikliz.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/NEW-BACKGROUND-DESIGN-II.png", video: "XN8l8SiiF00" },
                         { name: "Tassot", price: 120.00, desc: "Fried goat, Haitian style — catering trays from $120.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png" },
                         { name: "Chicken Strips", price: 50.00, desc: "Golden chicken strips, seasoned Shelby's way.", img: "https://shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png" },
@@ -782,6 +907,7 @@ const AppContent: React.FC = () => {
                             <div className="h-48 bg-stone-200 rounded-lg mb-4 overflow-hidden relative flex-shrink-0">
                                 <img 
                                     src={item.img} 
+                                    onClick={() => item.video && setSplash({ name: item.name, video: item.video })}
                                     alt={item.name} 
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
                                 />
@@ -790,7 +916,7 @@ const AppContent: React.FC = () => {
                                 <h3 className="text-xl font-bold mb-2 text-red-900">{item.name}</h3>
                                 <p className="text-stone-500 text-sm mb-2">{item.desc}</p>
                                 {item.video && (
-                                    <a href={`https://www.youtube.com/watch?v=${item.video}`} target="_blank" rel="noopener noreferrer" className="text-red-700 font-bold text-sm hover:underline block mb-4">▶ Watch Shelby make it</a>
+                                    <button type="button" onClick={() => setSplash({ name: item.name, video: item.video })} className="text-red-700 font-bold text-sm hover:underline block mb-4 text-left">▶ Watch Shelby make it</button>
                                 )}
                             </div>
                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
@@ -812,16 +938,16 @@ const AppContent: React.FC = () => {
         return (
             <Section title={t('gallery.title')} subtitle={t('gallery.subtitle')}>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {Array.from({ length: 28 }).map((_, idx) => (
+                    {GALLERY_PHOTOS.map((photo, idx) => (
                         <div key={idx} className="relative group overflow-hidden rounded-xl shadow-md aspect-square bg-stone-200">
                             <img 
-                                src={`https://picsum.photos/seed/shelbyfood${idx}/800/800`} 
-                                alt={`Food Gallery Item ${idx + 1}`} 
+                                src={photo.src} 
+                                alt={photo.label} 
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                 loading="lazy"
                             />
                             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                                <span className="text-white opacity-0 group-hover:opacity-100 font-bold text-lg transform translate-y-4 group-hover:translate-y-0 transition-all">Delight {idx + 1}</span>
+                                <span className="text-white opacity-0 group-hover:opacity-100 font-bold text-lg transform translate-y-4 group-hover:translate-y-0 transition-all">{photo.label}</span>
                             </div>
                         </div>
                     ))}
@@ -903,12 +1029,12 @@ const AppContent: React.FC = () => {
       <div className="sticky top-0 z-[60]">
         <TopTicker />
 
-        <NavBar currentPage={currentPage} setPage={setCurrentPage} t={t} />
+        <NavBar currentPage={currentPage} setPage={go} t={t} />
       </div>
       <main className={`flex-grow transition-opacity duration-300 ease-in-out ${currentPage === Page.HOME ? 'pb-0' : 'pb-10'}`}>
         <div ref={scrollRef} className="h-0 w-full absolute top-0" />
-        {renderContent()}
-        {currentPage !== Page.HOME && <ReturnButton onClick={() => setCurrentPage(Page.HOME)} />}
+        {splash ? <DishSplash name={splash.name} video={splash.video} onBack={() => setSplash(null)} /> : renderContent()}
+        {!splash && currentPage !== Page.HOME && <ReturnButton onClick={() => go(Page.HOME)} />}
       </main>
       <VoiceIndicator isActive={isActive} isSpeaking={isSpeaking} toggle={toggleVoice} error={error} />
       <footer className="bg-slate-900 text-white py-12 border-t border-slate-800 mt-auto relative z-20">
