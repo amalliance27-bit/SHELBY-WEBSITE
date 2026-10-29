@@ -675,7 +675,7 @@ const AppContent: React.FC = () => {
                         
                         <p>
                             {t('welcome.p5_start')}
-                            <span className="bg-yellow-200 px-1 font-bold text-red-900 border-b-2 border-red-600">{t('welcome.highlight')}</span>
+                            <span className="bg-yellow-200 px-1 font-bold text-red-900">{t('welcome.highlight')}</span>
                             {t('welcome.p5_end')}
                         </p>
 
