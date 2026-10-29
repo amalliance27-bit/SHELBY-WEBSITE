@@ -629,6 +629,59 @@ const DishSplash = ({ name, video, img, onBack }: { name: string; video: string;
     );
 };
 
+
+// Bottom sliding menu bar — added on Master Paul's order, Oct 29: the new site
+// gets the old site's convenience in her brand. Slides up once a visitor
+// scrolls; hidden while a dish video plays and at checkout.
+const BottomMenuBar = ({ currentPage, go }: { currentPage: Page; go: (p: Page) => void }) => {
+    const { cartCount } = useCart();
+    const [shown, setShown] = useState(false);
+    useEffect(() => {
+        const onScroll = () => setShown(window.scrollY > 200);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+    const icon = (paths: string[]) => (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+            {paths.map((d, i) => <path key={i} d={d} />)}
+        </svg>
+    );
+    const item = "flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-bold uppercase tracking-wide transition-colors";
+    const tone = (p: Page) => currentPage === p ? "text-yellow-400" : "text-stone-300 hover:text-white";
+    return (
+        <nav className={`fixed bottom-0 inset-x-0 z-[70] bg-black/90 backdrop-blur border-t-2 border-yellow-500 shadow-[0_-6px_24px_rgba(0,0,0,0.45)] transition-transform duration-500 ${shown ? 'translate-y-0' : 'translate-y-full'}`}>
+            <div className="max-w-xl mx-auto grid grid-cols-5">
+                <button onClick={() => go(Page.HOME)} className={`${item} ${tone(Page.HOME)}`}>
+                    {icon(["M3 10.5 12 3l9 7.5", "M5 9.5V21h14V9.5"])}
+                    Home
+                </button>
+                <button onClick={() => go(Page.CATERING_MENU)} className={`${item} ${tone(Page.CATERING_MENU)}`}>
+                    {icon(["M4 7h16", "M4 12h16", "M4 17h10"])}
+                    Menu
+                </button>
+                <button onClick={() => go(Page.FOOD_GALLERY)} className={`${item} ${tone(Page.FOOD_GALLERY)}`}>
+                    {icon(["M3 5h18v14H3z", "M3 16l5.5-5.5L13 15l3-3 5 5", "M8.5 10.5h.01"])}
+                    Gallery
+                </button>
+                <a href={`tel:+1${COMPANY_INFO.phone.replace(/[^0-9]/g, '')}`} className={`${item} text-stone-300 hover:text-white`}>
+                    {icon(["M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"])}
+                    Call
+                </a>
+                <button onClick={() => go(Page.CART)} className={`${item} ${tone(Page.CART)} relative`}>
+                    <span className="relative">
+                        {icon(["M3 4h2l2.4 12.2A2 2 0 0 0 9.4 18h8.9a2 2 0 0 0 2-1.6L21.6 8H6", "M10 21h.01", "M18 21h.01"])}
+                        {cartCount > 0 && (
+                            <span className="absolute -top-2 -right-3 bg-red-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">{cartCount}</span>
+                        )}
+                    </span>
+                    Cart
+                </button>
+            </div>
+        </nav>
+    );
+};
+
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
   const [splash, setSplash] = useState<{ name: string; video: string; img?: string } | null>(null);
@@ -1079,6 +1132,8 @@ const AppContent: React.FC = () => {
             </div>
         </div>
       </footer>
+      {!splash && currentPage !== Page.CHECKOUT && <div className="h-16" />}
+      {!splash && currentPage !== Page.CHECKOUT && <BottomMenuBar currentPage={currentPage} go={go} />}
     </div>
   );
 };
