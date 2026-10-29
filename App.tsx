@@ -634,8 +634,14 @@ const AppContent: React.FC = () => {
   const [splash, setSplash] = useState<{ name: string; video: string; img?: string } | null>(null);
   const go = (p: Page) => { setSplash(null); setCurrentPage(p); };
   const { language, setLanguage, t } = useLanguage();
-  const { scrollToSection } = useScroll();
+  const { scrollToSection, lenis } = useScroll();
   
+  // Every page opens at the top (Master Paul, Oct 29).
+  useEffect(() => {
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    window.scrollTo(0, 0);
+  }, [currentPage, splash, lenis]);
+
   const { connect, disconnect, isActive, isSpeaking, sendPageContext, error } = useGeminiLive({
     onPageChange: (page) => setCurrentPage(page),
     currentPage,
