@@ -631,19 +631,50 @@ const DishSplash = ({ name, video, img, onBack }: { name: string; video: string;
 
 
 
+const SLIDESHOW_PHOTOS = [
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png?fit=466%2C679&ssl=1", label: "Curry Chicken Trays" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-2.png?fit=726%2C669&ssl=1", label: "Tassot (Goat)" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png?fit=618%2C673&ssl=1", label: "Curry Shrimp and Rice Combo" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png?fit=586%2C633&ssl=1", label: "Steak Combo with Yellow Rice and Broccoli" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png?fit=577%2C620&ssl=1", label: "Alfredo Pasta with Shrimp" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png?fit=631%2C674&ssl=1", label: "Baked Cheese Oyster" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Bouillion-Soup-I.png?fit=638%2C684&ssl=1", label: "Bouillon" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png?fit=615%2C683&ssl=1", label: "Chicken Strips" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", label: "Coconut Seafood Soup" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Chicken-I.png?fit=606%2C675&ssl=1", label: "Curry Chicken" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png?fit=610%2C680&ssl=1", label: "Fillet of Fish Combo" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Fish-w-Fried-Plantain-I.png?fit=597%2C683&ssl=1", label: "Fried Fish & Plantains" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Plantain-w-Sauteed-Shrimp-I.png?fit=624%2C691&ssl=1", label: "Fried Plantain with Sauteed Shrimp" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Turkey-Platter-I.png?fit=553%2C617&ssl=1", label: "Fried Turkey Platter" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", label: "Seafood Gumbo" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png?fit=614%2C707&ssl=1", label: "Lasagna" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pikliz-for-Sales-I.png?fit=634%2C678&ssl=1", label: "Pikliz" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png?fit=618%2C676&ssl=1", label: "1/4 Rack Ribs Combo" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png?fit=605%2C680&ssl=1", label: "Ravioli Salad" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", label: "Seafood Rice" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-Fried-Sweet-Potato-Akra-Pikliz-I.png?fit=616%2C677&ssl=1", label: "Akra, Sweet Potato & Pikliz" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Side-order-of-rice-bean-I.png?fit=620%2C680&ssl=1", label: "Rice & Beans" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Soup-Joumou-I.png?fit=620%2C679&ssl=1", label: "Soup Joumou" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Spagheti-Shrimp-or-Chicken-w-Garlic-Bread-I.png?fit=599%2C680&ssl=1", label: "Spaghetti with Shrimp & Garlic Bread" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png?fit=619%2C690&ssl=1", label: "Tuna Wrap" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png?fit=617%2C686&ssl=1", label: "Turkey Wrap" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Thanksgiving-Dinner-I-1.png?fit=626%2C688&ssl=1", label: "Thanksgiving Dinner" },
+    { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/SHEL-B-CREMAS-III.png?fit=503%2C676&ssl=1", label: "Shelby's Cremas" }
+];
+
 // The Sliding Menu — the old site's captioned dish slideshow (28 slides of
 // her cooking, arrows, counter, pause), carried into the new site on Master
 // Paul's word, Oct 29. Her real dishes only.
 const SlidingMenu = () => {
     const [idx, setIdx] = useState(0);
     const [paused, setPaused] = useState(false);
-    const n = GALLERY_PHOTOS.length;
+    const n = SLIDESHOW_PHOTOS.length;
     useEffect(() => {
         if (paused) return;
         const t = setInterval(() => setIdx(i => (i + 1) % n), 4500);
         return () => clearInterval(t);
     }, [paused, n]);
-    const slide = GALLERY_PHOTOS[idx];
+    const slide = SLIDESHOW_PHOTOS[idx];
     const step = (d: number) => setIdx(i => (i + d + n) % n);
     return (
         <section className="bg-white py-14">
