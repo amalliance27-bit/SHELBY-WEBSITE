@@ -18,6 +18,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
     { id: Page.ABOUT_US, label: t('nav.about') },
     { id: Page.CATERING_MENU, label: t('nav.catering') },
     { id: Page.RECIPE_HIGHLIGHT, label: t('nav.recipe') },
+    { id: Page.ARCADE, label: t('nav.arcade') },
     { id: Page.CONTACT_US, label: t('nav.contact') }
   ];
 
@@ -71,7 +72,16 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
               
               {/* Action Buttons */}
                <div className="flex items-center gap-3">
-                  <button 
+                  <a
+                    href="https://www.youtube.com/@Shelbysfinecuisine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Shelby's Fine Cuisine on YouTube"
+                    className="w-11 h-11 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center shadow-md transition-transform hover:scale-105"
+                  >
+                    <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  </a>
+                  <button
                     className="px-4 py-2 rounded-full text-base font-bold uppercase tracking-wide bg-red-800 border border-red-600 text-red-100 hover:bg-red-700 transition-colors flex items-center gap-2"
                     onClick={() => setPage(Page.CHECKOUT)}
                   >

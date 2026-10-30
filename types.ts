@@ -7,7 +7,8 @@ export enum Page {
   CHECKOUT = 'CHECKOUT',
   CONTACT_US = 'CONTACT_US',
   WEB_DESIGN = 'WEB_DESIGN',
-  FOOD_GALLERY = 'FOOD_GALLERY'
+  FOOD_GALLERY = 'FOOD_GALLERY',
+  ARCADE = 'ARCADE'
 }
 
 export interface NavigationState {

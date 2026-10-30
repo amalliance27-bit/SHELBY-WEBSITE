@@ -7,6 +7,7 @@ import { useGeminiLive } from './hooks/useGeminiLive';
 import { NavBar } from './components/NavBar';
 import { VoiceIndicator } from './components/VoiceIndicator';
 import { CheckoutPage } from './components/CheckoutPage';
+import { ArcadeRoom } from './components/ArcadeRoom';
 import { COMPANY_INFO, PAGE_CONTENT } from './constants';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { CartProvider, useCart } from './contexts/CartContext';
@@ -1110,6 +1111,9 @@ const AppContent: React.FC = () => {
                 </div>
             </Section>
         );
+
+      case Page.ARCADE:
+        return <ArcadeRoom />;
 
       case Page.RECIPE_HIGHLIGHT:
         return (

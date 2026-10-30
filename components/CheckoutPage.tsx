@@ -6,11 +6,41 @@ export const CheckoutPage: React.FC = () => {
   const { items, cartTotal } = useCart();
   const { t } = useLanguage();
   const [paymentMethod, setPaymentMethod] = useState('cashapp_zelle');
+  const [orderText, setOrderText] = useState('');
+  const [copied, setCopied] = useState(false);
 
+  // Money path (Master Paul, Oct 30, 2026): placing the order builds the full
+  // order and hands it to Shelby's desk — the customer sends it to the SFC
+  // inbox from their own mail app and pays the total by Zelle or CashApp.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would submit the order
-    alert('Order placed! Thank you for your business.');
+    const fd = new FormData(e.currentTarget as HTMLFormElement);
+    const name = `${fd.get('firstName') || ''} ${fd.get('lastName') || ''}`.trim();
+    const lines = [
+      `NEW ORDER — Shelby's Fine Cuisine`,
+      `Name: ${name}`,
+      `Phone: ${fd.get('phone') || ''}`,
+      `Email: ${fd.get('email') || ''}`,
+      '',
+      ...items.map(i => `${i.name} x ${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`),
+      '',
+      `TOTAL: $${cartTotal.toFixed(2)}`,
+      `Payment: Zelle (786) 877-7585 or CashApp $sherlbysfinecuisines`,
+      `Notes: ${fd.get('notes') || '—'}`,
+    ];
+    setOrderText(lines.join('\n'));
+    setCopied(false);
+  };
+
+  const mailtoHref = `mailto:shelbysfinecuisine@gmail.com?subject=${encodeURIComponent('New Order — Shelby\'s Fine Cuisine')}&body=${encodeURIComponent(orderText)}`;
+
+  const copyOrder = async () => {
+    try {
+      await navigator.clipboard.writeText(orderText);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
   };
 
   if (items.length === 0) {
@@ -35,11 +65,11 @@ export const CheckoutPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-bold mb-1">First name <span className="text-red-500">*</span></label>
-                <input required type="text" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
+                <input required name="firstName" type="text" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
               </div>
               <div>
                 <label className="block text-sm font-bold mb-1">Last name <span className="text-red-500">*</span></label>
-                <input required type="text" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
+                <input required name="lastName" type="text" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
               </div>
             </div>
 
@@ -81,19 +111,19 @@ export const CheckoutPage: React.FC = () => {
 
             <div>
               <label className="block text-sm font-bold mb-1">Phone <span className="text-red-500">*</span></label>
-              <input required type="tel" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
+              <input required name="phone" type="tel" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
             </div>
 
             <div>
               <label className="block text-sm font-bold mb-1">Email address <span className="text-red-500">*</span></label>
-              <input required type="email" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
+              <input required name="email" type="email" className="w-full p-3 border border-stone-300 rounded focus:outline-none focus:border-red-500" />
             </div>
           </div>
 
           <h2 className="text-2xl font-bold mt-12 mb-6 text-stone-800">Additional information</h2>
           <div>
             <label className="block text-sm font-bold mb-1">Order notes (optional)</label>
-            <textarea placeholder="Notes about your order, e.g. special notes for delivery." className="w-full p-3 border border-stone-300 rounded h-32 focus:outline-none focus:border-red-500"></textarea>
+            <textarea name="notes" placeholder="Notes about your order, e.g. special notes for delivery." className="w-full p-3 border border-stone-300 rounded h-32 focus:outline-none focus:border-red-500"></textarea>
           </div>
         </div>
 
@@ -164,6 +194,20 @@ export const CheckoutPage: React.FC = () => {
           <button type="submit" className="w-full py-4 bg-[#8E44AD] text-white font-bold text-lg rounded hover:bg-[#7D3C98] transition-colors shadow-lg uppercase tracking-wide">
             Place Order
           </button>
+
+          {orderText && (
+            <div className="mt-6 bg-green-50 border-2 border-green-500 rounded-xl p-5 text-left">
+              <h3 className="text-lg font-black text-green-900 mb-2">Your order is ready — two steps:</h3>
+              <p className="text-sm text-stone-700 mb-1"><strong>1.</strong> Send the order to Shelby's kitchen:</p>
+              <a href={mailtoHref} className="block w-full text-center py-3 mb-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 uppercase tracking-wide">
+                Send Order to Shelby's
+              </a>
+              <button type="button" onClick={copyOrder} className="block w-full text-center py-2 mb-3 bg-white border border-green-600 text-green-800 font-bold rounded-lg hover:bg-green-100">
+                {copied ? 'Order copied ✓' : 'Copy the order instead'}
+              </button>
+              <p className="text-sm text-stone-700"><strong>2.</strong> Pay the total <strong>${cartTotal.toFixed(2)}</strong> by Zelle — (786) 877-7585 — or CashApp — $sherlbysfinecuisines. Your order is confirmed when we reply.</p>
+            </div>
+          )}
         </div>
       </form>
     </div>
