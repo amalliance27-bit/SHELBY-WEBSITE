@@ -19,7 +19,7 @@ export const PAGE_CONTENT: Record<Page, { title: string; summary: string; detail
   [Page.ABOUT_US]: {
     title: "About Us",
     summary: "A passion for cooking since age 12.",
-    details: "Thanks for visiting Shelby's Fine Cuisine. Ever since I was young, I've always had a passion for cooking. I started cooking for my whole family by the age of 12 and I even created a few recipes on my own. Practice makes perfect, I cooked whenever is possible. Now that I have my own family, they are my food tasters. I have numerous recipes of great tasting meals, and I want to share my love of cooking with the world. Be on the lookout for our YouTube channel where I will be sharing some recipes. If you are in the Miami or Broward area, you don't have to wait; give us a call and we'll be more than happy to cater for any events or over a minimum of 5 people."
+    details: "Thanks for visiting Shelby's Fine Cuisine. Ever since I was young, I've always had a passion for cooking. I started cooking for my whole family by the age of 12 and I even created a few recipes on my own. Practice makes perfect, I cooked whenever is possible. Now that I have my own family, they are my food tasters. I have numerous recipes of great tasting meals, and I want to share my love of cooking with the world. Be on the lookout for our YouTube channel where I will be sharing some recipes. If you are in the Miami or Broward area, you don't have to wait; give us a call and we'll be more than happy to cater for any events or over a minimum of 5."
   },
   [Page.CATERING_MENU]: {
     title: "Catering Menu",
