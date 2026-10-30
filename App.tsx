@@ -671,24 +671,25 @@ const SlidingMenu = () => {
     const n = SLIDESHOW_PHOTOS.length;
     useEffect(() => {
         if (paused) return;
-        const t = setInterval(() => setIdx(i => (i + 1) % n), 4500);
+        const t = setInterval(() => setIdx(i => (i + 1) % n), 7000);
         return () => clearInterval(t);
     }, [paused, n]);
     const slide = SLIDESHOW_PHOTOS[idx];
     const step = (d: number) => setIdx(i => (i + d + n) % n);
     return (
         <section className="bg-white py-14">
-            <style>{`@keyframes sfcFade { from { opacity: 0.2; } to { opacity: 1; } }`}</style>
+            <style>{`@keyframes sfcFadeSlow { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: scale(1); } }`}</style>
             <div className="max-w-4xl mx-auto px-4 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold font-serif text-red-900 mb-8">The Sliding Menu</h2>
                 <div className="relative">
-                    <img key={idx} src={slide.src} alt={slide.label} style={{ animation: 'sfcFade 0.8s ease' }} className="w-full h-[420px] md:h-[520px] object-cover rounded-2xl shadow-xl" />
+                    <img key={idx} src={slide.src} alt={slide.label} style={{ animation: 'sfcFadeSlow 1.6s ease-in-out' }} className="w-full h-[420px] md:h-[520px] object-cover rounded-2xl shadow-xl" />
                     <button onClick={() => step(-1)} aria-label="Previous dish" className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/45 hover:bg-black/65 text-white text-3xl leading-none w-11 h-11 rounded-full">‹</button>
                     <button onClick={() => step(1)} aria-label="Next dish" className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/45 hover:bg-black/65 text-white text-3xl leading-none w-11 h-11 rounded-full">›</button>
                     <button onClick={() => setPaused(p => !p)} aria-label={paused ? 'Play the slideshow' : 'Pause the slideshow'} className="absolute right-3 top-3 bg-black/45 hover:bg-black/65 text-white text-xs w-9 h-9 rounded-full">{paused ? '▶' : '❚❚'}</button>
                     <span className="absolute left-3 bottom-3 bg-black/55 text-white text-sm font-bold px-3 py-1 rounded-full">{idx + 1} / {n}</span>
                 </div>
-                <p className="mt-5 text-stone-700 uppercase tracking-[0.2em] text-sm font-semibold">{slide.label}</p>
+                <div className="mx-auto mt-6 h-1 w-20 bg-yellow-500 rounded-full" />
+                <p className="mt-3 text-red-900 uppercase tracking-[0.14em] text-xl md:text-2xl font-extrabold font-serif" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}>{slide.label}</p>
             </div>
         </section>
     );
