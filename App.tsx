@@ -708,6 +708,31 @@ const TextMenu = () => (
     </section>
 );
 
+// Home radio autoplay — Master Paul's pair of words, Oct 30, 2026: the radio
+// AUTOPLAYS on the main page, and NO radio panel stands in the front. So Home
+// carries only a hidden audio element: Antilles Kompa Gold starts on entry
+// (a browser may hold the sound until the first tap — the start retries on
+// that tap), and the full radio panel lives in the Arcade Room, behind its
+// button, where a listener can change stations or pause.
+const HomeRadioAutoplay = () => {
+    const ref = useRef<HTMLAudioElement | null>(null);
+    useEffect(() => {
+        const audio = ref.current;
+        if (!audio) return;
+        audio.src = 'https://antillesmedia.pro-fhi.net/antillesmediakompa';
+        const tryPlay = () => { audio.play().catch(() => {}); };
+        tryPlay();
+        window.addEventListener('pointerdown', tryPlay, { once: true });
+        window.addEventListener('keydown', tryPlay, { once: true });
+        return () => {
+            window.removeEventListener('pointerdown', tryPlay);
+            window.removeEventListener('keydown', tryPlay);
+            audio.pause();
+        };
+    }, []);
+    return <audio ref={ref} preload="none" className="hidden" aria-hidden="true" />;
+};
+
 // The Sliding Menu — the old site's captioned dish slideshow (28 slides of
 // her cooking, arrows, counter, pause), carried into the new site on Master
 // Paul's word, Oct 29. Her real dishes only.
@@ -833,11 +858,7 @@ const AppContent: React.FC = () => {
                 <button onClick={() => setCurrentPage(Page.ARCADE)} className="bg-yellow-500 hover:bg-yellow-400 text-red-950 font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-red-900 transition-transform hover:scale-105">Enter Shelby's Arcade Room</button>
                 <p className="text-stone-600 mt-4">Watch while you wait — her videos, local radio, and games, one tap away.</p>
             </section>
-            <section className="bg-stone-50 pb-14 px-4">
-                <div className="max-w-5xl mx-auto">
-                    <RadioLounge />
-                </div>
-            </section>
+            <HomeRadioAutoplay />
             <Section id="welcome" title={t('section.welcome')} subtitle={t('welcome.subtitle')}>
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     <div className="flex-1 text-lg leading-relaxed space-y-6">
