@@ -7,7 +7,7 @@ import { useGeminiLive } from './hooks/useGeminiLive';
 import { NavBar } from './components/NavBar';
 import { VoiceIndicator } from './components/VoiceIndicator';
 import { CheckoutPage } from './components/CheckoutPage';
-import { ArcadeRoom } from './components/ArcadeRoom';
+import { ArcadeRoom, RadioLounge } from './components/ArcadeRoom';
 import { COMPANY_INFO, PAGE_CONTENT } from './constants';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { CartProvider, useCart } from './contexts/CartContext';
@@ -832,6 +832,11 @@ const AppContent: React.FC = () => {
             <section className="bg-stone-50 py-10 px-4 text-center">
                 <button onClick={() => setCurrentPage(Page.ARCADE)} className="bg-yellow-500 hover:bg-yellow-400 text-red-950 font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-red-900 transition-transform hover:scale-105">Enter Shelby's Arcade Room</button>
                 <p className="text-stone-600 mt-4">Watch while you wait — her videos, local radio, and games, one tap away.</p>
+            </section>
+            <section className="bg-stone-50 pb-14 px-4">
+                <div className="max-w-5xl mx-auto">
+                    <RadioLounge />
+                </div>
             </section>
             <Section id="welcome" title={t('section.welcome')} subtitle={t('welcome.subtitle')}>
                 <div className="flex flex-col md:flex-row gap-12 items-center">

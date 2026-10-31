@@ -49,7 +49,7 @@ const DISHES = [
   { src: 'https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fried-Fish-w-Fried-Plantain-I.png?fit=597%2C683&ssl=1', label: 'Fried Fish & Plantains' },
 ];
 
-const RadioLounge: React.FC = () => {
+export const RadioLounge: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [current, setCurrent] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
