@@ -289,7 +289,7 @@ const Hero = ({ onOrder }: { onOrder: () => void }) => {
   return (
     <div className="relative bg-slate-900 text-white overflow-hidden shadow-2xl min-h-[80vh] flex flex-col items-center justify-center py-20">
         <div className="absolute inset-0 z-0">
-        <img src="https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Menu-Home-Page-I-1.png?fit=652%2C806&ssl=1" alt="Food Background" className="w-full h-full object-cover opacity-40" />
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Food Background" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
         </div>
         
@@ -681,7 +681,6 @@ const SlidingMenu = () => {
         <section className="bg-white py-14">
             <style>{`@keyframes sfcFadeSlow { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: scale(1); } }`}</style>
             <div className="max-w-4xl mx-auto px-4 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold font-serif text-red-900 mb-8">The Sliding Menu</h2>
                 <div className="relative">
                     <img key={idx} src={slide.src} alt={slide.label} style={{ animation: 'sfcFadeSlow 1.6s ease-in-out' }} className="w-full h-[420px] md:h-[520px] object-cover rounded-2xl shadow-xl" />
                     <button onClick={() => step(-1)} aria-label="Previous dish" className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/45 hover:bg-black/65 text-white text-3xl leading-none w-11 h-11 rounded-full">‹</button>
