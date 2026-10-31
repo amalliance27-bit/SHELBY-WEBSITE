@@ -26,6 +26,7 @@ const STATIONS = [
   { name: 'Miami Beach Radio', desc: 'Live from Miami Beach, Tropical & Dance', url: 'https://streaming.radiostreamlive.com/miamibeachradio_devices' },
   { name: 'BIG 105.9 Miami', desc: "South Florida's Classic Rock Station", url: 'https://stream.revma.ihrhls.com/zc557' },
   { name: 'El Nuevo Zol 106.7', desc: "Miami's Hottest Latin & Reggaeton", url: 'https://liveaudio.lamusica.com/MIA_WXDJ_icy' },
+  { name: 'Z92 — Salsa & Merengue Miami', desc: 'Miami Salsa, Merengue & Bachata — WCMQ 92.3 FM', url: 'https://liveaudio.lamusica.com/MIA_WCMQ_icy' },
   { name: '100 Hip Hop and RNB FM', desc: "Florida's best Hip Hop and R&B hits", url: 'https://streaming.shoutcast.com/100-hip-hop-and-rnb-fm' },
   { name: 'Classical WQXR', desc: 'Timeless Classical Music and Soothing Symphonies', url: 'https://stream.wqxr.org/wqxr' },
   { name: 'Soothing Ambient Reading & Focus', desc: 'Soft, deeply relaxing ambient space music for quiet reading and focused thought', url: 'https://ice1.somafm.com/deepspaceone-128-mp3' },
