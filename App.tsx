@@ -663,6 +663,51 @@ const SLIDESHOW_PHOTOS = [
     { src: "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/SHEL-B-CREMAS-III.png?fit=503%2C676&ssl=1", label: "Shelby's Cremas" }
 ];
 
+// The Text Menu — the front-end menu in words, on Master Paul's word,
+// Oct 30, 2026 ("replace menu — text"): the Home page carries the catering
+// menu as a text list (names + her dish descriptions, no prices — the old
+// site's menu carries none) where the photo slideshow stood. The slideshow
+// component stays in the app, unused on Home.
+const TEXT_MENU_ITEMS = [
+    { name: "Griot", desc: "Pork shoulder, marinated deep, boiled tender, then fried to a crisp — pikliz heat on the side." },
+    { name: "Tassot", desc: "Goat, seasoned and fried the Haitian way — crisp edges, rich and peppery." },
+    { name: "Chicken Strips", desc: "Golden, crunchy strips with Shelby's seasoning in every bite." },
+    { name: "Coconut Seafood Soup", desc: "Mussels, scallops, shrimp, and crawfish swimming in coconut milk — warm, rich, a little sweet." },
+    { name: "Gumbo", desc: "Blue crab and seafood in a dark, peppery gumbo with okra — deep Creole flavor, Shelby style." },
+    { name: "Tuna Wrap", desc: "Cool, fresh tuna wraps — light, bright, and seasoned her way." },
+    { name: "Chicken Wrap", desc: "Juicy chicken wrapped up warm with Shelby's seasoning." },
+    { name: "Turkey Wrap", desc: "Fresh turkey wraps — simple, clean, satisfying." },
+    { name: "Fried Chicken", desc: "Spicy fried chicken — shattering crisp outside, juicy and hot inside." },
+    { name: "Seafood Rice", desc: "Golden curry rice loaded with shrimp, mussels, and crawfish — the crawfish riding on top." },
+    { name: "Alfredo Pasta with Shrimp", desc: "Silky cream sauce, plump shrimp, pasta that twirls — the famous first bite says it all." },
+    { name: "Baked Cheese Oyster", desc: "Oysters under a blanket of melted cheese and parsley butter, with a whisper of hot sauce." },
+    { name: "Lasagna", desc: "Layers of chicken, spinach, and sauce, baked until the top goes golden and bubbly." },
+    { name: "Steak Combo", desc: "A full steak combo plate — grilled, seasoned, and piled like catering should be." },
+    { name: "Ribs Combo", desc: "Quarter rack ribs, saucy and tender, with the full combo plate around it." },
+    { name: "Fillet of Fish", desc: "Golden fillet of fish, crisp-edged, with the full combo plate beside it." },
+    { name: "Ravioli Salad", desc: "Cool ravioli salad — fresh, light, and dressed to wake up the table." },
+    { name: "Curry Chicken", desc: "Golden curry, with ginger and turmeric warm in every bite — catering trays." },
+    { name: "Curry Shrimp", desc: "Shrimp slicked in curry with garlic, thyme, and a squeeze of lime — catering trays." },
+];
+
+const TextMenu = () => (
+    <section className="bg-white py-14">
+        <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-serif text-red-900 text-center">Catering Menu</h2>
+            <div className="mx-auto mt-4 h-1 w-20 bg-yellow-500 rounded-full" />
+            <div className="mt-10 grid md:grid-cols-2 gap-x-14 gap-y-6 text-left">
+                {TEXT_MENU_ITEMS.map((item) => (
+                    <div key={item.name} className="border-b border-stone-200 pb-4">
+                        <h3 className="font-serif font-bold text-xl text-red-900">{item.name}</h3>
+                        <p className="text-stone-600 mt-1">{item.desc}</p>
+                    </div>
+                ))}
+            </div>
+            <p className="text-center text-stone-600 mt-10">Catering for events, over a minimum of 5 — Miami and Broward, Florida.</p>
+        </div>
+    </section>
+);
+
 // The Sliding Menu — the old site's captioned dish slideshow (28 slides of
 // her cooking, arrows, counter, pause), carried into the new site on Master
 // Paul's word, Oct 29. Her real dishes only.
@@ -782,8 +827,11 @@ const AppContent: React.FC = () => {
         return (
           <>
             <Hero onOrder={() => setCurrentPage(Page.CATERING_MENU)} />
-            <SlidingMenu />
-            <ArcadeRoom />
+            <TextMenu />
+            <section className="bg-stone-50 py-10 px-4 text-center">
+                <button onClick={() => setCurrentPage(Page.ARCADE)} className="bg-yellow-500 hover:bg-yellow-400 text-red-950 font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-red-900 transition-transform hover:scale-105">Enter Shelby's Arcade Room</button>
+                <p className="text-stone-600 mt-4">Watch while you wait — her videos, local radio, and games, one tap away.</p>
+            </section>
             <Section id="welcome" title={t('section.welcome')} subtitle={t('welcome.subtitle')}>
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     <div className="flex-1 text-lg leading-relaxed space-y-6">
