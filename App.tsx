@@ -828,7 +828,6 @@ const AppContent: React.FC = () => {
           <>
             <Hero onOrder={() => setCurrentPage(Page.CATERING_MENU)} />
             <SlidingMenu />
-            <TextMenu />
             <section className="bg-stone-50 py-10 px-4 text-center">
                 <button onClick={() => setCurrentPage(Page.ARCADE)} className="bg-yellow-500 hover:bg-yellow-400 text-red-950 font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-red-900 transition-transform hover:scale-105">Enter Shelby's Arcade Room</button>
                 <p className="text-stone-600 mt-4">Watch while you wait — her videos, local radio, and games, one tap away.</p>
