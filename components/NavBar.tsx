@@ -28,7 +28,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
   };
 
   // Using the original logo from App.tsx
-  const LOGO_URL = "https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const LOGO_URL = "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/cropped-LOGO1.png?fit=739%2C242&ssl=1";
 
   const isHome = currentPage === Page.HOME;
 
