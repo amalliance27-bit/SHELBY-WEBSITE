@@ -783,6 +783,7 @@ const AppContent: React.FC = () => {
           <>
             <Hero onOrder={() => setCurrentPage(Page.CATERING_MENU)} />
             <SlidingMenu />
+            <ArcadeRoom />
             <Section id="welcome" title={t('section.welcome')} subtitle={t('welcome.subtitle')}>
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     <div className="flex-1 text-lg leading-relaxed space-y-6">

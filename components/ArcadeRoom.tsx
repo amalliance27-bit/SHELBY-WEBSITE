@@ -53,7 +53,24 @@ const RadioLounge: React.FC = () => {
     });
   };
 
-  useEffect(() => () => { audioRef.current?.pause(); }, []);
+  // Autoplay on entry (Master Paul, Oct 30, 2026): Antilles Kompa Gold starts
+  // when the Arcade Room opens. Browsers may block sound before the first tap,
+  // so a blocked start retries once on the visitor's first tap or key press.
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setCurrent(0);
+    audio.src = STATIONS[0].url;
+    const tryPlay = () => { audio.play().then(() => setPlaying(true)).catch(() => {}); };
+    tryPlay();
+    window.addEventListener('pointerdown', tryPlay, { once: true });
+    window.addEventListener('keydown', tryPlay, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', tryPlay);
+      window.removeEventListener('keydown', tryPlay);
+      audio.pause();
+    };
+  }, []);
 
   return (
     <div className="bg-red-950 rounded-3xl border-2 border-yellow-500/70 shadow-2xl p-6 md:p-8 text-center">
