@@ -41,33 +41,28 @@ export const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
   }, []);
 
-  // Auto-scroll logic
+  // Auto-scroll logic. Master Paul's rule (Oct 30, 2026): the moment the
+  // visitor touches the scroll, the auto-scroll RELEASES — no fighting their
+  // hand — and it only returns after 2 minutes without a touch.
   useEffect(() => {
     if (!lenis || !isAutoScrolling) return;
 
     let direction = 1;
     let userInteracting = false;
+    let resumeTimeout: ReturnType<typeof setTimeout> | undefined;
 
-    const handleInteractionStart = () => {
+    const handleInteraction = () => {
       userInteracting = true;
-    };
-
-    const handleInteractionEnd = () => {
-      // Small delay to ensure user has stopped
-      setTimeout(() => {
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => {
         userInteracting = false;
-      }, 1000);
+      }, 120000);
     };
 
-    window.addEventListener('pointerdown', handleInteractionStart);
-    window.addEventListener('pointerup', handleInteractionEnd);
-    window.addEventListener('wheel', handleInteractionStart);
-    // Debounce wheel end
-    let wheelTimeout: NodeJS.Timeout;
-    window.addEventListener('wheel', () => {
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(handleInteractionEnd, 1000);
-    });
+    window.addEventListener('pointerdown', handleInteraction);
+    window.addEventListener('wheel', handleInteraction, { passive: true });
+    window.addEventListener('touchstart', handleInteraction, { passive: true });
+    window.addEventListener('keydown', handleInteraction);
 
     const scrollInterval = setInterval(() => {
       // Ensure we have a valid scroll limit and user is not interacting
@@ -87,9 +82,11 @@ export const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     return () => {
       clearInterval(scrollInterval);
-      window.removeEventListener('pointerdown', handleInteractionStart);
-      window.removeEventListener('pointerup', handleInteractionEnd);
-      window.removeEventListener('wheel', handleInteractionStart);
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      window.removeEventListener('pointerdown', handleInteraction);
+      window.removeEventListener('wheel', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
     };
   }, [lenis, isAutoScrolling]);
 
