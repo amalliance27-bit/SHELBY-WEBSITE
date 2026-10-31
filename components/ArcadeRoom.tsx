@@ -11,12 +11,32 @@ const WAIT_VIDEOS = [
   { id: 'PWJsNq4ZS5k', title: 'Coconut Seafood Soup' },
 ];
 
+// All stations carried over from the Prophete Universal site's radio list
+// (Master Paul, Oct 30, 2026 — "bring all stations over"), gospel included,
+// plus WHUR 96.3 FM (Howard University Radio, Washington DC / Maryland) at
+// his word the same night. Antilles Kompa Gold stays first — it is the
+// station that autoplays when the site is entered.
 const STATIONS = [
-  { name: 'Antilles Kompa Gold', desc: 'Haitian Kompa & Zouk', url: 'https://antillesmedia.pro-fhi.net/antillesmediakompa' },
-  { name: 'FlavorJamz Caribbean', desc: 'Caribbean & Tropical Rhythms', url: 'https://stream.flavorjamz.com/stream.mp3' },
-  { name: 'Miami Beach Radio', desc: 'Live from Miami Beach', url: 'https://streaming.radiostreamlive.com/miamibeachradio_devices' },
-  { name: 'El Nuevo Zol 106.7', desc: "Miami's Latin & Reggaeton", url: 'https://liveaudio.lamusica.com/MIA_WXDJ_icy' },
-  { name: 'BIG 105.9 Miami', desc: "South Florida's Classic Rock", url: 'https://stream.revma.ihrhls.com/zc557' },
+  { name: 'Antilles Kompa Gold', desc: 'Haitian Kompa, Zouk & Cultural Melodies', url: 'https://antillesmedia.pro-fhi.net/antillesmediakompa' },
+  { name: 'JOY FM & Gospel Praise Radio', desc: 'Uplifting Contemporary Christian & Inspirational Gospel Music', url: 'https://ais-sa8.cdnstream1.com/3328_64/KSBJ.aac' },
+  { name: 'K-LOVE 89.7 FM (WMLV South Florida)', desc: 'Positive, Encouraging Contemporary Christian Radio & Worship Hits', url: 'https://rtn.cdnstream1.com/2580_96.aac' },
+  { name: 'JOY FM Florida', desc: 'Uplifting Contemporary Christian Music', url: 'https://rtn.cdnstream1.com/2580_96.aac' },
+  { name: 'WHUR 96.3 FM', desc: 'Howard University Radio — Washington DC & Maryland', url: 'https://ais-sa1.streamon.fm/7028_48k.aac' },
+  { name: 'FlavorJamz Caribbean', desc: 'Authentic Caribbean & Tropical Rhythms', url: 'https://stream.flavorjamz.com/stream.mp3' },
+  { name: 'Miami Beach Radio', desc: 'Live from Miami Beach, Tropical & Dance', url: 'https://streaming.radiostreamlive.com/miamibeachradio_devices' },
+  { name: 'BIG 105.9 Miami', desc: "South Florida's Classic Rock Station", url: 'https://stream.revma.ihrhls.com/zc557' },
+  { name: 'El Nuevo Zol 106.7', desc: "Miami's Hottest Latin & Reggaeton", url: 'https://liveaudio.lamusica.com/MIA_WXDJ_icy' },
+  { name: '100 Hip Hop and RNB FM', desc: "Florida's best Hip Hop and R&B hits", url: 'https://streaming.shoutcast.com/100-hip-hop-and-rnb-fm' },
+  { name: 'Classical WQXR', desc: 'Timeless Classical Music and Soothing Symphonies', url: 'https://stream.wqxr.org/wqxr' },
+  { name: 'Soothing Ambient Reading & Focus', desc: 'Soft, deeply relaxing ambient space music for quiet reading and focused thought', url: 'https://ice1.somafm.com/deepspaceone-128-mp3' },
+  { name: 'Drone Zone Soothing Atmospheres', desc: 'Minimalist, tranquil, and seamless deep ambient soundscapes', url: 'https://ice1.somafm.com/dronezone-128-mp3' },
+  { name: 'Sleepbot Soft Environmental Ambient', desc: 'Calm ambient electronics & quiet soundscapes ideal for reading and rest', url: 'https://ice1.somafm.com/sleepbot-128-mp3' },
+  { name: 'Soothing Ambient & Chill', desc: 'Deeply relaxing ambient, chillout, and peaceful rhythms', url: 'https://ice1.somafm.com/groovesalad-128-mp3' },
+  { name: 'Lush Soothing Lounge', desc: 'Sensuous, gentle vocals & soothing lounge sounds', url: 'https://ice1.somafm.com/lush-128-mp3' },
+  { name: 'Illstreet Classic Lounge', desc: 'Smooth instrumental lounge, vintage chill, and light background beats', url: 'https://ice1.somafm.com/illstreet-128-mp3' },
+  { name: 'Secret Agent Smooth', desc: 'Smooth, sophisticated & relaxing ambient lounge music', url: 'https://ice1.somafm.com/secretagent-128-mp3' },
+  { name: 'Peaceful Nature & Rain', desc: 'Calm Rain, Forest, and Peaceful Nature Sounds', url: 'https://az1.mediacp.eu/listen/natureradiosleep/radio.mp3' },
+  { name: 'Chill Lounge Florida', desc: 'Relaxing ambient and lounge sounds', url: 'https://vip2.fastcast4u.com/proxy/chillfla?mp=/1' },
 ];
 
 const DISHES = [
