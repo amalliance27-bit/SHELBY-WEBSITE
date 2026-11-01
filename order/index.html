@@ -58,6 +58,15 @@
   .radiorow select{flex:1;min-width:200px;padding:.5rem;border:1px solid #d9c391;border-radius:6px;background:#fff;font-size:1.05rem;font-weight:700}
   .radiorow button{min-width:110px}
   .radiostatus{font-size:1.05rem;font-weight:600;margin:.55rem 0 0}
+
+  .eq{display:flex;align-items:flex-end;gap:2px;height:36px;margin:.55rem 0 .15rem;padding:.32rem .45rem;background:#3d0d06;border:1px solid #E8BE5A;border-radius:.5rem;overflow:hidden}
+  .eq i{flex:1;height:100%;background:linear-gradient(#F5D67B,#e2603f);border-radius:2px;transform:scaleY(.18);transform-origin:bottom}
+  .radio.onair .eq i{animation:eqb .85s ease-in-out infinite alternate}
+  .eq i:nth-child(2n){animation-duration:.68s}.eq i:nth-child(3n){animation-duration:1.05s;animation-delay:.14s}
+  .eq i:nth-child(4n){animation-duration:.78s;animation-delay:.28s}.eq i:nth-child(5n){animation-duration:1.2s;animation-delay:.07s}
+  .eq i:nth-child(7n){animation-duration:.6s;animation-delay:.2s}
+  @keyframes eqb{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+  @media (prefers-reduced-motion: reduce){ .radio.onair .eq i{animation:none;transform:scaleY(.55)} }
   .soundbar{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
   .soundbar label{font-weight:700;margin:0}
   .soundbar input{flex:1;accent-color:#8f2418;height:2rem;cursor:pointer}
@@ -100,9 +109,10 @@
 <div class="radio">
   <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
   <div class="radiorow">
-    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold</option><option value="1">JOY FM & Gospel Praise Radio</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida)</option><option value="3">JOY FM Florida</option><option value="4">WHUR 96.3 FM</option><option value="5">FlavorJamz Caribbean</option><option value="6">Miami Beach Radio</option><option value="7">BIG 105.9 Miami</option><option value="8">El Nuevo Zol 106.7</option><option value="9">Z92 — Salsa & Merengue Miami</option><option value="10">100 Hip Hop and RNB FM</option><option value="11">Classical WQXR</option><option value="12">Soothing Ambient Reading & Focus</option><option value="13">Drone Zone Soothing Atmospheres</option><option value="14">Sleepbot Soft Environmental Ambient</option><option value="15">Soothing Ambient & Chill</option><option value="16">Lush Soothing Lounge</option><option value="17">Illstreet Classic Lounge</option><option value="18">Secret Agent Smooth</option><option value="19">Peaceful Nature & Rain</option><option value="20">Chill Lounge Florida</option></select>
+    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Miami Beach Radio &mdash; Miami Beach, Florida</option><option value="7">BIG 105.9 Miami &mdash; Miami, Florida</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">Soothing Ambient Reading & Focus &mdash; San Francisco, California</option><option value="13">Drone Zone Soothing Atmospheres &mdash; San Francisco, California</option><option value="14">Sleepbot Soft Environmental Ambient &mdash; San Francisco, California</option><option value="15">Soothing Ambient & Chill &mdash; San Francisco, California</option><option value="16">Lush Soothing Lounge &mdash; San Francisco, California</option><option value="17">Illstreet Classic Lounge &mdash; San Francisco, California</option><option value="18">Secret Agent Smooth &mdash; San Francisco, California</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Chill Lounge Florida &mdash; Florida online</option></select>
     <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
   </div>
+  <div class="eq" id="radioEq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="soundbar">
     <label for="volRange">Sound</label>
     <input type="range" id="volRange" min="0" max="100" value="100" step="1" aria-label="Radio volume">
@@ -317,9 +327,9 @@ auto();})();
   function stationName(){ return STATIONS[Number(sel.value)].name; }
   function fallback(){ if (Number(sel.value) !== 0) { sel.value = '0'; heard = false; setStation(); tryPlay(); statusEl.textContent = 'That station gave no sound \u2014 switched to Antilles Kompa Gold.'; } }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 7000); }
-  audio.addEventListener('playing', function(){ heard = true; clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
-  audio.addEventListener('error', function(){ fallback(); }, true);
-  audio.addEventListener('pause', function(){ btn.innerHTML = '&#9654; Play'; });
+  audio.addEventListener('playing', function(){ heard = true; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
+  audio.addEventListener('error', function(){ document.querySelector('.radio').classList.remove('onair'); fallback(); }, true);
+  audio.addEventListener('pause', function(){ document.querySelector('.radio').classList.remove('onair'); btn.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   sel.addEventListener('change', function(){ userPaused = false; setStation(); tryPlay(); });
   setStation();
