@@ -312,5 +312,26 @@ auto();})();
   document.addEventListener('keydown', retry);
 })();
 </script>
+
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var timer = null, idleTimer = null, started = false, dir = 1;
+  function atBottom(){ return (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 4); }
+  function step(){ /* bounce: drift down the page, and at the bottom turn and drift back up, ticker-smooth */
+    if (dir === 1 && atBottom()) dir = -1;
+    if (dir === -1 && window.scrollY <= 0) dir = 1;
+    window.scrollBy(0, dir);
+  }
+  function start(){ if (timer) return; timer = setInterval(step, 40); }
+  function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+  function arm(){ clearTimeout(idleTimer); idleTimer = setTimeout(start, 120000); }
+  function onTouch(){ stop(); arm(); }
+  ['pointerdown','touchstart','wheel','keydown','input','change','focusin'].forEach(function(ev){
+    document.addEventListener(ev, onTouch, {passive: true});
+  });
+  setTimeout(function(){ started = true; start(); }, 3000);
+})();
+</script>
 </body>
 </html>
