@@ -57,6 +57,7 @@
   .radiorow{display:flex;gap:.6rem;flex-wrap:wrap}
   .radiorow select{flex:1;min-width:200px;padding:.5rem;border:1px solid #d9c391;border-radius:6px;background:#fff;font-size:1.05rem;font-weight:700}
   .radiorow button{min-width:110px}
+  .radiostatus{font-size:1.05rem;font-weight:600;margin:.55rem 0 0}
 
   .slides{position:relative;height:190px}
   .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.8s ease-in-out}
@@ -97,9 +98,10 @@
   <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
   <div class="radiorow">
     <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold</option><option value="1">JOY FM & Gospel Praise Radio</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida)</option><option value="3">JOY FM Florida</option><option value="4">WHUR 96.3 FM</option><option value="5">FlavorJamz Caribbean</option><option value="6">Miami Beach Radio</option><option value="7">BIG 105.9 Miami</option><option value="8">El Nuevo Zol 106.7</option><option value="9">Z92 — Salsa & Merengue Miami</option><option value="10">100 Hip Hop and RNB FM</option><option value="11">Classical WQXR</option><option value="12">Soothing Ambient Reading & Focus</option><option value="13">Drone Zone Soothing Atmospheres</option><option value="14">Sleepbot Soft Environmental Ambient</option><option value="15">Soothing Ambient & Chill</option><option value="16">Lush Soothing Lounge</option><option value="17">Illstreet Classic Lounge</option><option value="18">Secret Agent Smooth</option><option value="19">Peaceful Nature & Rain</option><option value="20">Chill Lounge Florida</option></select>
-    <button type="button" id="radioBtn">&#9654; Play</button>
+    <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
   </div>
   <audio id="radioAudio" preload="auto" autoplay playsinline src="https://antillesmedia.pro-fhi.net/antillesmediakompa"></audio>
+  <p class="radiostatus" id="radioStatus">Radio: Antilles Kompa Gold</p>
 </div>
 <p class="note">Haitian catering for events, over a minimum of 5 people. Serving Miami &amp; Broward, FL. Build your request below — Shelby confirms the price and availability herself. Nothing is charged on this page.</p>
 
@@ -301,8 +303,13 @@ auto();})();
   var loadedUrl = audio.getAttribute('src') || '';
   function setStation(){ var u = STATIONS[Number(sel.value)].url; if (u !== loadedUrl) { loadedUrl = u; audio.src = u; } }
   var playPending = false;
-  function tryPlay(){ if (playPending) return; setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
-  audio.addEventListener('playing', function(){ btn.innerHTML = '&#10073;&#10073; Pause'; });
+  function tryPlay(){ if (playPending) return; armFailCheck(); setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
+  var heard = false, failTimer = null, statusEl = document.getElementById('radioStatus');
+  function stationName(){ return STATIONS[Number(sel.value)].name; }
+  function fallback(){ if (Number(sel.value) !== 0) { sel.value = '0'; heard = false; setStation(); tryPlay(); statusEl.textContent = 'That station gave no sound \u2014 switched to Antilles Kompa Gold.'; } }
+  function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 7000); }
+  audio.addEventListener('playing', function(){ heard = true; clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
+  audio.addEventListener('error', function(){ fallback(); }, true);
   audio.addEventListener('pause', function(){ btn.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   sel.addEventListener('change', function(){ userPaused = false; setStation(); tryPlay(); });
