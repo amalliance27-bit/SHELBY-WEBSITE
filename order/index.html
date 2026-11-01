@@ -15,8 +15,8 @@
   .hero .tagline{color:#F5D67B;font-weight:700;font-size:1.15rem;margin:.15rem 0 0;letter-spacing:.02em}
   .callbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 .6rem}
   .callbar a{flex:1;min-width:200px;text-align:center;padding:.85rem 1rem;border-radius:8px;font-weight:800;text-decoration:none;font-size:1.2rem}
-  .callbar .call{background:#C0392B;color:#fff}
-  .callbar .call:hover{background:#a93226}
+  .callbar .call{background:#006994;color:#fff}
+  .callbar .call:hover{background:#00597d}
   .callbar .mail{background:#fff;color:#8f2418;border:2px solid #C0392B}
   .steps{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0 0}
   .steps div{flex:1;min-width:150px;background:#fff;border:1px solid #ecd9b8;border-top:4px solid #E8BE5A;border-radius:6px;padding:.65rem .8rem;font-size:1.05rem;font-weight:600}
@@ -99,7 +99,7 @@
 <label><input type="radio" name="occasion" value="Thanksgiving Dinner"> Thanksgiving Dinner (Nov 26)</label>
 
 <h2>2. Pick your dishes</h2>
-<p class="note">Her full catering menu. Choose a platter size per dish — or leave it on "Shelby's advice" and she will size it to your guest count.</p>
+<p class="note">Her full catering menu. Choose a size per dish — or leave it on Platter Size and Shelby will size it to your guest count.</p>
 <div id="dishes"></div>
 <p id="dishErr" class="err"></p>
 
@@ -157,8 +157,8 @@ DISHES.forEach(function(d, i){
   const s = document.createElement('select');
   s.id = 'size-' + i;
   s.setAttribute('aria-label', 'Platter size for ' + d);
-  ["Shelby's advice","Small platter","Large platter"].forEach(function(opt){
-    const o = document.createElement('option'); o.value = opt; o.textContent = opt; s.appendChild(o);
+  [["Platter Size","Shelby's advice"],["Small platter","Small platter"],["Large platter","Large platter"]].forEach(function(pair){
+    const o = document.createElement('option'); o.value = pair[1]; o.textContent = pair[0]; s.appendChild(o);
   });
   row.appendChild(l); row.appendChild(s);
   box.appendChild(row);
