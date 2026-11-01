@@ -52,6 +52,11 @@
   .note{color:#57462e;font-size:1.05rem;font-weight:600}
   .foot{margin-top:2rem;font-size:1.05rem;font-weight:600;color:#57462e}
   .foot a{color:#8f2418}
+  .radio{background:#fff;border:1px solid #ecd9b8;border-left:4px solid #E8BE5A;border-radius:6px;padding:.7rem .8rem;margin:.8rem 0}
+  .radio label{margin:0 0 .5rem;font-weight:700}
+  .radiorow{display:flex;gap:.6rem;flex-wrap:wrap}
+  .radiorow select{flex:1;min-width:200px;padding:.5rem;border:1px solid #d9c391;border-radius:6px;background:#fff;font-size:1.05rem;font-weight:700}
+  .radiorow button{min-width:110px}
 
   .slides{position:relative;height:190px}
   .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.8s ease-in-out}
@@ -87,6 +92,14 @@
 <div class="callbar">
   <a class="call" href="tel:+17868777585">Call or text Shelby: <span class="telnum">(786) 877-7585</span></a>
   <a class="mail" href="mailto:shelbysfinecuisine@gmail.com">Email Shelby <span class="mailaddr">shelbysfinecuisine@gmail.com</span></a>
+</div>
+<div class="radio">
+  <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
+  <div class="radiorow">
+    <select id="stationSel" aria-label="Radio station"></select>
+    <button type="button" id="radioBtn">&#9654; Play</button>
+  </div>
+  <audio id="radioAudio" preload="none"></audio>
 </div>
 <p class="note">Haitian catering for events, over a minimum of 5 people. Serving Miami &amp; Broward, FL. Build your request below — Shelby confirms the price and availability herself. Nothing is charged on this page.</p>
 
@@ -275,6 +288,25 @@ function show(n){s[i].classList.remove('on');i=(n+s.length)%s.length;s[i].classL
 function auto(){timer=setInterval(function(){show(i+1);},6000);}
 document.querySelectorAll('.slides .nav').forEach(function(b){b.addEventListener('click',function(){clearInterval(timer);show(i+Number(b.getAttribute('data-go')));auto();});});
 auto();})();
+</script>
+
+<script>
+(function(){
+  var STATIONS = [{"name": "Antilles Kompa Gold", "url": "https://antillesmedia.pro-fhi.net/antillesmediakompa"}, {"name": "JOY FM & Gospel Praise Radio", "url": "https://ais-sa8.cdnstream1.com/3328_64/KSBJ.aac"}, {"name": "K-LOVE 89.7 FM (WMLV South Florida)", "url": "https://rtn.cdnstream1.com/2580_96.aac"}, {"name": "JOY FM Florida", "url": "https://rtn.cdnstream1.com/2580_96.aac"}, {"name": "WHUR 96.3 FM", "url": "https://ais-sa1.streamon.fm/7028_48k.aac"}, {"name": "FlavorJamz Caribbean", "url": "https://stream.flavorjamz.com/stream.mp3"}, {"name": "Miami Beach Radio", "url": "https://streaming.radiostreamlive.com/miamibeachradio_devices"}, {"name": "BIG 105.9 Miami", "url": "https://stream.revma.ihrhls.com/zc557"}, {"name": "El Nuevo Zol 106.7", "url": "https://liveaudio.lamusica.com/MIA_WXDJ_icy"}, {"name": "Z92 — Salsa & Merengue Miami", "url": "https://liveaudio.lamusica.com/MIA_WCMQ_icy"}, {"name": "100 Hip Hop and RNB FM", "url": "https://streaming.shoutcast.com/100-hip-hop-and-rnb-fm"}, {"name": "Classical WQXR", "url": "https://stream.wqxr.org/wqxr"}, {"name": "Soothing Ambient Reading & Focus", "url": "https://ice1.somafm.com/deepspaceone-128-mp3"}, {"name": "Drone Zone Soothing Atmospheres", "url": "https://ice1.somafm.com/dronezone-128-mp3"}, {"name": "Sleepbot Soft Environmental Ambient", "url": "https://ice1.somafm.com/sleepbot-128-mp3"}, {"name": "Soothing Ambient & Chill", "url": "https://ice1.somafm.com/groovesalad-128-mp3"}, {"name": "Lush Soothing Lounge", "url": "https://ice1.somafm.com/lush-128-mp3"}, {"name": "Illstreet Classic Lounge", "url": "https://ice1.somafm.com/illstreet-128-mp3"}, {"name": "Secret Agent Smooth", "url": "https://ice1.somafm.com/secretagent-128-mp3"}, {"name": "Peaceful Nature & Rain", "url": "https://az1.mediacp.eu/listen/natureradiosleep/radio.mp3"}, {"name": "Chill Lounge Florida", "url": "https://vip2.fastcast4u.com/proxy/chillfla?mp=/1"}];
+  var sel = document.getElementById('stationSel');
+  var btn = document.getElementById('radioBtn');
+  var audio = document.getElementById('radioAudio');
+  STATIONS.forEach(function(st, i){ var o = document.createElement('option'); o.value = i; o.textContent = st.name; sel.appendChild(o); });
+  function setStation(){ audio.src = STATIONS[Number(sel.value)].url; }
+  function tryPlay(){ setStation(); var pr = audio.play(); if (pr && pr.catch) pr.catch(function(){}); }
+  audio.addEventListener('playing', function(){ btn.innerHTML = '&#10073;&#10073; Pause'; });
+  audio.addEventListener('pause', function(){ btn.innerHTML = '&#9654; Play'; });
+  btn.addEventListener('click', function(){ if (audio.paused) { tryPlay(); } else { audio.pause(); } });
+  sel.addEventListener('change', function(){ var wasPlaying = !audio.paused; setStation(); if (wasPlaying) tryPlay(); });
+  setStation();
+  tryPlay();
+  document.addEventListener('pointerdown', function once(){ if (audio.paused) tryPlay(); document.removeEventListener('pointerdown', once); });
+})();
 </script>
 </body>
 </html>
