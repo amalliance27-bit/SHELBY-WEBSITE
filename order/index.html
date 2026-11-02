@@ -352,7 +352,7 @@ auto();})();
     var t0 = Date.now();
     audio.volume = target * 0.05;
     introTimer = setInterval(function(){
-      var k = (Date.now() - t0) / 20000;
+      var k = (Date.now() - t0) / 30000;
       if (k >= 1) { audio.volume = target; cancelIntro(); return; }
       var e = 1 - Math.pow(1 - k, 2);
       audio.volume = target * (0.05 + 0.95 * e);
