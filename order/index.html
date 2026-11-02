@@ -125,20 +125,6 @@
   <a class="call" href="tel:+17868777585">Call or text Shelby: <span class="telnum">(786) 877-7585</span></a>
   <a class="mail" href="mailto:shelbysfinecuisine@gmail.com">Email Shelby <span class="mailaddr">shelbysfinecuisine@gmail.com</span></a>
 </div>
-<div class="radio">
-  <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
-  <div class="radiorow">
-    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Radio Paradise Rock Mix — California online</option><option value="7">Mouv' — Urban Hits Paris — Paris, France</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">France Musique — Classical & Jazz — Paris, France</option><option value="13">Ambient Sleeping Pill — Online</option><option value="14">France Culture — Calm Voices — Paris, France</option><option value="15">Radio Paradise — Eclectic Mix — California online</option><option value="16">FIP — Paris Lounge & Eclectic — Paris, France</option><option value="17">Nightride FM — Night Drive — Online</option><option value="18">Radio Paradise World Mix — California online</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Radio Paradise Mellow Mix — California online</option></select>
-    <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
-  </div>
-  <div class="eq"><canvas id="waveCanvas" aria-hidden="true"></canvas></div>
-  <div class="soundbar">
-    <label for="volRange">Sound</label>
-    <input type="range" id="volRange" min="0" max="100" value="100" step="1" aria-label="Radio volume">
-  </div>
-  <audio id="radioAudio" preload="auto" autoplay playsinline src="https://antillesmedia.pro-fhi.net/antillesmediakompa"></audio>
-  <p class="radiostatus" id="radioStatus">Radio: Antilles Kompa Gold</p>
-</div>
 <p class="note">Haitian catering for events, over a minimum of 5 people. Serving Miami &amp; Broward, FL. Build your request below — Shelby confirms the price and availability herself. Nothing is charged on this page.</p>
 
 <div class="steps">
@@ -156,6 +142,20 @@
 <div id="dishes"></div>
 <p id="dishErr" class="err"></p>
 
+<div class="radio">
+  <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
+  <div class="radiorow">
+    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Radio Paradise Rock Mix — California online</option><option value="7">Mouv' — Urban Hits Paris — Paris, France</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">France Musique — Classical & Jazz — Paris, France</option><option value="13">Ambient Sleeping Pill — Online</option><option value="14">France Culture — Calm Voices — Paris, France</option><option value="15">Radio Paradise — Eclectic Mix — California online</option><option value="16">FIP — Paris Lounge & Eclectic — Paris, France</option><option value="17">Nightride FM — Night Drive — Online</option><option value="18">Radio Paradise World Mix — California online</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Radio Paradise Mellow Mix — California online</option></select>
+    <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
+  </div>
+  <div class="eq"><canvas id="waveCanvas" aria-hidden="true"></canvas></div>
+  <div class="soundbar">
+    <label for="volRange">Sound</label>
+    <input type="range" id="volRange" min="0" max="100" value="100" step="1" aria-label="Radio volume">
+  </div>
+  <audio id="radioAudio" preload="auto" autoplay playsinline src="https://antillesmedia.pro-fhi.net/antillesmediakompa"></audio>
+  <p class="radiostatus" id="radioStatus">Radio: Antilles Kompa Gold</p>
+</div>
 <h2>3. Add a bottle to go</h2>
 <div class="addon">
   <div class="grow"><strong>Shelby's Cremas</strong> — $30 a bottle (from her shop)</div>
@@ -445,11 +445,12 @@ auto();})();
 
 <script>
 (function(){
-  var timer = null, idleTimer = null, started = false, dir = 1;
+  var timer = null, idleTimer = null, started = false, dir = 1, holdUntil = 0;
   function atBottom(){ return (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 4); }
   function step(){ /* bounce: drift down the page, and at the bottom turn and drift back up, ticker-smooth */
-    if (dir === 1 && atBottom()) dir = -1;
-    if (dir === -1 && window.scrollY <= 0) dir = 1;
+    if (holdUntil && Date.now() < holdUntil) return;
+    if (dir === 1 && atBottom()) { dir = -1; holdUntil = Date.now() + 4000; return; }
+    if (dir === -1 && window.scrollY <= 0) { dir = 1; holdUntil = Date.now() + 4000; return; }
     window.scrollBy(0, dir);
   }
   function start(){ if (timer) return; timer = setInterval(step, 40); }
