@@ -194,12 +194,17 @@ DISHES.forEach(function(d, i){
   const c = document.createElement('input');
   c.type = 'checkbox'; c.value = d; c.id = 'dish-' + i;
   l.appendChild(c); l.appendChild(document.createTextNode(' ' + d));
-  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
+  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.id = 'price-' + i; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
   const s = document.createElement('select');
   s.id = 'size-' + i;
   s.setAttribute('aria-label', 'Platter size for ' + d);
   [["Platter Size","Shelby's advice"],["Small platter","Small platter"],["Large platter","Large platter"]].forEach(function(pair){
     const o = document.createElement('option'); o.value = pair[1]; o.textContent = pair[0]; s.appendChild(o);
+  });
+  s.addEventListener('change', function(){
+    const ps = document.getElementById('price-' + i);
+    if (!ps || !PRICES[d]) return;
+    ps.textContent = s.value === 'Large platter' ? ' \u00B7 Large: priced by Shelby' : (PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]);
   });
   row.appendChild(l); row.appendChild(s);
   box.appendChild(row);
@@ -216,7 +221,8 @@ function buildRequest(){
   const picked = [];
   DISHES.forEach(function(d, i){
     if (document.getElementById('dish-' + i).checked) {
-      picked.push(d + ' (' + document.getElementById('size-' + i).value + ')' + (PRICES[d] ? (PRICES[d][1] ? ' (plate $' + PRICES[d][0] + ')' : ' \u2014 $' + PRICES[d][0]) : ''));
+      const szv = document.getElementById('size-' + i).value;
+      picked.push(szv === 'Large platter' && PRICES[d] ? d + ' (Large platter \u2014 priced by Shelby)' : d + ' (' + szv + ')' + (PRICES[d] ? (PRICES[d][1] ? ' (plate $' + PRICES[d][0] + ')' : ' \u2014 $' + PRICES[d][0]) : ''));
     }
   });
   const guests = parseInt(document.getElementById('guests').value, 10);
@@ -238,8 +244,8 @@ function buildRequest(){
   lines.push('Occasion: ' + occasion);
   lines.push('Dishes: ' + picked.join(', '));
   if (cremas > 0) { lines.push("Add Shelby's Cremas: " + cremas + ' × $30 = $' + (cremas * 30) + ' (please confirm availability)'); }
-  let estTotal = 0; DISHES.forEach(function(d2, j){ if (document.getElementById('dish-' + j).checked && PRICES[d2]) estTotal += PRICES[d2][0]; }); estTotal += cremas * 30;
-  if (estTotal > 0) { lines.push('Estimated total: $' + estTotal + ' \u2014 Shelby confirms every order.'); }
+  let estTotal = 0; let anyLarge = false; DISHES.forEach(function(d2, j){ if (document.getElementById('dish-' + j).checked && PRICES[d2]) { if (document.getElementById('size-' + j).value === 'Large platter') { anyLarge = true; } else { estTotal += PRICES[d2][0]; } } }); estTotal += cremas * 30;
+  if (estTotal > 0) { lines.push('Estimated total: $' + estTotal + (anyLarge ? ' + large platters priced by Shelby' : '') + ' \u2014 Shelby confirms every order.'); }
   lines.push('Guests: ' + guests);
   lines.push('Date: ' + (date || 'not set yet'));
   lines.push('Name: ' + (name || 'not given'));
