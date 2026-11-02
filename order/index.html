@@ -88,6 +88,10 @@
 
   .slides{position:relative;height:190px}
   .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.8s ease-in-out}
+  .footmirror{margin:1rem 0 0}
+  .footslides{position:relative;height:190px}
+  .footslides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.8s ease-in-out}
+  .footslides img.on{opacity:1}
   .slides img.on{opacity:1}
   .slides .nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;border:2px solid #E8BE5A;background:rgba(90,18,10,.72);color:#F5D67B;font-size:1.55rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
   .slides .nav:active{background:rgba(90,18,10,.95)}
@@ -195,6 +199,15 @@
 </div>
 
 <p class="foot">Shelby's Fine Cuisine · Miami &amp; Broward, FL · (786) 877-7585 · <a href="https://shelbysfinecuisine.com">shelbysfinecuisine.com</a> · Prices are confirmed by Shelby before any order is final — this app asks for a quote, it does not charge anything.</p>
+
+<div class="hero footmirror" aria-hidden="true">
+  <div class="band">
+    <h1>Shelby's Fine Cuisine — Catering Order App</h1>
+    <p class="tagline">Taste So Good!</p>
+    <img class="bandlogo footlogo" alt="">
+  </div>
+  <div class="footslides"></div>
+</div>
 
 <script>
 const DISHES = ["Pate Kode — Supreme","Pate Kode — Chicken & Veggies","Pate Kode — CodFish","Curry Chicken with rice & beans & sweet plantain","Curry Shrimp","Griot","Tassot","Chicken strips","Coconut seafood soup","Gumbo","Tuna wrap","Chicken wrap","Turkey wrap","Fried chicken","Seafood rice","Alfredo pasta with shrimp","Baked cheese oyster","Lasagna","Steak combo","1/4 rack ribs combo","Fillet of fish combo","Ravioli salad","Bouillon","Thanksgiving Dinner"];
@@ -697,6 +710,29 @@ document.getElementById('cremaVid').addEventListener('ended', function(){
   if (cremaTimer) clearTimeout(cremaTimer);
   cremaTimer = setTimeout(closeCrema, 5000);
 });
+</script>
+
+<script>
+(function(){
+  var logo = document.querySelector('.bandlogo');
+  var fl = document.querySelector('.footlogo');
+  if (logo && fl) fl.src = logo.src;
+  var top = document.querySelectorAll('.slides img');
+  var box = document.querySelector('.footslides');
+  if (!top.length || !box) return;
+  var idx = 0, imgs = [];
+  top.forEach(function(im, i){
+    var c = document.createElement('img');
+    c.src = im.src; c.alt = '';
+    if (i === 0) c.className = 'on';
+    box.appendChild(c); imgs.push(c);
+  });
+  setInterval(function(){
+    imgs[idx].classList.remove('on');
+    idx = (idx + 1) % imgs.length;
+    imgs[idx].classList.add('on');
+  }, 6000);
+})();
 </script>
 </body>
 </html>
