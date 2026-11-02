@@ -383,7 +383,6 @@ auto();})();
 
 <script>
 (function(){
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var timer = null, idleTimer = null, started = false, dir = 1;
   function atBottom(){ return (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 4); }
   function step(){ /* bounce: drift down the page, and at the bottom turn and drift back up, ticker-smooth */
