@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import { Page } from './types';
 import { useGeminiLive } from './hooks/useGeminiLive';
 import { NavBar } from './components/NavBar';
+import { SHELBY_BADGE } from './components/shelbyBadge';
 import { VoiceIndicator } from './components/VoiceIndicator';
 import { CheckoutPage } from './components/CheckoutPage';
 import { ArcadeRoom, RadioLounge } from './components/ArcadeRoom';
@@ -1277,7 +1278,7 @@ const AppContent: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center">
-                 <button onClick={() => setCurrentPage(Page.HOME)} className="mb-6 hover:opacity-90 transition-opacity"><img src={LOGO_URL} alt="Logo" className="h-24 w-24 rounded-full border-4 border-yellow-400 bg-white object-cover" /></button>
+                 <button onClick={() => setCurrentPage(Page.HOME)} className="mb-6 hover:opacity-90 transition-opacity"><img src={SHELBY_BADGE} alt="Shelby's Fine Cuisine logo" className="h-24 w-24 rounded-full border-4 border-yellow-400 object-cover" /></button>
                 <h3 className="text-2xl font-bold tracking-wide text-white uppercase mb-2 font-serif">SHELBY'S FINE CUISINE</h3>
                 <p className="text-stone-400 text-lg font-bold mb-1">{COMPANY_INFO.address}</p>
                 <p className="text-stone-500 text-base font-bold opacity-60">© 2026 All Rights Reserved.</p>
