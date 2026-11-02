@@ -44,6 +44,13 @@
   .dvallergy{color:#7A1F1F;font-weight:700;margin:.35rem 0 0;text-align:left}
   .dvnote{color:#5A4632;margin:.6rem 0}
   #dvBack{background:#A31F18;color:#fff;border:2px solid #E8BE5A;border-radius:2rem;padding:.6rem 1.5rem;font-size:1.1rem;font-weight:800;cursor:pointer}
+  .fav{display:inline-block;margin-left:.5rem;background:#E8BE5A;color:#7A1F1F;border-radius:1rem;padding:.08rem .6rem;font-size:.92rem;font-weight:800;vertical-align:middle}
+  .pdq{margin:.4rem 0}
+  .pdq .pdlab{font-weight:700;display:block;margin-bottom:.3rem}
+  .pdq label{margin-right:1.2rem}
+  .langbar{display:flex;gap:.5rem;justify-content:center;margin:.7rem 0 .2rem;flex-wrap:wrap}
+  .langbtn{background:#FFF6E9;color:#7A1F1F;border:2px solid #B98A1F;border-radius:1.4rem;padding:.4rem 1rem;font-weight:800;font-size:1rem;cursor:pointer}
+  .langbtn.on{background:#A31F18;color:#fff;border-color:#E8BE5A}
   .seeplate{margin-left:0;align-self:flex-start;background:#FFF6E9;color:#7A1F1F;border:2px solid #B98A1F;border-radius:1.4rem;padding:.42rem .95rem;font-weight:800;font-size:1rem;cursor:pointer;white-space:nowrap}
   .plateprice{color:#7A5A00;font-weight:800;white-space:nowrap}
   .dish:hover{border-left-color:#C0392B;background:#fff7ea}
@@ -131,6 +138,7 @@
   <a class="call" href="tel:+17868777585">Call or text Shelby: <span class="telnum">(786) 877-7585</span></a>
   <a class="mail" href="mailto:shelbysfinecuisine@gmail.com">Email Shelby <span class="mailaddr">shelbysfinecuisine@gmail.com</span></a>
 </div>
+<div class="langbar" role="group" aria-label="Language"><button type="button" class="langbtn on" data-lang="en">English</button><button type="button" class="langbtn" data-lang="ht">Kreyòl</button><button type="button" class="langbtn" data-lang="es">Español</button></div>
 <div class="radio">
   <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
   <div class="radiorow">
@@ -149,17 +157,18 @@
 <p class="note">Haitian catering for events, over a minimum of 5 people. Serving Miami &amp; Broward, FL. Build your request below — Shelby confirms the price and availability herself. Nothing is charged on this page.</p>
 
 <div class="steps">
-  <div><strong>1.</strong> Pick your dishes and a platter size for each.</div>
-  <div><strong>2.</strong> Set your guests and your date.</div>
-  <div><strong>3.</strong> Send the request to Shelby — text, email, or copy it.</div>
+  <div><strong>1.</strong> <span id="step1">Pick your dishes and a platter size for each.</span></div>
+  <div><strong>2.</strong> <span id="step2">Set your guests and your date.</span></div>
+  <div><strong>3.</strong> <span id="step3">Send the request to Shelby — text, email, or copy it.</span></div>
 </div>
 
-<h2>1. Occasion</h2>
-<label><input type="radio" name="occasion" value="Event catering" checked> Event catering</label>
-<label><input type="radio" name="occasion" value="Thanksgiving Dinner"> Thanksgiving Dinner (Nov 26)</label>
+<h2 id="hOccasion">1. Occasion</h2>
+<label><input type="radio" name="occasion" value="Event catering" checked> <span id="occEvent">Event catering</span></label>
+<label><input type="radio" name="occasion" value="Thanksgiving Dinner"> <span id="occThanks">Thanksgiving Dinner (Nov 26)</span></label>
 
-<h2>2. Pick your dishes</h2>
-<p class="note">Her full catering menu. Choose a size per dish — or leave it on Platter Size and Shelby will size it to your guest count.</p>
+<h2 id="hDishes">2. Pick your dishes</h2>
+<p class="note" id="dishNote">Her full catering menu. Choose a size per dish — or leave it on Platter Size and Shelby will size it to your guest count.</p>
+<p class="note" id="allergyLine">Allergy? Every plate page lists what's inside — and tell Shelby in the notes below.</p>
 <div id="dishes"></div>
 <p id="dishErr" class="err"></p>
 
@@ -176,25 +185,27 @@
   </div>
   <p class="radiostatus" id="radioStatus2">Radio: Antilles Kompa Gold</p>
 </div>
-<h2>3. Add a bottle to go</h2>
+<h2 id="hAddon">3. Add a bottle to go</h2>
 <div class="addon">
   <div class="grow"><strong>Shelby's Cremas</strong> — $30 a bottle (from her shop)</div>
   <button type="button" class="seeplate" id="cremaSee">See it</button>
   <label style="margin:0">Qty <input type="number" id="cremasQty" min="0" max="24" value="0"></label>
 </div>
 
-<h2>4. How many guests?</h2>
-<label>Guests (over a minimum of 5)
+<h2 id="hGuests">4. How many guests?</h2>
+<label id="guestsLab">Guests (over a minimum of 5)
   <input type="number" id="guests" min="5" value="10">
 </label>
 <p id="guestErr" class="err"></p>
 
-<h2>5. Event date &amp; contact</h2>
-<label>Event date <input type="date" id="date"></label>
+<h2 id="hContact">5. Event date &amp; contact</h2>
+<label id="dateLab">Event date <input type="date" id="date"></label>
 <p id="dateErr" class="err"></p>
-<label>Name <input type="text" id="name" placeholder="Your name"></label>
-<label>Phone or email <input type="text" id="contact" placeholder="How Shelby can reach you"></label>
-<label>Notes for Shelby (timing, address, allergies — anything she should know)
+<div class="pdq"><span class="pdlab" id="pdLabel">Pickup or delivery?</span><label><input type="radio" name="pickupDelivery" value="Pickup" checked> <span id="pdPickup">Pickup</span></label><label><input type="radio" name="pickupDelivery" value="Delivery"> <span id="pdDelivery">Delivery</span></label></div>
+<label id="timeLab">Time <input type="time" id="eventTime"></label>
+<label id="nameLab">Name <input type="text" id="name" placeholder="Your name"></label>
+<label id="contactLab">Phone or email <input type="text" id="contact" placeholder="How Shelby can reach you"></label>
+<label id="notesLab">Notes for Shelby (timing, address, allergies — anything she should know)
   <textarea id="notes" rows="3" placeholder="Optional"></textarea>
 </label>
 
@@ -203,12 +214,12 @@
 
 <div id="summary" hidden></div>
 <div id="copyBox" hidden>
-  <h2>Send your request to Shelby</h2>
+  <h2 id="hSend">Send your request to Shelby</h2>
   <div class="sendrow">
     <a id="smsLink" href="#">Text it to Shelby</a>
     <a id="mailLink" class="mail" href="#">Email it to Shelby</a>
   </div>
-  <p class="note">Or copy the request and paste it wherever you like. Nothing is sent until you tap one of these.</p>
+  <p class="note" id="copyNote">Or copy the request and paste it wherever you like. Nothing is sent until you tap one of these.</p>
   <textarea id="requestText" rows="11" readonly></textarea>
   <p><button id="copyBtn" type="button">Copy request text</button></p>
   <p id="copyMsg"></p>
@@ -226,6 +237,50 @@
 </div>
 
 <script>
+const STR = {"en": {"step1": "Pick your dishes and a platter size for each.", "step2": "Set your guests and your date.", "step3": "Send the request to Shelby — text, email, or copy it.", "hOccasion": "1. Occasion", "occEvent": "Event catering", "occThanks": "Thanksgiving Dinner (Nov 26)", "hDishes": "2. Pick your dishes", "dishNote": "Her full catering menu. Choose a size per dish — or leave it on Platter Size and Shelby will size it to your guest count.", "allergyLine": "Allergy? Every plate page lists what's inside — and tell Shelby in the notes below.", "hAddon": "3. Add a bottle to go", "cremaLineTail": " — $30 a bottle (from her shop)", "cremaSee": "See it", "cremaQty": "Qty", "hGuests": "4. How many guests?", "guestsLab": "Guests (over a minimum of 5)", "hContact": "5. Event date & contact", "dateLab": "Event date", "pdLabel": "Pickup or delivery?", "pdPickup": "Pickup", "pdDelivery": "Delivery", "timeLab": "Time", "nameLab": "Name", "contactLab": "Phone or email", "contactPh": "How Shelby can reach you", "notesLab": "Notes for Shelby (timing, address, allergies — anything she should know)", "notesPh": "Optional", "review": "Review my request", "startOver": "Start over", "hSend": "Send your request to Shelby", "smsSend": "Text it to Shelby", "mailSend": "Email it to Shelby", "copyNote": "Or copy the request and paste it wherever you like. Nothing is sent until you tap one of these.", "copyBtn": "Copy request text", "radioLabel": "Shelby's Radio — music while you order", "soundLab": "Sound", "playWord": "Play", "pauseWord": "Pause", "seePlate": "See plate", "sizeDefault": "Platter Size", "sizeSmall": "Small platter", "sizeLarge": "Large platter", "pricePlate": " · plate $", "priceLarge": " · Large: priced by Shelby", "backOrder": "Back to my order", "whatsInside": "What's inside: ", "allergyPrefix": "Allergy note: may contain ", "allergySuffix": ". Tell Shelby about any allergy — she confirms every dish.", "dvNote": "This view returns to your order by itself in 15 seconds.", "cremaTag": "Rich, Creamy, Delicious — $30 a bottle, from her shop.", "cremaInside": "What's inside: Shelby's Haitian cremas — a creamy rum liqueur, made her way.", "cremaAllergy": "Allergy note: contains rum (alcohol) and dairy. Adults only.", "cremaNote": "The film plays to its end, rests 5 seconds, then returns to your order.", "errDish": "Pick at least one dish.", "errGuests": "Catering is over a minimum of 5 guests.", "errDate": "That date has already passed — pick a future event date.", "callShelby": "Call or text Shelby:", "emailShelby": "Email Shelby", "footLine": "Shelby's Fine Cuisine · Miami & Broward, FL · (786) 877-7585 · <a href=\"https://shelbysfinecuisine.com\">shelbysfinecuisine.com</a> · Prices are confirmed by Shelby before any order is final — this app asks for a quote, it does not charge anything."}, "ht": {"step1": "Chwazi plat ou yo ak yon gwosè plat pou chak.", "step2": "Mete kantite envite ou yo ak dat ou a.", "step3": "Voye demann nan bay Shelby — tèks, imèl, oswa kopye l.", "hOccasion": "1. Okazyon", "occEvent": "Katerin pou evènman", "occThanks": "Dine Jou Aksyondegras (26 nov)", "hDishes": "2. Chwazi plat ou yo", "dishNote": "Tout meni katerin li a. Chwazi yon gwosè pou chak plat — oswa kite l sou Gwosè Plat epi Shelby a mete kantite a selon envite ou yo.", "allergyLine": "Alèji? Chak paj plat di sa ki ladan l — epi di Shelby sa nan nòt anba a.", "hAddon": "3. Ajoute yon boutèy pou ale", "cremaLineTail": " — $30 yon boutèy (nan boutik li a)", "cremaSee": "Gade l", "cremaQty": "Kantite", "hGuests": "4. Konbyen envite?", "guestsLab": "Envite (minimòm 5)", "hContact": "5. Dat evènman an ak kontak", "dateLab": "Dat evènman an", "pdLabel": "Vin chèche oswa livrezon?", "pdPickup": "Vin chèche", "pdDelivery": "Livrezon", "timeLab": "Lè", "nameLab": "Non", "contactLab": "Telefòn oswa imèl", "contactPh": "Kijan Shelby ka jwenn ou", "notesLab": "Nòt pou Shelby (lè, adrès, alèji — tout sa li dwe konnen)", "notesPh": "Si ou vle", "review": "Gade demann mwen an", "startOver": "Rekòmanse", "hSend": "Voye demann ou bay Shelby", "smsSend": "Voye l pa tèks bay Shelby", "mailSend": "Voye l pa imèl bay Shelby", "copyNote": "Oswa kopye demann nan epi kole l kote ou vle. Anyen p ap voye toutan ou pa tape youn ladan yo.", "copyBtn": "Kopye tèks demann nan", "radioLabel": "Radyo Shelby — mizik pandan w ap kòmande", "soundLab": "Son", "playWord": "Jwe", "pauseWord": "Poz", "seePlate": "Gade plat la", "sizeDefault": "Gwosè Plat", "sizeSmall": "Ti plat", "sizeLarge": "Gwo plat", "pricePlate": " · plat $", "priceLarge": " · Gwo: Shelby a bay pri a", "backOrder": "Tounen nan kòmann mwen an", "whatsInside": "Sa ki ladan l: ", "allergyPrefix": "Nòt alèji: ka gen ", "allergySuffix": ". Di Shelby tout alèji ou genyen — li konfime chak plat.", "dvNote": "Paj sa a tounen nan kòmann ou an pou kont li nan 15 segonn.", "cremaTag": "Rich, Creamy, Delicious — $30 yon boutèy, nan boutik li a.", "cremaInside": "Sa ki ladan l: krémas ayisyen Shelby a — yon likè wonm kremye, jan l fè l la.", "cremaAllergy": "Nòt alèji: li gen wonm (alkòl) ak pwodui lèt. Pou granmoun sèlman.", "cremaNote": "Fim nan jwe jis li fini, li poze 5 segonn, apre li tounen nan kòmann ou an.", "errDish": "Chwazi omwen yon plat.", "errGuests": "Katerin se pou plis pase 5 envite.", "errDate": "Dat sa a pase deja — chwazi yon dat evènman nan lavni.", "callShelby": "Rele oswa tèks Shelby:", "emailShelby": "Imèl Shelby", "footLine": "Shelby's Fine Cuisine · Miami ak Broward, FL · (786) 877-7585 · <a href=\"https://shelbysfinecuisine.com\">shelbysfinecuisine.com</a> · Shelby konfime pri yo anvan yon kòmann vin final — aplikasyon sa a mande yon pri, li pa chaje anyen."}, "es": {"step1": "Elige tus platos y un tamaño de bandeja para cada uno.", "step2": "Indica tus invitados y tu fecha.", "step3": "Envía la solicitud a Shelby — por texto, correo, o cópiala.", "hOccasion": "1. Ocasión", "occEvent": "Catering para eventos", "occThanks": "Cena de Acción de Gracias (26 nov)", "hDishes": "2. Elige tus platos", "dishNote": "Su menú completo de catering. Elige un tamaño por plato — o déjalo en Tamaño de Bandeja y Shelby lo ajustará a tus invitados.", "allergyLine": "¿Alergia? Cada página de plato dice lo que lleva — y cuéntaselo a Shelby en las notas de abajo.", "hAddon": "3. Agrega una botella para llevar", "cremaLineTail": " — $30 la botella (de su tienda)", "cremaSee": "Verlo", "cremaQty": "Cant.", "hGuests": "4. ¿Cuántos invitados?", "guestsLab": "Invitados (mínimo 5)", "hContact": "5. Fecha del evento y contacto", "dateLab": "Fecha del evento", "pdLabel": "¿Recoger o a domicilio?", "pdPickup": "Recoger", "pdDelivery": "A domicilio", "timeLab": "Hora", "nameLab": "Nombre", "contactLab": "Teléfono o correo", "contactPh": "Cómo puede Shelby contactarte", "notesLab": "Notas para Shelby (hora, dirección, alergias — todo lo que debe saber)", "notesPh": "Opcional", "review": "Revisar mi solicitud", "startOver": "Empezar de nuevo", "hSend": "Envía tu solicitud a Shelby", "smsSend": "Enviárselo por texto a Shelby", "mailSend": "Enviárselo por correo a Shelby", "copyNote": "O copia la solicitud y pégala donde quieras. Nada se envía hasta que toques una de estas opciones.", "copyBtn": "Copiar el texto", "radioLabel": "Radio de Shelby — música mientras pides", "soundLab": "Sonido", "playWord": "Reproducir", "pauseWord": "Pausar", "seePlate": "Ver el plato", "sizeDefault": "Tamaño de Bandeja", "sizeSmall": "Bandeja pequeña", "sizeLarge": "Bandeja grande", "pricePlate": " · plato $", "priceLarge": " · Grande: Shelby pone el precio", "backOrder": "Volver a mi pedido", "whatsInside": "Lo que lleva: ", "allergyPrefix": "Nota de alergia: puede contener ", "allergySuffix": ". Cuéntale a Shelby cualquier alergia — ella confirma cada plato.", "dvNote": "Esta vista vuelve a tu pedido sola en 15 segundos.", "cremaTag": "Rich, Creamy, Delicious — $30 la botella, de su tienda.", "cremaInside": "Lo que lleva: el cremas haitiano de Shelby — un licor de ron cremoso, a su manera.", "cremaAllergy": "Nota de alergia: contiene ron (alcohol) y lácteos. Solo adultos.", "cremaNote": "La película se reproduce hasta el final, descansa 5 segundos y vuelve a tu pedido.", "errDish": "Elige al menos un plato.", "errGuests": "El catering es para más de 5 invitados.", "errDate": "Esa fecha ya pasó — elige una fecha futura.", "callShelby": "Llama o escribe a Shelby:", "emailShelby": "Correo a Shelby", "footLine": "Shelby's Fine Cuisine · Miami y Broward, FL · (786) 877-7585 · <a href=\"https://shelbysfinecuisine.com\">shelbysfinecuisine.com</a> · Shelby confirma los precios antes de que un pedido sea final — esta aplicación pide una cotización, no cobra nada."}};
+let LANG = 'en';
+function T(k){ return (STR[LANG] && STR[LANG][k]) || STR.en[k] || k; }
+window.__btnPlay = function(){ return '&#9654; ' + T('playWord'); };
+window.__btnPause = function(){ return '&#10073;&#10073; ' + T('pauseWord'); };
+function setText(id, txt){ var el = document.getElementById(id); if (el) el.textContent = txt; }
+function setLab(id, txt){ var el = document.getElementById(id); if (!el) return; for (var i = 0; i < el.childNodes.length; i++) { var n = el.childNodes[i]; if (n.nodeType === 3 && n.textContent.trim()) { n.textContent = txt + ' '; return; } } }
+function setLabNode(el, txt){ if (!el) return; for (var i = 0; i < el.childNodes.length; i++) { var n = el.childNodes[i]; if (n.nodeType === 3 && n.textContent.trim()) { n.textContent = txt; return; } } }
+function applyLang(code){
+  if (!STR[code]) code = 'en';
+  LANG = code;
+  try { localStorage.setItem('sfc-lang', code); } catch(e) {}
+  ['step1','step2','step3','hOccasion','occEvent','occThanks','hDishes','dishNote','allergyLine','hAddon','cremaSee','hGuests','hContact','pdLabel','pdPickup','pdDelivery','hSend','copyNote','cremaNote','cremaAllergy','cremaTag','cremaInside','dvNote'].forEach(function(id){ setText(id, T(id)); });
+  setText('reviewBtn', T('review')); setText('resetBtn', T('startOver'));
+  setText('smsLink', T('smsSend')); setText('mailLink', T('mailSend')); setText('copyBtn', T('copyBtn'));
+  setText('dvBack', T('backOrder')); setText('cremaBack', T('backOrder'));
+  ['guestsLab','dateLab','timeLab','nameLab','contactLab','notesLab'].forEach(function(id){ setLab(id, T(id)); });
+  var grow = document.querySelector('.addon .grow');
+  if (grow) { for (var i = 0; i < grow.childNodes.length; i++) { var gn = grow.childNodes[i]; if (gn.nodeType === 3 && gn.textContent.trim()) gn.textContent = T('cremaLineTail'); } }
+  var ql = document.querySelector('.addon label');
+  if (ql) { for (var j = 0; j < ql.childNodes.length; j++) { var qn = ql.childNodes[j]; if (qn.nodeType === 3 && qn.textContent.trim()) qn.textContent = T('cremaQty') + ' '; } }
+  document.querySelectorAll('label[for="stationSel"], label[for="stationSel2"]').forEach(function(l){ l.textContent = T('radioLabel'); });
+  document.querySelectorAll('label[for="volRange"], label[for="volRange2"]').forEach(function(l){ l.textContent = T('soundLab'); });
+  setLabNode(document.querySelector('.callbar .call'), T('callShelby'));
+  setLabNode(document.querySelector('.callbar .mail'), T('emailShelby'));
+  var ct = document.getElementById('contact'); if (ct) ct.placeholder = T('contactPh');
+  var nt = document.getElementById('notes'); if (nt) nt.placeholder = T('notesPh');
+  var ft = document.querySelector('.foot'); if (ft) ft.innerHTML = T('footLine');
+  document.querySelectorAll('select[id^="size-"]').forEach(function(sel){ if (sel.options.length === 3) { sel.options[0].textContent = T('sizeDefault'); sel.options[1].textContent = T('sizeSmall'); sel.options[2].textContent = T('sizeLarge'); } });
+  document.querySelectorAll('.seeplate').forEach(function(b){ if (b.id !== 'cremaSee') b.textContent = T('seePlate'); });
+  document.querySelectorAll('.fav').forEach(function(f){ f.textContent = T('fav'); });
+  if (typeof DISHES !== 'undefined' && typeof PRICES !== 'undefined') { DISHES.forEach(function(d, i){ var ps = document.getElementById('price-' + i); var sel = document.getElementById('size-' + i); if (!ps || !sel || !PRICES[d]) return; if (sel.value === 'Large platter') ps.textContent = T('priceLarge'); else if (sel.value === 'Small platter') ps.textContent = PRICES[d][1] ? T('pricePlate') + PRICES[d][0] : ' · $' + PRICES[d][0]; }); }
+  var au = document.getElementById('radioAudio');
+  ['radioBtn','radioBtn2'].forEach(function(id){ var b = document.getElementById(id); if (b && au) b.innerHTML = au.paused ? window.__btnPlay() : window.__btnPause(); });
+  document.querySelectorAll('.langbtn').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang') === code); });
+}
+window.addEventListener('load', function(){
+  document.querySelectorAll('.langbtn').forEach(function(b){ b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); }); });
+  var saved = 'en'; try { saved = localStorage.getItem('sfc-lang') || 'en'; } catch(e) {}
+  if (saved !== 'en') applyLang(saved);
+});
+
+</script>
+<script>
 const DISHES = ["Pate Kode — Supreme","Pate Kode — Chicken & Veggies","Pate Kode — CodFish","Curry Chicken with rice & beans & sweet plantain","Curry Shrimp","Griot","Tassot","Chicken strips","Coconut seafood soup","Gumbo","Tuna wrap","Chicken wrap","Turkey wrap","Fried chicken","Seafood rice","Alfredo pasta with shrimp","Baked cheese oyster","Lasagna","Steak combo","1/4 rack ribs combo","Fillet of fish combo","Ravioli salad","Bouillon","Thanksgiving Dinner"];
 const DISHDESC = {"Curry Chicken with rice & beans & sweet plantain": "Catering trays from $75 \u2014 golden curry, with ginger and turmeric warm in every bite.", "Curry Shrimp": "Catering trays from $85 \u2014 shrimp slicked in curry with garlic, thyme, and a squeeze of lime.", "Griot": "Pork shoulder, marinated deep, boiled tender, then fried to a crisp \u2014 pikliz heat on the side.", "Tassot": "Goat, seasoned and fried the Haitian way \u2014 crisp edges, rich and peppery. Trays from $120.", "Chicken strips": "Golden, crunchy strips with Shelby's seasoning in every bite.", "Coconut seafood soup": "Mussels, scallops, shrimp, and crawfish swimming in coconut milk \u2014 warm, rich, a little sweet.", "Gumbo": "Blue crab and seafood in a dark, peppery gumbo with okra \u2014 deep Creole flavor, Shelby style.", "Tuna wrap": "Cool, fresh tuna wraps \u2014 light, bright, and seasoned her way.", "Turkey wrap": "Fresh turkey wraps \u2014 simple, clean, satisfying.", "Fried chicken": "Spicy fried chicken \u2014 shattering crisp outside, juicy and hot inside.", "Seafood rice": "Golden curry rice loaded with shrimp, mussels, and crawfish \u2014 the crawfish riding on top.", "Alfredo pasta with shrimp": "Silky cream sauce, plump shrimp, pasta that twirls \u2014 the famous first bite says it all.", "Baked cheese oyster": "Oysters under a blanket of melted cheese and parsley butter, with a whisper of hot sauce.", "Lasagna": "Layers of chicken, spinach, and sauce, baked until the top goes golden and bubbly.", "Steak combo": "A full steak combo plate \u2014 grilled, seasoned, and piled like catering should be.", "1/4 rack ribs combo": "Quarter rack ribs, saucy and tender, with the full combo plate around it.", "Fillet of fish combo": "Golden fillet of fish, crisp-edged, with the full combo plate beside it.", "Ravioli salad": "Cool ravioli salad \u2014 fresh, light, and dressed to wake up the table."};
 const DISHIMG = {"Curry Chicken with rice & beans & sweet plantain": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png?fit=466%2C679&ssl=1", "Curry Shrimp": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png?fit=618%2C673&ssl=1", "Griot": "https://i.ytimg.com/vi/XN8l8SiiF00/hqdefault.jpg", "Tassot": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png?fit=726%2C669&ssl=1", "Chicken strips": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png?fit=615%2C683&ssl=1", "Coconut seafood soup": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", "Gumbo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", "Tuna wrap": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png?fit=619%2C690&ssl=1", "Turkey wrap": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png?fit=617%2C686&ssl=1", "Fried chicken": "https://i.ytimg.com/vi/Jxlm39XwYHA/hqdefault.jpg", "Seafood rice": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", "Alfredo pasta with shrimp": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png?fit=577%2C620&ssl=1", "Baked cheese oyster": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png?fit=631%2C674&ssl=1", "Lasagna": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png?fit=614%2C707&ssl=1", "Steak combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png?fit=586%2C633&ssl=1", "1/4 rack ribs combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png?fit=618%2C676&ssl=1", "Fillet of fish combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png?fit=610%2C680&ssl=1", "Ravioli salad": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png?fit=605%2C680&ssl=1"};
@@ -240,7 +295,8 @@ DISHES.forEach(function(d, i){
   const c = document.createElement('input');
   c.type = 'checkbox'; c.value = d; c.id = 'dish-' + i;
   l.appendChild(c); l.appendChild(document.createTextNode(' ' + d));
-  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.id = 'price-' + i; ps.style.display = 'none'; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
+  if (d.indexOf('Pate Kode') === 0) { const fv = document.createElement('span'); fv.className = 'fav'; fv.textContent = T('fav'); l.appendChild(fv); }
+  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.id = 'price-' + i; ps.style.display = 'none'; ps.textContent = PRICES[d][1] ? T('pricePlate') + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
   const s = document.createElement('select');
   s.id = 'size-' + i;
   s.setAttribute('aria-label', 'Platter size for ' + d);
@@ -250,8 +306,8 @@ DISHES.forEach(function(d, i){
   s.addEventListener('change', function(){
     const ps = document.getElementById('price-' + i);
     if (!ps || !PRICES[d]) return;
-    if (s.value === 'Large platter') { ps.style.display = ''; ps.textContent = ' \u00B7 Large: priced by Shelby'; }
-    else if (s.value === 'Small platter') { ps.style.display = ''; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; }
+    if (s.value === 'Large platter') { ps.style.display = ''; ps.textContent = T('priceLarge'); }
+    else if (s.value === 'Small platter') { ps.style.display = ''; ps.textContent = PRICES[d][1] ? T('pricePlate') + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; }
     else { ps.style.display = 'none'; }
   });
   const top = document.createElement('div'); top.className = 'dtop';
@@ -274,14 +330,14 @@ function openDish(name){
   document.getElementById('dvName').textContent = name;
   document.getElementById('dvImg').src = DISHIMG[name];
   const desc = DISHDESC[name] || '';
-  document.getElementById('dvDesc').textContent = desc ? "What's inside: " + desc : '';
+  document.getElementById('dvDesc').textContent = desc ? T('whatsInside') + desc : '';
   const hits = [];
   if (/shrimp|crab|oyster|mussel|scallop|crawfish|lobster|seafood/i.test(desc + ' ' + name)) hits.push('shellfish');
   if (/fish/i.test(desc + ' ' + name) && !/shellfish/i.test(name)) hits.push('fish');
   if (/cheese|cream|butter|milk/i.test(desc)) hits.push('dairy');
   if (/egg/i.test(desc)) hits.push('egg');
   const al = document.getElementById('dvAllergy');
-  al.textContent = hits.length ? 'Allergy note: may contain ' + hits.join(', ') + '. Tell Shelby about any allergy \u2014 she confirms every dish.' : '';
+  al.textContent = hits.length ? T('allergyPrefix') + hits.join(', ') + T('allergySuffix') : '';
   dv.hidden = false;
   document.body.style.overflow = 'hidden';
   if (dvTimer) clearTimeout(dvTimer);
@@ -308,12 +364,12 @@ function buildRequest(){
   const contact = document.getElementById('contact').value.trim();
   const notes = document.getElementById('notes').value.trim();
   const cremas = parseInt(document.getElementById('cremasQty').value, 10) || 0;
-  document.getElementById('dishErr').textContent = picked.length ? '' : 'Pick at least one dish.';
-  document.getElementById('guestErr').textContent = (guests >= 5) ? '' : 'Catering is over a minimum of 5 guests.';
+  document.getElementById('dishErr').textContent = picked.length ? '' : T('errDish');
+  document.getElementById('guestErr').textContent = (guests >= 5) ? '' : T('errGuests');
   const now = new Date();
   const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
   const datePast = date && date < today;
-  document.getElementById('dateErr').textContent = datePast ? 'That date has already passed — pick a future event date.' : '';
+  document.getElementById('dateErr').textContent = datePast ? T('errDate') : '';
   if (!picked.length || !(guests >= 5) || datePast) { return null; }
   const lines = [];
   lines.push("Shelby's Fine Cuisine — catering quote request");
@@ -324,6 +380,9 @@ function buildRequest(){
   if (estTotal > 0) { lines.push('Estimated total: $' + estTotal + (anyLarge ? ' + large platters priced by Shelby' : '') + ' \u2014 Shelby confirms every order.'); }
   lines.push('Guests: ' + guests);
   lines.push('Date: ' + (date || 'not set yet'));
+  const pdv = document.querySelector('input[name=pickupDelivery]:checked').value;
+  const etv = document.getElementById('eventTime').value;
+  lines.push('Pickup or delivery: ' + pdv + (etv ? ' at ' + etv : ''));
   lines.push('Name: ' + (name || 'not given'));
   lines.push('Contact: ' + (contact || 'not given'));
   if (notes) { lines.push('Notes: ' + notes); }
@@ -455,7 +514,7 @@ auto();})();
     }
   }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 9000); }
-  audio.addEventListener('playing', function(){ clearTimeout(stallTimer); startIntro(); heard = true; retried = false; document.querySelectorAll('.radio').forEach(function(r){ r.classList.add('onair'); }); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; if (btn2) btn2.innerHTML = '&#10073;&#10073; Pause'; setStatus('Now playing: ' + stationName()); });
+  audio.addEventListener('playing', function(){ clearTimeout(stallTimer); startIntro(); heard = true; retried = false; document.querySelectorAll('.radio').forEach(function(r){ r.classList.add('onair'); }); clearTimeout(failTimer); btn.innerHTML = window.__btnPause(); if (btn2) btn2.innerHTML = window.__btnPause(); setStatus('Now playing: ' + stationName()); });
   audio.addEventListener('error', function(){ document.querySelectorAll('.radio').forEach(function(r){ r.classList.remove('onair'); }); fallback(); }, true);
   var stallTimer = null;
   audio.addEventListener('stalled', function(){
@@ -466,7 +525,7 @@ auto();})();
       heard = false; retried = false; fallback();
     }, 10000);
   });
-  audio.addEventListener('pause', function(){ document.querySelectorAll('.radio').forEach(function(r){ r.classList.remove('onair'); }); btn.innerHTML = '&#9654; Play'; if (btn2) btn2.innerHTML = '&#9654; Play'; });
+  audio.addEventListener('pause', function(){ document.querySelectorAll('.radio').forEach(function(r){ r.classList.remove('onair'); }); btn.innerHTML = window.__btnPlay(); if (btn2) btn2.innerHTML = window.__btnPlay(); });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   if (btn2) btn2.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   sel.addEventListener('change', function(){ if (sel2) sel2.value = sel.value; userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
@@ -699,7 +758,7 @@ auto();})();
     <img id="dvImg" alt="The dish, as Shelby serves it">
     <p id="dvDesc" class="dvdesc"></p>
     <p id="dvAllergy" class="dvallergy"></p>
-    <p class="dvnote">This view returns to your order by itself in 15 seconds.</p>
+    <p class="dvnote" id="dvNote">This view returns to your order by itself in 15 seconds.</p>
     <button type="button" id="dvBack">Back to my order</button>
   </div>
 </div>
@@ -712,9 +771,9 @@ document.getElementById('dishView').addEventListener('click', function(e){ if (e
   <div class="dvcard">
     <h2>Shelby's Cremas — Crémas C'est Bon</h2>
     <video id="cremaVid" src="https://raw.githubusercontent.com/askmorpheus247-cmd/Shelby-world/5a25ab326b0267b5ce6b8eee09f31c4b1ebd27d0/crema%20ce%20bon%20video.mp4" playsinline preload="auto"></video>
-    <p class="dvdesc">Rich, Creamy, Delicious — $30 a bottle, from her shop.</p>
-    <p class="dvdesc">What's inside: Shelby's Haitian cremas — a creamy rum liqueur, made her way.</p>
-    <p class="dvallergy">Allergy note: contains rum (alcohol) and dairy. Adults only.</p>
+    <p class="dvdesc" id="cremaTag">Rich, Creamy, Delicious — $30 a bottle, from her shop.</p>
+    <p class="dvdesc" id="cremaInside">What's inside: Shelby's Haitian cremas — a creamy rum liqueur, made her way.</p>
+    <p class="dvallergy" id="cremaAllergy">Allergy note: contains rum (alcohol) and dairy. Adults only.</p>
     <p class="dvnote" id="cremaNote">The film plays to its end, rests 5 seconds, then returns to your order.</p>
     <button type="button" id="cremaBack">Back to my order</button>
   </div>
