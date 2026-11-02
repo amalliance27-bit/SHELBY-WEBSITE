@@ -354,8 +354,13 @@ auto();})();
       retried = true;
       statusEl.textContent = stationName() + ' is slow to answer \u2014 reloading it. Your pick stays.';
       setStation(); tryPlay(); armFailCheck();
+    } else if (Number(sel.value) !== 0) {
+      var dead = stationName();
+      sel.value = '0'; retried = false; heard = false;
+      setStation(); tryPlay(); armFailCheck();
+      statusEl.textContent = dead + ' is down right now \u2014 playing Antilles Kompa Gold instead.';
     } else {
-      statusEl.textContent = stationName() + ' is not answering right now \u2014 your pick stays. Tap another station when ready.';
+      statusEl.textContent = stationName() + ' is not answering right now. Tap Play to try again.';
     }
   }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 9000); }
