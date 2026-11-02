@@ -194,7 +194,7 @@ DISHES.forEach(function(d, i){
   const c = document.createElement('input');
   c.type = 'checkbox'; c.value = d; c.id = 'dish-' + i;
   l.appendChild(c); l.appendChild(document.createTextNode(' ' + d));
-  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.id = 'price-' + i; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
+  if (PRICES[d]) { const ps = document.createElement('span'); ps.className = 'plateprice'; ps.id = 'price-' + i; ps.style.display = 'none'; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; l.appendChild(ps); }
   const s = document.createElement('select');
   s.id = 'size-' + i;
   s.setAttribute('aria-label', 'Platter size for ' + d);
@@ -204,7 +204,9 @@ DISHES.forEach(function(d, i){
   s.addEventListener('change', function(){
     const ps = document.getElementById('price-' + i);
     if (!ps || !PRICES[d]) return;
-    ps.textContent = s.value === 'Large platter' ? ' \u00B7 Large: priced by Shelby' : (PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]);
+    if (s.value === 'Large platter') { ps.style.display = ''; ps.textContent = ' \u00B7 Large: priced by Shelby'; }
+    else if (s.value === 'Small platter') { ps.style.display = ''; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; }
+    else { ps.style.display = 'none'; }
   });
   row.appendChild(l); row.appendChild(s);
   box.appendChild(row);
