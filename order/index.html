@@ -81,6 +81,7 @@
 
   .eq{height:48px;margin:.55rem 0 .15rem;padding:.3rem .5rem;background:#0a1428;border:1px solid #E8BE5A;border-radius:.55rem;overflow:hidden}
   #waveCanvas{display:block;width:100%;height:100%}
+  #waveCanvas2{display:block;width:100%;height:100%}
   @media (prefers-reduced-motion: reduce){ .radio.onair .eq i{animation:none;transform:scaleY(.6)} }
   .soundbar{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
   .soundbar label{font-weight:700;margin:0}
@@ -129,6 +130,21 @@
   <a class="call" href="tel:+17868777585">Call or text Shelby: <span class="telnum">(786) 877-7585</span></a>
   <a class="mail" href="mailto:shelbysfinecuisine@gmail.com">Email Shelby <span class="mailaddr">shelbysfinecuisine@gmail.com</span></a>
 </div>
+<div class="radio">
+  <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
+  <div class="radiorow">
+    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Radio Paradise Rock Mix — California online</option><option value="7">Mouv' — Urban Hits Paris — Paris, France</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">France Musique — Classical & Jazz — Paris, France</option><option value="13">Ambient Sleeping Pill — Online</option><option value="14">France Culture — Calm Voices — Paris, France</option><option value="15">Radio Paradise — Eclectic Mix — California online</option><option value="16">FIP — Paris Lounge & Eclectic — Paris, France</option><option value="17">Nightride FM — Night Drive — Online</option><option value="18">Radio Paradise World Mix — California online</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Radio Paradise Mellow Mix — California online</option></select>
+    <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
+  </div>
+  <div class="eq"><canvas id="waveCanvas" aria-hidden="true"></canvas></div>
+  <div class="soundbar">
+    <label for="volRange">Sound</label>
+    <input type="range" id="volRange" min="0" max="100" value="100" step="1" aria-label="Radio volume">
+  </div>
+  <audio id="radioAudio" preload="auto" autoplay playsinline src="https://antillesmedia.pro-fhi.net/antillesmediakompa"></audio>
+  <p class="radiostatus" id="radioStatus">Radio: Antilles Kompa Gold</p>
+</div>
+
 <p class="note">Haitian catering for events, over a minimum of 5 people. Serving Miami &amp; Broward, FL. Build your request below — Shelby confirms the price and availability herself. Nothing is charged on this page.</p>
 
 <div class="steps">
@@ -147,18 +163,17 @@
 <p id="dishErr" class="err"></p>
 
 <div class="radio">
-  <label for="stationSel">Shelby's Radio &mdash; music while you order</label>
+  <label for="stationSel2">Shelby's Radio &mdash; music while you order</label>
   <div class="radiorow">
-    <select id="stationSel" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Radio Paradise Rock Mix — California online</option><option value="7">Mouv' — Urban Hits Paris — Paris, France</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">France Musique — Classical & Jazz — Paris, France</option><option value="13">Ambient Sleeping Pill — Online</option><option value="14">France Culture — Calm Voices — Paris, France</option><option value="15">Radio Paradise — Eclectic Mix — California online</option><option value="16">FIP — Paris Lounge & Eclectic — Paris, France</option><option value="17">Nightride FM — Night Drive — Online</option><option value="18">Radio Paradise World Mix — California online</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Radio Paradise Mellow Mix — California online</option></select>
-    <button type="button" id="radioBtn">&#10073;&#10073; Pause</button>
+    <select id="stationSel2" aria-label="Radio station"><option value="0">Antilles Kompa Gold &mdash; French Antilles</option><option value="1">JOY FM & Gospel Praise Radio &mdash; Houston, Texas</option><option value="2">K-LOVE 89.7 FM (WMLV South Florida) &mdash; Miami, Florida</option><option value="3">JOY FM Florida &mdash; Sarasota, Florida</option><option value="4">WHUR 96.3 FM &mdash; Washington, DC</option><option value="5">FlavorJamz Caribbean &mdash; Caribbean online</option><option value="6">Radio Paradise Rock Mix — California online</option><option value="7">Mouv' — Urban Hits Paris — Paris, France</option><option value="8">El Nuevo Zol 106.7 &mdash; Miami, Florida</option><option value="9">Z92 — Salsa & Merengue Miami &mdash; Miami, Florida</option><option value="10">100 Hip Hop and RNB FM &mdash; Florida online</option><option value="11">Classical WQXR &mdash; New York City</option><option value="12">France Musique — Classical & Jazz — Paris, France</option><option value="13">Ambient Sleeping Pill — Online</option><option value="14">France Culture — Calm Voices — Paris, France</option><option value="15">Radio Paradise — Eclectic Mix — California online</option><option value="16">FIP — Paris Lounge & Eclectic — Paris, France</option><option value="17">Nightride FM — Night Drive — Online</option><option value="18">Radio Paradise World Mix — California online</option><option value="19">Peaceful Nature & Rain &mdash; Online</option><option value="20">Radio Paradise Mellow Mix — California online</option></select>
+    <button type="button" id="radioBtn2">&#10073;&#10073; Pause</button>
   </div>
-  <div class="eq"><canvas id="waveCanvas" aria-hidden="true"></canvas></div>
+  <div class="eq"><canvas id="waveCanvas2" aria-hidden="true"></canvas></div>
   <div class="soundbar">
-    <label for="volRange">Sound</label>
-    <input type="range" id="volRange" min="0" max="100" value="100" step="1" aria-label="Radio volume">
+    <label for="volRange2">Sound</label>
+    <input type="range" id="volRange2" min="0" max="100" value="100" step="1" aria-label="Radio volume">
   </div>
-  <audio id="radioAudio" preload="auto" autoplay playsinline src="https://antillesmedia.pro-fhi.net/antillesmediakompa"></audio>
-  <p class="radiostatus" id="radioStatus">Radio: Antilles Kompa Gold</p>
+  <p class="radiostatus" id="radioStatus2">Radio: Antilles Kompa Gold</p>
 </div>
 <h2>3. Add a bottle to go</h2>
 <div class="addon">
@@ -201,12 +216,12 @@
 <p class="foot">Shelby's Fine Cuisine · Miami &amp; Broward, FL · (786) 877-7585 · <a href="https://shelbysfinecuisine.com">shelbysfinecuisine.com</a> · Prices are confirmed by Shelby before any order is final — this app asks for a quote, it does not charge anything.</p>
 
 <div class="hero footmirror" aria-hidden="true">
+  <div class="footslides"></div>
   <div class="band">
     <h1>Shelby's Fine Cuisine — Catering Order App</h1>
     <p class="tagline">Taste So Good!</p>
     <img class="bandlogo footlogo" alt="">
   </div>
-  <div class="footslides"></div>
 </div>
 
 <script>
@@ -387,6 +402,8 @@ auto();})();
 (function(){
   var STATIONS = [{"name": "Antilles Kompa Gold", "url": "https://antillesmedia.pro-fhi.net/antillesmediakompa"}, {"name": "JOY FM & Gospel Praise Radio", "url": "https://ais-sa8.cdnstream1.com/3328_64/KSBJ.aac"}, {"name": "K-LOVE 89.7 FM (WMLV South Florida)", "url": "https://rtn.cdnstream1.com/2580_96.aac"}, {"name": "JOY FM Florida", "url": "https://rtn.cdnstream1.com/2580_96.aac"}, {"name": "WHUR 96.3 FM", "url": "https://ais-sa1.streamon.fm/7028_48k.aac"}, {"name": "FlavorJamz Caribbean", "url": "https://stream.flavorjamz.com/stream.mp3"}, {"name": "Radio Paradise Rock Mix", "url": "https://stream.radioparadise.com/rock-192"}, {"name": "Mouv' \u2014 Urban Hits Paris", "url": "https://icecast.radiofrance.fr/mouv-midfi.mp3"}, {"name": "El Nuevo Zol 106.7", "url": "https://liveaudio.lamusica.com/MIA_WXDJ_icy"}, {"name": "Z92 \u2014 Salsa & Merengue Miami", "url": "https://liveaudio.lamusica.com/MIA_WCMQ_icy"}, {"name": "100 Hip Hop and RNB FM", "url": "https://streaming.shoutcast.com/100-hip-hop-and-rnb-fm"}, {"name": "Classical WQXR", "url": "https://stream.wqxr.org/wqxr"}, {"name": "France Musique \u2014 Classical & Jazz", "url": "https://icecast.radiofrance.fr/francemusique-midfi.mp3"}, {"name": "Ambient Sleeping Pill", "url": "https://radio.stereoscenic.com/asp-h"}, {"name": "France Culture \u2014 Calm Voices", "url": "https://icecast.radiofrance.fr/franceculture-midfi.mp3"}, {"name": "Radio Paradise \u2014 Eclectic Mix", "url": "https://stream.radioparadise.com/mp3-192"}, {"name": "FIP \u2014 Paris Lounge & Eclectic", "url": "https://icecast.radiofrance.fr/fip-midfi.mp3"}, {"name": "Nightride FM \u2014 Night Drive", "url": "https://stream.nightride.fm/nightride.mp3"}, {"name": "Radio Paradise World Mix", "url": "https://stream.radioparadise.com/world-192"}, {"name": "Peaceful Nature & Rain", "url": "https://az1.mediacp.eu/listen/natureradiosleep/radio.mp3"}, {"name": "Radio Paradise Mellow Mix", "url": "https://stream.radioparadise.com/mellow-192"}];
   var sel = document.getElementById('stationSel');
+  var sel2 = document.getElementById('stationSel2');
+  var btn2 = document.getElementById('radioBtn2');
   var btn = document.getElementById('radioBtn');
   var audio = document.getElementById('radioAudio');
   if (!sel.options.length) { STATIONS.forEach(function(st, i){ var o = document.createElement('option'); o.value = i; o.textContent = st.name; sel.appendChild(o); }); }
@@ -396,8 +413,12 @@ auto();})();
   var playPending = false;
   function tryPlay(){ if (window.__radioHold) return; if (playPending) return; armFailCheck(); setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
   var heard = false, failTimer = null, statusEl = document.getElementById('radioStatus');
+  var status2 = document.getElementById('radioStatus2');
+  function setStatus(t){ statusEl.textContent = t; if (status2) status2.textContent = t; }
   var vol = document.getElementById('volRange');
-  vol.addEventListener('input', function(){ cancelIntro(); audio.volume = Number(vol.value) / 100; if (audio.volume > 0) audio.muted = false; });
+  var vol2 = document.getElementById('volRange2');
+  vol.addEventListener('input', function(){ cancelIntro(); audio.volume = Number(vol.value) / 100; if (vol2) vol2.value = vol.value; if (audio.volume > 0) audio.muted = false; });
+  if (vol2) vol2.addEventListener('input', function(){ cancelIntro(); audio.volume = Number(vol2.value) / 100; vol.value = vol2.value; if (audio.volume > 0) audio.muted = false; });
   function stationName(){ return STATIONS[Number(sel.value)].name; }
   var introTimer = null, introDone = false;
   function cancelIntro(){ if (introTimer) { clearInterval(introTimer); introTimer = null; } }
@@ -419,20 +440,20 @@ auto();})();
     if (heard) return;
     if (!retried) {
       retried = true;
-      statusEl.textContent = stationName() + ' is slow to answer \u2014 reloading it. Your pick stays.';
+      setStatus(stationName() + ' is slow to answer \u2014 reloading it. Your pick stays.');
       setStation(); tryPlay(); armFailCheck();
     } else if (Number(sel.value) !== 0) {
       var dead = stationName();
-      sel.value = '0'; retried = false; heard = false;
+      sel.value = '0'; if (sel2) sel2.value = '0'; retried = false; heard = false;
       setStation(); tryPlay(); armFailCheck();
-      statusEl.textContent = dead + ' is down right now \u2014 playing Antilles Kompa Gold instead.';
+      setStatus(dead + ' is down right now \u2014 playing Antilles Kompa Gold instead.');
     } else {
-      statusEl.textContent = stationName() + ' is not answering right now. Tap Play to try again.';
+      setStatus(stationName() + ' is not answering right now. Tap Play to try again.');
     }
   }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 9000); }
-  audio.addEventListener('playing', function(){ clearTimeout(stallTimer); startIntro(); heard = true; retried = false; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
-  audio.addEventListener('error', function(){ document.querySelector('.radio').classList.remove('onair'); fallback(); }, true);
+  audio.addEventListener('playing', function(){ clearTimeout(stallTimer); startIntro(); heard = true; retried = false; document.querySelectorAll('.radio').forEach(function(r){ r.classList.add('onair'); }); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; if (btn2) btn2.innerHTML = '&#10073;&#10073; Pause'; setStatus('Now playing: ' + stationName()); });
+  audio.addEventListener('error', function(){ document.querySelectorAll('.radio').forEach(function(r){ r.classList.remove('onair'); }); fallback(); }, true);
   var stallTimer = null;
   audio.addEventListener('stalled', function(){
     if (userPaused) return;
@@ -442,9 +463,12 @@ auto();})();
       heard = false; retried = false; fallback();
     }, 10000);
   });
-  audio.addEventListener('pause', function(){ document.querySelector('.radio').classList.remove('onair'); btn.innerHTML = '&#9654; Play'; });
+  audio.addEventListener('pause', function(){ document.querySelectorAll('.radio').forEach(function(r){ r.classList.remove('onair'); }); btn.innerHTML = '&#9654; Play'; if (btn2) btn2.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
-  sel.addEventListener('change', function(){ userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
+  if (btn2) btn2.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
+  sel.addEventListener('change', function(){ if (sel2) sel2.value = sel.value; userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
+  if (sel2) sel2.addEventListener('change', function(){ sel.value = sel2.value; userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
+  if (sel2) sel2.value = sel.value;
   window.__radioHold = true;
   setStation();
   tryPlay();
@@ -555,10 +579,12 @@ auto();})();
   var cv = document.getElementById('waveCanvas');
   if (!audio || !cv) return;
   var g = cv.getContext('2d');
+  var cv2 = document.getElementById('waveCanvas2');
+  var g2 = cv2 ? cv2.getContext('2d') : null;
   var ctx = null, analyser = null, probe = null;
   var freq = new Uint8Array(64);
   var level = 0.16;
-  function size(){ var r = cv.getBoundingClientRect(); var dpr = window.devicePixelRatio || 1; cv.width = Math.max(50, Math.round(r.width * dpr)); cv.height = Math.max(20, Math.round(r.height * dpr)); }
+  function size(){ var r = cv.getBoundingClientRect(); var dpr = window.devicePixelRatio || 1; cv.width = Math.max(50, Math.round(r.width * dpr)); cv.height = Math.max(20, Math.round(r.height * dpr)); if (cv2) { var r2 = cv2.getBoundingClientRect(); cv2.width = Math.max(50, Math.round(r2.width * dpr)); cv2.height = Math.max(20, Math.round(r2.height * dpr)); } }
   size(); window.addEventListener('resize', size);
   function ensureCtx(){
     if (ctx) { if (ctx.resume) ctx.resume(); return true; }
@@ -589,26 +615,30 @@ auto();})();
     }
     level += (target - level) * 0.08;
     var amp = Math.min(1, level / 1.5);
-    g.clearRect(0, 0, w, h);
-    var t = now / 1000;
-    var N = 54, bw = w / N, barW = Math.max(3, bw * 0.6);
-    var rows = 6, segGap = Math.max(2, h * 0.05), segH = (h - segGap * (rows + 1)) / rows;
-    for (var i = 0; i < N; i++) {
-      var pr = i / N;
-      var v = 0.5 + 0.5 * Math.sin(t * 2.1 + i * 0.55) * Math.sin(t * 1.3 + i * 0.21);
-      if (bins) { var bi = Math.floor(Math.pow(pr, 1.4) * 40); v *= 0.3 + (bins[bi] / 255) * 1.4; }
-      v = Math.pow(Math.min(1, v), 1.25);
-      var lit = Math.max(1, Math.round((0.22 + v * (0.3 + amp * 0.85)) * rows));
-      if (lit > rows) lit = rows;
-      var x = i * bw + (bw - barW) / 2;
-      for (var seg = 0; seg < rows; seg++) {
-        var y = h - segGap - (seg + 1) * segH - seg * segGap + segGap;
-        if (seg < lit) { g.fillStyle = SEGC[seg]; g.globalAlpha = 1; }
-        else { g.fillStyle = '#38bdf8'; g.globalAlpha = 0.13; }
-        g.fillRect(x, y, barW, segH);
+    function paint(gg, w2, h2, t){
+      gg.clearRect(0, 0, w2, h2);
+      var N = 54, bw = w2 / N, barW = Math.max(3, bw * 0.6);
+      var rows = 6, segGap = Math.max(2, h2 * 0.05), segH = (h2 - segGap * (rows + 1)) / rows;
+      for (var i = 0; i < N; i++) {
+        var pr = i / N;
+        var v = 0.5 + 0.5 * Math.sin(t * 2.1 + i * 0.55) * Math.sin(t * 1.3 + i * 0.21);
+        if (bins) { var bi = Math.floor(Math.pow(pr, 1.4) * 40); v *= 0.3 + (bins[bi] / 255) * 1.4; }
+        v = Math.pow(Math.min(1, v), 1.25);
+        var lit = Math.max(1, Math.round((0.22 + v * (0.3 + amp * 0.85)) * rows));
+        if (lit > rows) lit = rows;
+        var x = i * bw + (bw - barW) / 2;
+        for (var seg = 0; seg < rows; seg++) {
+          var y = h2 - segGap - (seg + 1) * segH - seg * segGap + segGap;
+          if (seg < lit) { gg.fillStyle = SEGC[seg]; gg.globalAlpha = 1; }
+          else { gg.fillStyle = '#38bdf8'; gg.globalAlpha = 0.13; }
+          gg.fillRect(x, y, barW, segH);
+        }
       }
+      gg.globalAlpha = 1;
     }
-    g.globalAlpha = 1;
+    var t = now / 1000;
+    paint(g, w, h, t);
+    if (g2 && cv2.width) paint(g2, cv2.width, cv2.height, t);
   }
   requestAnimationFrame(draw);
   function start(){
