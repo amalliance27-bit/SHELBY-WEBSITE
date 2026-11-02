@@ -17,7 +17,7 @@
   .hero h1{font-size:1.6rem;color:#fff;margin:0}
   .hero .tagline{color:#F5D67B;font-weight:700;font-size:1.15rem;margin:.15rem 0 0;letter-spacing:.02em}
   .band{position:relative;padding-right:6.6rem}
-  .hero .bandlogo{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);width:5.2rem;height:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+  .hero .bandlogo{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);width:3.5rem;height:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
   .callbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 .6rem}
   .callbar a{flex:1;min-width:200px;text-align:center;padding:.85rem 1rem;border-radius:8px;font-weight:800;text-decoration:none;font-size:1.2rem}
   .callbar .call{background:#006994;color:#fff}
@@ -29,7 +29,8 @@
   .steps div{flex:1;min-width:150px;background:#fff;border:1px solid #ecd9b8;border-top:4px solid #E8BE5A;border-radius:6px;padding:.65rem .8rem;font-size:1.05rem;font-weight:600}
   .steps strong{color:#8f2418}
   h2{font-size:1.3rem;font-weight:800;margin-top:1.6rem;color:#8f2418;border-bottom:2px solid #E8BE5A;padding-bottom:.3rem}
-  .dish{display:flex;align-items:center;gap:.5rem;margin:.35rem 0;padding:.45rem .6rem;background:#fff;border:1px solid #ecd9b8;border-left:4px solid #E8BE5A;border-radius:6px}
+  .dish{display:flex;flex-direction:column;gap:.4rem;margin:.35rem 0;padding:.45rem .6rem;background:#fff;border:1px solid #ecd9b8;border-left:4px solid #E8BE5A;border-radius:6px}
+  .dtop{display:flex;align-items:center;gap:.5rem}
   #dishView{position:fixed;inset:0;z-index:60;background:rgba(26,4,4,.93);display:flex;align-items:center;justify-content:center;padding:1rem}
   #dishView[hidden]{display:none}
   .dvcard{background:#FFF6E9;border:2px solid #E8BE5A;border-radius:.8rem;max-width:560px;width:100%;padding:1rem;text-align:center}
@@ -43,7 +44,7 @@
   .dvallergy{color:#7A1F1F;font-weight:700;margin:.35rem 0 0;text-align:left}
   .dvnote{color:#5A4632;margin:.6rem 0}
   #dvBack{background:#A31F18;color:#fff;border:2px solid #E8BE5A;border-radius:2rem;padding:.6rem 1.5rem;font-size:1.1rem;font-weight:800;cursor:pointer}
-  .seeplate{margin-left:.5rem;background:#FFF6E9;color:#7A1F1F;border:2px solid #B98A1F;border-radius:1.4rem;padding:.42rem .95rem;font-weight:800;font-size:1rem;cursor:pointer;white-space:nowrap}
+  .seeplate{margin-left:0;align-self:flex-start;background:#FFF6E9;color:#7A1F1F;border:2px solid #B98A1F;border-radius:1.4rem;padding:.42rem .95rem;font-weight:800;font-size:1rem;cursor:pointer;white-space:nowrap}
   .plateprice{color:#7A5A00;font-weight:800;white-space:nowrap}
   .dish:hover{border-left-color:#C0392B;background:#fff7ea}
   .dish label{flex:1;cursor:pointer;display:block;font-weight:600}
@@ -253,8 +254,10 @@ DISHES.forEach(function(d, i){
     else if (s.value === 'Small platter') { ps.style.display = ''; ps.textContent = PRICES[d][1] ? ' \u00B7 plate $' + PRICES[d][0] : ' \u00B7 $' + PRICES[d][0]; }
     else { ps.style.display = 'none'; }
   });
+  const top = document.createElement('div'); top.className = 'dtop';
+  top.appendChild(l); top.appendChild(s);
+  row.appendChild(top);
   if (DISHIMG[d]) { const vb = document.createElement('button'); vb.type = 'button'; vb.className = 'seeplate'; vb.textContent = 'See plate'; vb.addEventListener('click', function(){ openDish(d); }); row.appendChild(vb); }
-  row.appendChild(l); row.appendChild(s);
   box.appendChild(row);
 });
 document.querySelectorAll('input[name=occasion]').forEach(function(r){
