@@ -855,8 +855,14 @@ const AppContent: React.FC = () => {
         return (
           <>
             <Hero onOrder={() => setCurrentPage(Page.CATERING_MENU)} />
+            <section className="bg-red-900 border-y-4 border-yellow-500 py-5 px-4 text-center">
+                <p className="text-white font-serif font-black uppercase tracking-wide text-2xl md:text-3xl">Thanksgiving Dinner</p>
+                <p className="text-yellow-400 font-bold text-lg md:text-xl mt-1">Orders open now — call <a href="tel:+17868777585" className="underline">(786) 877-7585</a> to reserve</p>
+            </section>
             <SlidingMenu />
             <section className="bg-stone-50 py-10 px-4 text-center">
+                <a href="https://amalliance27-bit.github.io/SHELBY-WEBSITE/order/" className="inline-block bg-red-700 hover:bg-red-600 text-white font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-yellow-500 transition-transform hover:scale-105 mb-6">Order Catering</a>
+                <br />
                 <button onClick={() => setCurrentPage(Page.ARCADE)} className="bg-yellow-500 hover:bg-yellow-400 text-red-950 font-black font-serif uppercase tracking-wide text-xl md:text-2xl px-10 py-4 rounded-full shadow-xl border-2 border-red-900 transition-transform hover:scale-105">Enter Shelby's Arcade Room</button>
                 <p className="text-stone-600 mt-4">Watch while you wait — her videos, local radio, and games, one tap away.</p>
             </section>

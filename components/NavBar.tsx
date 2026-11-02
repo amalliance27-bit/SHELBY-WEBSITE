@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Page } from '../types';
 import { COMPANY_INFO } from '../constants';
 import { useCart } from '../contexts/CartContext';
+import { DOMED_LOGO } from './domedLogo';
 
 interface NavBarProps {
   currentPage: Page;
@@ -30,6 +31,9 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
   // Using the original logo from App.tsx
   const LOGO_URL = "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/cropped-LOGO1.png?fit=739%2C242&ssl=1";
 
+  // The bridge to the Catering Order App (Master Paul, Nov 2, 2026).
+  const ORDER_APP_URL = "https://amalliance27-bit.github.io/SHELBY-WEBSITE/order/";
+
   const isHome = currentPage === Page.HOME;
 
   return (
@@ -41,7 +45,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
             {/* Left: Logo & Title */}
             <div className="flex items-center cursor-pointer group flex-shrink-0 gap-4" onClick={() => handleNavClick(Page.HOME)}>
                <img 
-                  src={LOGO_URL}
+                  src={DOMED_LOGO}
                   alt="Shelby's Logo" 
                   className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-yellow-400 shadow-md object-cover bg-white transform group-hover:scale-105 transition-transform"
                 />
@@ -93,12 +97,19 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
                     )}
                   </button>
 
-                  <button 
+                  <button
                     className="px-6 py-3 rounded-lg text-lg font-bold bg-yellow-500 text-red-900 hover:bg-yellow-400 shadow-md transition-transform hover:scale-105 whitespace-nowrap"
                     onClick={() => setPage(Page.CHECKOUT)}
                   >
                     {t('nav.order')}
                   </button>
+
+                  <a
+                    href={ORDER_APP_URL}
+                    className="px-6 py-3 rounded-lg text-lg font-bold bg-red-700 text-white border-2 border-yellow-500 hover:bg-red-600 shadow-md transition-transform hover:scale-105 whitespace-nowrap"
+                  >
+                    Order Catering
+                  </a>
               </div>
             </div>
 
@@ -130,7 +141,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
              <div className="flex items-center justify-between px-6 py-6 border-b border-red-100 bg-white">
                 <div className="flex items-center gap-3">
                    <img 
-                      src={LOGO_URL}
+                      src={DOMED_LOGO}
                       alt="Logo"
                       className="h-12 w-12 rounded-full border-2 border-yellow-400 object-cover bg-white"
                    />
@@ -167,13 +178,19 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, t }) => {
              </div>
              
              {/* Bottom CTA */}
-             <div className="p-6 bg-white border-t border-red-100">
-                <button 
+             <div className="p-6 bg-white border-t border-red-100 space-y-3">
+                <button
                    onClick={() => handleNavClick(Page.CONTACT_US)}
                    className="w-full py-4 bg-yellow-500 text-red-900 font-bold rounded-xl shadow-md hover:bg-yellow-400 uppercase tracking-wide text-xl"
                 >
                    {t('nav.call_to_order')}
                 </button>
+                <a
+                   href={ORDER_APP_URL}
+                   className="block w-full py-4 text-center bg-red-700 text-white border-2 border-yellow-500 font-bold rounded-xl shadow-md hover:bg-red-600 uppercase tracking-wide text-xl"
+                >
+                   Order Catering
+                </a>
              </div>
           </div>
         </div>
