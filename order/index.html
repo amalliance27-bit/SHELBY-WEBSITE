@@ -34,7 +34,9 @@
   #dishView[hidden]{display:none}
   .dvcard{background:#FFF6E9;border:2px solid #E8BE5A;border-radius:.8rem;max-width:560px;width:100%;padding:1rem;text-align:center}
   .dvcard h2{margin:.1rem 0 .6rem;color:#7A1F1F}
-  .dvcard img{width:100%;border-radius:.55rem;display:block}
+  .dvcard img{width:100%;height:44vh;object-fit:cover;border-radius:.55rem;display:block}
+  .dvdesc{color:#2b2118;margin:.55rem 0 0;text-align:left}
+  .dvallergy{color:#7A1F1F;font-weight:700;margin:.35rem 0 0;text-align:left}
   .dvnote{color:#5A4632;margin:.6rem 0}
   #dvBack{background:#A31F18;color:#fff;border:2px solid #E8BE5A;border-radius:2rem;padding:.6rem 1.5rem;font-size:1.1rem;font-weight:800;cursor:pointer}
   .seeplate{margin-left:.5rem;background:#FFF6E9;color:#7A1F1F;border:2px solid #B98A1F;border-radius:1.4rem;padding:.42rem .95rem;font-weight:800;font-size:1rem;cursor:pointer;white-space:nowrap}
@@ -191,6 +193,7 @@
 
 <script>
 const DISHES = ["Pate Kode — Supreme","Pate Kode — Chicken & Veggies","Pate Kode — CodFish","Curry Chicken with rice & beans & sweet plantain","Curry Shrimp","Griot","Tassot","Chicken strips","Coconut seafood soup","Gumbo","Tuna wrap","Chicken wrap","Turkey wrap","Fried chicken","Seafood rice","Alfredo pasta with shrimp","Baked cheese oyster","Lasagna","Steak combo","1/4 rack ribs combo","Fillet of fish combo","Ravioli salad","Bouillon","Thanksgiving Dinner"];
+const DISHDESC = {"Curry Chicken with rice & beans & sweet plantain": "Catering trays from $75 \u2014 golden curry, with ginger and turmeric warm in every bite.", "Curry Shrimp": "Catering trays from $85 \u2014 shrimp slicked in curry with garlic, thyme, and a squeeze of lime.", "Griot": "Pork shoulder, marinated deep, boiled tender, then fried to a crisp \u2014 pikliz heat on the side.", "Tassot": "Goat, seasoned and fried the Haitian way \u2014 crisp edges, rich and peppery. Trays from $120.", "Chicken strips": "Golden, crunchy strips with Shelby's seasoning in every bite.", "Coconut seafood soup": "Mussels, scallops, shrimp, and crawfish swimming in coconut milk \u2014 warm, rich, a little sweet.", "Gumbo": "Blue crab and seafood in a dark, peppery gumbo with okra \u2014 deep Creole flavor, Shelby style.", "Tuna wrap": "Cool, fresh tuna wraps \u2014 light, bright, and seasoned her way.", "Turkey wrap": "Fresh turkey wraps \u2014 simple, clean, satisfying.", "Fried chicken": "Spicy fried chicken \u2014 shattering crisp outside, juicy and hot inside.", "Seafood rice": "Golden curry rice loaded with shrimp, mussels, and crawfish \u2014 the crawfish riding on top.", "Alfredo pasta with shrimp": "Silky cream sauce, plump shrimp, pasta that twirls \u2014 the famous first bite says it all.", "Baked cheese oyster": "Oysters under a blanket of melted cheese and parsley butter, with a whisper of hot sauce.", "Lasagna": "Layers of chicken, spinach, and sauce, baked until the top goes golden and bubbly.", "Steak combo": "A full steak combo plate \u2014 grilled, seasoned, and piled like catering should be.", "1/4 rack ribs combo": "Quarter rack ribs, saucy and tender, with the full combo plate around it.", "Fillet of fish combo": "Golden fillet of fish, crisp-edged, with the full combo plate beside it.", "Ravioli salad": "Cool ravioli salad \u2014 fresh, light, and dressed to wake up the table."};
 const DISHIMG = {"Curry Chicken with rice & beans & sweet plantain": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Delivered-Catering-Curry-Chicken-I.png?fit=466%2C679&ssl=1", "Curry Shrimp": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Curry-Shrimp-I.png?fit=618%2C673&ssl=1", "Griot": "https://i.ytimg.com/vi/XN8l8SiiF00/hqdefault.jpg", "Tassot": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tassot-Cabrit-I-1.png?fit=726%2C669&ssl=1", "Chicken strips": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Chicken-Tender-I.png?fit=615%2C683&ssl=1", "Coconut seafood soup": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Coconut-Seafood-Soup-I.png?fit=629%2C687&ssl=1", "Gumbo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Gumbo-I.png?fit=598%2C681&ssl=1", "Tuna wrap": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Tuna-Wrap-I.png?fit=619%2C690&ssl=1", "Turkey wrap": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Turkey-Wrap-I.png?fit=617%2C686&ssl=1", "Fried chicken": "https://i.ytimg.com/vi/Jxlm39XwYHA/hqdefault.jpg", "Seafood rice": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Seafood-Rice-I.png?fit=621%2C689&ssl=1", "Alfredo pasta with shrimp": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Pasta-Shrimp-w-Alfredo-Sause.png?fit=577%2C620&ssl=1", "Baked cheese oyster": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Baked-Oyster-I.png?fit=631%2C674&ssl=1", "Lasagna": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Lasagna-I.png?fit=614%2C707&ssl=1", "Steak combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Steak-Combo.png?fit=586%2C633&ssl=1", "1/4 rack ribs combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Qter-Ribs-I.png?fit=618%2C676&ssl=1", "Fillet of fish combo": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Fish-Fillet-Combo-I.png?fit=610%2C680&ssl=1", "Ravioli salad": "https://i0.wp.com/shelbysfinecuisine.com/wp-content/uploads/2021/11/Ravioli-Salad-I.png?fit=605%2C680&ssl=1"};
 const PRICES = {"Pate Kode \u2014 Supreme": [9, 1], "Pate Kode \u2014 Chicken & Veggies": [9, 1], "Pate Kode \u2014 CodFish": [12, 1], "Curry Chicken with rice & beans & sweet plantain": [75, 0], "Curry Shrimp": [85, 0], "Griot": [70, 0], "Tassot": [120, 0], "Chicken strips": [50, 0], "Coconut seafood soup": [90, 0], "Gumbo": [85, 0], "Tuna wrap": [12, 0], "Chicken wrap": [10, 0], "Turkey wrap": [10, 0], "Fried chicken": [60, 0], "Seafood rice": [80, 0], "Alfredo pasta with shrimp": [85, 0], "Baked cheese oyster": [100, 0], "Lasagna": [75, 0], "Steak combo": [90, 0], "1/4 rack ribs combo": [85, 0], "Fillet of fish combo": [75, 0], "Ravioli salad": [50, 0]};
 const PHONE_SMS = "17868777585";
@@ -234,10 +237,19 @@ function openDish(name){
   const dv = document.getElementById('dishView');
   document.getElementById('dvName').textContent = name;
   document.getElementById('dvImg').src = DISHIMG[name];
+  const desc = DISHDESC[name] || '';
+  document.getElementById('dvDesc').textContent = desc ? "What's inside: " + desc : '';
+  const hits = [];
+  if (/shrimp|crab|oyster|mussel|scallop|crawfish|lobster|seafood/i.test(desc + ' ' + name)) hits.push('shellfish');
+  if (/fish/i.test(desc + ' ' + name) && !/shellfish/i.test(name)) hits.push('fish');
+  if (/cheese|cream|butter|milk/i.test(desc)) hits.push('dairy');
+  if (/egg/i.test(desc)) hits.push('egg');
+  const al = document.getElementById('dvAllergy');
+  al.textContent = hits.length ? 'Allergy note: may contain ' + hits.join(', ') + '. Tell Shelby about any allergy \u2014 she confirms every dish.' : '';
   dv.hidden = false;
   document.body.style.overflow = 'hidden';
   if (dvTimer) clearTimeout(dvTimer);
-  dvTimer = setTimeout(closeDish, 60000);
+  dvTimer = setTimeout(closeDish, 15000);
 }
 function closeDish(){
   const dv = document.getElementById('dishView');
@@ -364,7 +376,7 @@ auto();})();
   var loadedUrl = audio.getAttribute('src') || '';
   function setStation(){ var u = STATIONS[Number(sel.value)].url; if (u !== loadedUrl) { loadedUrl = u; audio.src = u; } }
   var playPending = false;
-  function tryPlay(){ if (playPending) return; armFailCheck(); setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
+  function tryPlay(){ if (window.__radioHold) return; if (playPending) return; armFailCheck(); setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
   var heard = false, failTimer = null, statusEl = document.getElementById('radioStatus');
   var vol = document.getElementById('volRange');
   vol.addEventListener('input', function(){ cancelIntro(); audio.volume = Number(vol.value) / 100; if (audio.volume > 0) audio.muted = false; });
@@ -406,8 +418,10 @@ auto();})();
   audio.addEventListener('pause', function(){ document.querySelector('.radio').classList.remove('onair'); btn.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   sel.addEventListener('change', function(){ userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
+  window.__radioHold = true;
   setStation();
   tryPlay();
+  document.addEventListener('radioRelease', function(){ window.__radioHold = false; if (!userPaused) tryPlay(); });
   function retry(){ if (audio.paused && !userPaused) tryPlay(); }
   document.addEventListener('pointerdown', retry);
   document.addEventListener('touchstart', retry);
@@ -591,20 +605,24 @@ auto();})();
   var closed = false;
   function close(){
     if (closed) return; closed = true;
+    releaseRadio();
     sp.classList.add('gone');
     try { vid.pause(); } catch (e) {}
     window.scrollTo(0, 0);
     setTimeout(function(){ if (sp.parentNode) sp.parentNode.removeChild(sp); }, 700);
   }
   vid.addEventListener('ended', close);
-  setTimeout(close, 11000);
+  var relDone = false;
+  function releaseRadio(){ if (relDone) return; relDone = true; document.dispatchEvent(new Event('radioRelease')); }
+  vid.addEventListener('timeupdate', function(){ if (vid.duration && vid.currentTime / vid.duration >= 0.25) releaseRadio(); });
+  setTimeout(close, 20000);
   var tapped = false;
   sp.addEventListener('pointerdown', function(){
     if (tapped) return; tapped = true;
     try { vid.muted = false; vid.currentTime = 0; vid.play().catch(function(){}); } catch (e) {}
   });
   function startMuted(){
-    try { vid.muted = true; var pm = vid.play(); if (pm && pm.catch) pm.catch(function(){ setTimeout(close, 2500); }); } catch (e) { setTimeout(close, 2500); }
+    try { vid.muted = true; var pm = vid.play(); if (pm && pm.catch) pm.catch(function(){ setTimeout(function(){ try { vid.play().catch(function(){}); } catch (e) {} }, 600); }); } catch (e) {}
   }
   try {
     vid.muted = false;
@@ -618,7 +636,9 @@ auto();})();
   <div class="dvcard">
     <h2 id="dvName"></h2>
     <img id="dvImg" alt="The dish, as Shelby serves it">
-    <p class="dvnote">This view returns to your order by itself in a minute.</p>
+    <p id="dvDesc" class="dvdesc"></p>
+    <p id="dvAllergy" class="dvallergy"></p>
+    <p class="dvnote">This view returns to your order by itself in 15 seconds.</p>
     <button type="button" id="dvBack">Back to my order</button>
   </div>
 </div>
