@@ -67,7 +67,7 @@
   .radiorow button{min-width:110px}
   .radiostatus{font-size:1.05rem;font-weight:600;margin:.55rem 0 0}
 
-  .eq{height:48px;margin:.55rem 0 .15rem;padding:.3rem .5rem;background:linear-gradient(#2a0803,#450f06);border:1px solid #E8BE5A;border-radius:.55rem;overflow:hidden}
+  .eq{height:48px;margin:.55rem 0 .15rem;padding:.3rem .5rem;background:#0a1428;border:1px solid #E8BE5A;border-radius:.55rem;overflow:hidden}
   #waveCanvas{display:block;width:100%;height:100%}
   @media (prefers-reduced-motion: reduce){ .radio.onair .eq i{animation:none;transform:scaleY(.6)} }
   .soundbar{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
@@ -470,8 +470,12 @@ auto();})();
       return true;
     } catch (e) { return false; }
   }
+  var SEGC = ['#1d4ed8', '#2563eb', '#0ea5e9', '#38bdf8', '#7dd3fc', '#bae6fd'];
+  var lastPaint = 0;
   function draw(now){
     requestAnimationFrame(draw);
+    if (now - lastPaint < 33) return;
+    lastPaint = now;
     var w = cv.width, h = cv.height; if (!w) return;
     var target = 0.16, bins = null;
     if (analyser) {
@@ -481,21 +485,27 @@ auto();})();
       if (avg > 0.01) { target = 0.3 + avg * 1.6; bins = freq; }
     }
     level += (target - level) * 0.08;
+    var amp = Math.min(1, level / 1.5);
     g.clearRect(0, 0, w, h);
     var t = now / 1000;
-    function layer(color, amp, speed, yOff){
-      g.beginPath();
-      for (var x = 0; x <= w; x += 4) {
-        var pr = x / w;
-        var a = amp * level * (0.7 + 0.3 * Math.sin(pr * 5 + t * speed * 0.7));
-        if (bins) { var bi = Math.floor(Math.pow(pr, 1.4) * 40); a *= 0.35 + (bins[bi] / 255) * 1.3; }
-        var y = h * 0.55 + Math.sin(pr * 9 + t * speed) * a * h * 0.30 + Math.sin(pr * 23 - t * speed * 1.6) * a * h * 0.12 + yOff;
-        if (x === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    var N = 54, bw = w / N, barW = Math.max(3, bw * 0.6);
+    var rows = 6, segGap = Math.max(2, h * 0.05), segH = (h - segGap * (rows + 1)) / rows;
+    for (var i = 0; i < N; i++) {
+      var pr = i / N;
+      var v = 0.5 + 0.5 * Math.sin(t * 2.1 + i * 0.55) * Math.sin(t * 1.3 + i * 0.21);
+      if (bins) { var bi = Math.floor(Math.pow(pr, 1.4) * 40); v *= 0.3 + (bins[bi] / 255) * 1.4; }
+      v = Math.pow(Math.min(1, v), 1.25);
+      var lit = Math.max(1, Math.round((0.22 + v * (0.3 + amp * 0.85)) * rows));
+      if (lit > rows) lit = rows;
+      var x = i * bw + (bw - barW) / 2;
+      for (var seg = 0; seg < rows; seg++) {
+        var y = h - segGap - (seg + 1) * segH - seg * segGap + segGap;
+        if (seg < lit) { g.fillStyle = SEGC[seg]; g.globalAlpha = 1; }
+        else { g.fillStyle = '#38bdf8'; g.globalAlpha = 0.13; }
+        g.fillRect(x, y, barW, segH);
       }
-      g.strokeStyle = color; g.lineWidth = Math.max(2, h * 0.07); g.lineJoin = 'round'; g.stroke();
     }
-    layer('rgba(226,96,63,0.75)', 1.3, 1.15, h * 0.06);
-    layer('#F5D67B', 1.0, 1.7, 0);
+    g.globalAlpha = 1;
   }
   requestAnimationFrame(draw);
   function start(){
