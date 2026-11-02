@@ -418,8 +418,17 @@ auto();})();
     }
   }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 9000); }
-  audio.addEventListener('playing', function(){ startIntro(); heard = true; retried = false; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
+  audio.addEventListener('playing', function(){ clearTimeout(stallTimer); startIntro(); heard = true; retried = false; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
   audio.addEventListener('error', function(){ document.querySelector('.radio').classList.remove('onair'); fallback(); }, true);
+  var stallTimer = null;
+  audio.addEventListener('stalled', function(){
+    if (userPaused) return;
+    clearTimeout(stallTimer);
+    stallTimer = setTimeout(function(){
+      if (userPaused) return;
+      heard = false; retried = false; fallback();
+    }, 10000);
+  });
   audio.addEventListener('pause', function(){ document.querySelector('.radio').classList.remove('onair'); btn.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
   sel.addEventListener('change', function(){ userPaused = false; retried = false; heard = false; setStation(); tryPlay(); });
