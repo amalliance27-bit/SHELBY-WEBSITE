@@ -34,6 +34,10 @@
   #dishView[hidden]{display:none}
   .dvcard{background:#FFF6E9;border:2px solid #E8BE5A;border-radius:.8rem;max-width:560px;width:100%;padding:1rem;text-align:center}
   .dvcard h2{margin:.1rem 0 .6rem;color:#7A1F1F}
+  #cremaView{position:fixed;inset:0;z-index:60;background:rgba(26,4,4,.93);display:flex;align-items:center;justify-content:center;padding:1rem}
+  #cremaView[hidden]{display:none}
+  #cremaVid{width:100%;height:34vh;object-fit:cover;border-radius:.55rem;display:block;background:#000}
+  #cremaBack{background:#A31F18;color:#fff;border:2px solid #E8BE5A;border-radius:2rem;padding:.6rem 1.5rem;font-size:1.1rem;font-weight:800;cursor:pointer}
   .dvcard img{width:100%;height:44vh;object-fit:cover;border-radius:.55rem;display:block}
   .dvdesc{color:#2b2118;margin:.55rem 0 0;text-align:left}
   .dvallergy{color:#7A1F1F;font-weight:700;margin:.35rem 0 0;text-align:left}
@@ -155,6 +159,7 @@
 <h2>3. Add a bottle to go</h2>
 <div class="addon">
   <div class="grow"><strong>Shelby's Cremas</strong> — $30 a bottle (from her shop)</div>
+  <button type="button" class="seeplate" id="cremaSee">See it</button>
   <label style="margin:0">Qty <input type="number" id="cremasQty" min="0" max="24" value="0"></label>
 </div>
 
@@ -645,6 +650,43 @@ auto();})();
 <script>
 document.getElementById('dvBack').addEventListener('click', closeDish);
 document.getElementById('dishView').addEventListener('click', function(e){ if (e.target === this) closeDish(); });
+</script>
+
+<div id="cremaView" hidden role="dialog" aria-label="Shelby's Cremas film">
+  <div class="dvcard">
+    <h2>Shelby's Cremas — Crémas C'est Bon</h2>
+    <video id="cremaVid" src="https://raw.githubusercontent.com/askmorpheus247-cmd/Shelby-world/5a25ab326b0267b5ce6b8eee09f31c4b1ebd27d0/crema%20ce%20bon%20video.mp4" playsinline preload="auto"></video>
+    <p class="dvdesc">Rich, Creamy, Delicious — $30 a bottle, from her shop.</p>
+    <p class="dvdesc">What's inside: Shelby's Haitian cremas — a creamy rum liqueur, made her way.</p>
+    <p class="dvallergy">Allergy note: contains rum (alcohol) and dairy. Adults only.</p>
+    <p class="dvnote" id="cremaNote">The film plays to its end, rests 5 seconds, then returns to your order.</p>
+    <button type="button" id="cremaBack">Back to my order</button>
+  </div>
+</div>
+<script>
+var cremaTimer = null;
+function closeCrema(){
+  var cv = document.getElementById('cremaView');
+  cv.hidden = true;
+  document.body.style.overflow = '';
+  var v = document.getElementById('cremaVid');
+  try { v.pause(); } catch (e) {}
+  if (cremaTimer) { clearTimeout(cremaTimer); cremaTimer = null; }
+}
+function openCrema(){
+  var cv = document.getElementById('cremaView');
+  var v = document.getElementById('cremaVid');
+  cv.hidden = false;
+  document.body.style.overflow = 'hidden';
+  try { v.muted = false; v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ try { v.muted = true; v.play().catch(function(){}); } catch (e) {} }); } catch (e) {}
+}
+document.getElementById('cremaSee').addEventListener('click', openCrema);
+document.getElementById('cremaBack').addEventListener('click', closeCrema);
+document.getElementById('cremaView').addEventListener('click', function(e){ if (e.target === this) closeCrema(); });
+document.getElementById('cremaVid').addEventListener('ended', function(){
+  if (cremaTimer) clearTimeout(cremaTimer);
+  cremaTimer = setTimeout(closeCrema, 5000);
+});
 </script>
 </body>
 </html>
