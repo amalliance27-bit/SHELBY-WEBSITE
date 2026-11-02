@@ -516,8 +516,8 @@ auto();})();
   var miamiTemp = '';
   function clock(){
     try {
-      var day = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}).format(new Date());
-      var time = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit', timeZoneName: 'short'}).format(new Date());
+      var day = new Intl.DateTimeFormat('en-US', {timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}).format(new Date());
+      var time = new Intl.DateTimeFormat('en-US', {timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', timeZoneName: 'short'}).format(new Date());
       return day + ' \u00b7 ' + time;
     } catch (e) { return ''; }
   }
