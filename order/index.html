@@ -327,8 +327,23 @@ auto();})();
   function tryPlay(){ if (playPending) return; armFailCheck(); setStation(); playPending = true; var pr = audio.play(); if (pr && pr.then) { pr.then(function(){ playPending = false; }, function(){ playPending = false; }); } else { playPending = false; } }
   var heard = false, failTimer = null, statusEl = document.getElementById('radioStatus');
   var vol = document.getElementById('volRange');
-  vol.addEventListener('input', function(){ audio.volume = Number(vol.value) / 100; if (audio.volume > 0) audio.muted = false; });
+  vol.addEventListener('input', function(){ cancelIntro(); audio.volume = Number(vol.value) / 100; if (audio.volume > 0) audio.muted = false; });
   function stationName(){ return STATIONS[Number(sel.value)].name; }
+  var introTimer = null, introDone = false;
+  function cancelIntro(){ if (introTimer) { clearInterval(introTimer); introTimer = null; } }
+  function startIntro(){
+    if (introDone) return; introDone = true;
+    var target = Number(vol.value) / 100;
+    if (!(target > 0)) return;
+    var t0 = Date.now();
+    audio.volume = target * 0.12;
+    introTimer = setInterval(function(){
+      var k = (Date.now() - t0) / 9000;
+      if (k >= 1) { audio.volume = target; cancelIntro(); return; }
+      var e = 1 - Math.pow(1 - k, 2);
+      audio.volume = target * (0.12 + 0.88 * e);
+    }, 250);
+  }
   var retried = false;
   function fallback(){
     if (heard) return;
@@ -341,7 +356,7 @@ auto();})();
     }
   }
   function armFailCheck(){ clearTimeout(failTimer); failTimer = setTimeout(function(){ if (!heard) fallback(); }, 9000); }
-  audio.addEventListener('playing', function(){ heard = true; retried = false; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
+  audio.addEventListener('playing', function(){ startIntro(); heard = true; retried = false; document.querySelector('.radio').classList.add('onair'); clearTimeout(failTimer); btn.innerHTML = '&#10073;&#10073; Pause'; statusEl.textContent = 'Now playing: ' + stationName(); });
   audio.addEventListener('error', function(){ document.querySelector('.radio').classList.remove('onair'); fallback(); }, true);
   audio.addEventListener('pause', function(){ document.querySelector('.radio').classList.remove('onair'); btn.innerHTML = '&#9654; Play'; });
   btn.addEventListener('click', function(){ if (audio.paused) { userPaused = false; tryPlay(); } else { userPaused = true; audio.pause(); } });
