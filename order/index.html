@@ -361,12 +361,12 @@ auto();})();
     var target = Number(vol.value) / 100;
     if (!(target > 0)) return;
     var t0 = Date.now();
-    audio.volume = target * 0.12;
+    audio.volume = target * 0.05;
     introTimer = setInterval(function(){
-      var k = (Date.now() - t0) / 9000;
+      var k = (Date.now() - t0) / 20000;
       if (k >= 1) { audio.volume = target; cancelIntro(); return; }
       var e = 1 - Math.pow(1 - k, 2);
-      audio.volume = target * (0.12 + 0.88 * e);
+      audio.volume = target * (0.05 + 0.95 * e);
     }, 250);
   }
   var retried = false;
@@ -412,7 +412,7 @@ auto();})();
   }
   function start(){ if (timer) return; timer = setInterval(step, 40); }
   function stop(){ if (timer) { clearInterval(timer); timer = null; } }
-  function arm(){ clearTimeout(idleTimer); idleTimer = setTimeout(start, 120000); }
+  function arm(){ clearTimeout(idleTimer); idleTimer = setTimeout(start, 15000); }
   function onTouch(){ stop(); arm(); }
   ['pointerdown','touchstart','wheel','keydown','input','change','focusin'].forEach(function(ev){
     document.addEventListener(ev, onTouch, {passive: true});
