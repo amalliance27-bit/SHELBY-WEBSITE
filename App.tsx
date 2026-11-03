@@ -9,6 +9,7 @@ import { SHELBY_BADGE } from './components/shelbyBadge';
 import { VoiceIndicator } from './components/VoiceIndicator';
 import { CheckoutPage } from './components/CheckoutPage';
 import { ArcadeRoom, RadioLounge } from './components/ArcadeRoom';
+import { TourGuide } from './components/TourGuide';
 import { COMPANY_INFO, PAGE_CONTENT } from './constants';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { CartProvider, useCart } from './contexts/CartContext';
@@ -1293,6 +1294,7 @@ const AppContent: React.FC = () => {
       </footer>
       {!splash && currentPage !== Page.CHECKOUT && <div className="h-16" />}
       {!splash && currentPage !== Page.CHECKOUT && <BottomMenuBar currentPage={currentPage} go={go} />}
+      {!splash && currentPage !== Page.CHECKOUT && <TourGuide onOrder={() => go(Page.CATERING_MENU)} />}
     </div>
   );
 };
